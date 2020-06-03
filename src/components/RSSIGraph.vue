@@ -117,5 +117,6 @@ export default {
         display: inline-block;
         position: absolute;
         top: 47.5%;
+        width: 50%;
     }
 </style>

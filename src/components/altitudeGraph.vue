@@ -113,6 +113,7 @@ export default {
         display: inline-block;
         position: absolute;
         top: 0%;
+        width: 50%;
     }
 
 </style>
