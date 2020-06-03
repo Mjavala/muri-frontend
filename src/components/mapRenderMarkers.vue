@@ -68,9 +68,9 @@ export default {
       currentDevice: '',
       currentPosition: {},
       mapConfig: {
-        zoom: 7,
+        zoom: 8,
         minZoom: 2,
-        center: L.latLng(39, -105),
+        center: L.latLng(40, -105),
         Bounds: [
           [-90, -180],
           [90, 180]
