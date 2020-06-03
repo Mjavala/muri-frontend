@@ -6,10 +6,10 @@
       </v-btn>
       <filterID v-bind:message="this.message" />
       <div id='conFeedWrap'>
-        <v-btn @click="connect">
+        <v-btn id="connect" @click="connect">
           Connect
         </v-btn>
-        <v-btn @click="disconnect">
+        <v-btn id="disconnect" @click="disconnect">
           Disconnect
         </v-btn>
       </div>
@@ -104,7 +104,18 @@ export default{
     animation: shadow-pulse 3s infinite;
     border-radius: 50%;
   }
-
+  @media only screen and (max-width: 768px) {
+    #connect {
+      position: absolute;
+      top: -4%;
+      right: 55%;
+    }
+    #disconnect {
+      position: absolute;
+      top: -4%;
+      left: 50%;
+    }
+  }
   @keyframes shadow-pulse
   {
     0% {

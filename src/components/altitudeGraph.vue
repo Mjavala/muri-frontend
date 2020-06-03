@@ -115,5 +115,11 @@ export default {
         top: 0%;
         width: 50%;
     }
-
+  @media only screen and (max-width: 768px) {
+    #altitude-graph {
+      display: block;
+      position: relative;
+      width: 100%;
+    }
+  }
 </style>

@@ -149,4 +149,14 @@ export default {
   background: white !important;
   color: #121212 !important;
 }
+
+  @media only screen and (max-width: 768px) {
+    .map{
+      height: 50vh;
+      width: 100vw;
+      display: inherit;
+      margin: 1% auto;
+      margin-top: 15%;
+    }
+  }
 </style>

@@ -113,10 +113,17 @@ export default {
 </script>
 
 <style scoped>
-    #rssi-graph{
-        display: inline-block;
-        position: absolute;
-        top: 47.5%;
-        width: 50%;
+  #rssi-graph{
+    display: inline-block;
+    position: absolute;
+    top: 47.5%;
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+    #rssi-graph {
+      display: block;
+      position: relative;
+      width: 100%;
     }
+  }
 </style>
