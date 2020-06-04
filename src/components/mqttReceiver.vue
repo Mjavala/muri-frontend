@@ -22,8 +22,6 @@
 import filterID from './filterID'
 import Feed from './feed'
 
-
-
 export default{
   data () {
     return {
@@ -96,7 +94,7 @@ export default{
   #live{
     position: fixed;
     top: 1.5%;
-    left: 1.5%;
+    left: 18em;
     z-index: 1001;
     background: transparent;
   }
@@ -104,11 +102,14 @@ export default{
     animation: shadow-pulse 3s infinite;
     border-radius: 50%;
   }
+  #disconnect {
+    z-index: 11;
+  }
   @media only screen and (max-width: 768px) {
     #connect {
       position: absolute;
       top: -4%;
-      right: 55%;
+      right: 52.5%;
     }
     #disconnect {
       position: absolute;

@@ -1,25 +1,25 @@
 <template>
-  <div id="rssi-graph">
-        <rsssiReactivity :chart="chart" />
+  <div id="temp-graph">
+        <temperatureReactivity :chart="chart" />
   </div>
 </template>
 
 <script>
-import rsssiReactivity from './RSSIReactivity'
-
+import temperatureReactivity from './temperatureReactivity.vue'
 export default {
     components: {
-        rsssiReactivity
+        temperatureReactivity
     },
     props: [
-      'idList', 'filteredRSSI'
+      'idList', 'filteredTemp'
     ],
     watch: {
-      filteredRSSI(newVal){
+      filteredTemp(newVal){
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.rssi = objKeyMap[0]
+        let altitude = objKeyMap[0] / 1000
+        this.altitude = altitude
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
@@ -31,10 +31,6 @@ export default {
           this.addTrace()
           this.findTrace(newVal)
         }
-        if (newVal.length < 1){
-          // first device
-          this.chart.traces[0].name = this.currentDevice
-        }
         if (newVal.length === 1){
           // first device
           if (this.count === 0){
@@ -45,16 +41,16 @@ export default {
     },
     data() {
     return {
-      rssi: Number,
-      currentDevice: '',
+      altitude: Number,
       count: 0,
+      currentDevice: '',
+      showlegend: false,
       chart: {
-        uuid: "1233",
+        uuid: "12345",
         traces: [],
         layout: {
-          height: 325,
-          title: 'RSSI vs Time',
-          showlegend: false,
+          height: 325 ,
+          title: 'Temperature vs Time',
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
@@ -68,7 +64,7 @@ export default {
             }
           },
           yaxis: {
-            title: 'RSSI',
+            title: 'Temp (K)',
             titlefont: {
               size: 11
             },
@@ -80,9 +76,9 @@ export default {
     }
     },
     methods: {
-      addData (rssi, traceIndex) {
+      addData (altitude, traceIndex) {
         this.chart.layout.datarevision = new Date().getTime();
-        this.chart.traces[traceIndex].y.push(rssi);
+        this.chart.traces[traceIndex].y.push(altitude);
         let time = new Date()
         this.chart.traces[traceIndex].x.push(time);
         if (this.chart.traces[traceIndex].x.length === 360){
@@ -93,7 +89,7 @@ export default {
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.rssi, i)
+            this.addData(this.altitude, i)
           }
         }
       },
@@ -107,21 +103,20 @@ export default {
             name: this.currentDevice
         }
         this.chart.traces.push(traceObj)
-      },
-    }
+      }
+    } 
   }
 </script>
 
 <style scoped>
-  #rssi-graph{
-    display: inline-block;
-    position: absolute;
-    top: 47.5%;
-    width: 50%;
-    z-index: 10;
-  }
+    #temp-graph{
+        display: inline-block;
+        position: absolute;
+        top: 0%;
+        width: 50%;
+    }
   @media only screen and (max-width: 768px) {
-    #rssi-graph {
+    #temp-graph {
       display: block;
       position: relative;
       width: 100%;

@@ -24,33 +24,33 @@ export default {
   },
   data() {
     return {
-        payload: [],
-        messageOBJ: [],
-        idList: [],
-        filteredMarker: {},
-        rssi: Number
+      payload: [],
+      messageOBJ: [],
+      idList: [],
+      filteredMarker: {},
+      rssi: Number
     }
   },
   methods: {
     filterMessage(message){
-        this.messageOBJ = JSON.parse(message)
-        if (this.idList !== undefined) {
-          this.assignDataObjects(this.messageOBJ)
-        }
+      this.messageOBJ = JSON.parse(message)
+      if (this.idList !== undefined) {
+        this.assignDataObjects(this.messageOBJ)
+      }
     },
     assignDataObjects(message){
-        const id = message.data['ADDR_FROM']
-        this.latLngDataCleanup(message.data.frame_data['gps_lat'], message.data.frame_data['gps_lon'])
-        this.filteredMarker = {
-            [id] : L.latLng(this.lat, this.lon)
-            }
-        },
+      const id = message.data['ADDR_FROM']
+      this.latLngDataCleanup(message.data.frame_data['gps_lat'], message.data.frame_data['gps_lon'])
+      this.filteredMarker = {
+          [id] : L.latLng(this.lat, this.lon)
+          }
+      },
     latLngDataCleanup(latitude, longitude){
-        const lat = (latitude / 10000000).toFixed(2)
-        const lon = (longitude / 10000000).toFixed(2)
-        this.lat = lat
-        this.lon = lon
-        }
+      const lat = (latitude / 10000000).toFixed(2)
+      const lon = (longitude / 10000000).toFixed(2)
+      this.lat = lat
+      this.lon = lon
+      }
     }
 }
 </script>

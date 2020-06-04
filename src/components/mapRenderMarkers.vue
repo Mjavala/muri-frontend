@@ -157,6 +157,7 @@ export default {
       display: inherit;
       margin: 1% auto;
       margin-top: 15%;
+      margin-bottom: 10%;
     }
   }
 </style>

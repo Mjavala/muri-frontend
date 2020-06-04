@@ -114,6 +114,7 @@ export default {
         position: absolute;
         top: 0%;
         width: 50%;
+        z-index: 10;
     }
   @media only screen and (max-width: 768px) {
     #altitude-graph {

@@ -1,21 +1,21 @@
 <template>
-  <div id="rssi-graph">
-        <rsssiReactivity :chart="chart" />
+  <div id="hum-graph">
+        <humidityReactivity :chart="chart" />
   </div>
 </template>
 
 <script>
-import rsssiReactivity from './RSSIReactivity'
+import humidityReactivity from './humidityReactivity'
 
 export default {
     components: {
-        rsssiReactivity
+        humidityReactivity
     },
     props: [
-      'idList', 'filteredRSSI'
+      'idList', 'filteredHum'
     ],
     watch: {
-      filteredRSSI(newVal){
+      filteredHum(newVal){
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
@@ -49,11 +49,11 @@ export default {
       currentDevice: '',
       count: 0,
       chart: {
-        uuid: "1233",
+        uuid: "1234",
         traces: [],
         layout: {
           height: 325,
-          title: 'RSSI vs Time',
+          title: 'Humidity vs Time',
           showlegend: false,
           xaxis: {
             tickmode: 'auto',
@@ -113,15 +113,14 @@ export default {
 </script>
 
 <style scoped>
-  #rssi-graph{
+  #hum-graph{
     display: inline-block;
     position: absolute;
     top: 47.5%;
     width: 50%;
-    z-index: 10;
   }
   @media only screen and (max-width: 768px) {
-    #rssi-graph {
+    #hum-graph {
       display: block;
       position: relative;
       width: 100%;
