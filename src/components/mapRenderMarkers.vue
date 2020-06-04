@@ -108,7 +108,6 @@ export default {
         id: this.currentDevice,
         latlng: L.latLng(this.currentPosition.lat, this.currentPosition.lng)
       }
-      console.log(this.currentPosition.lat, this.currentPosition.lng)
       this.markers.push(markerObj)
     }
   }

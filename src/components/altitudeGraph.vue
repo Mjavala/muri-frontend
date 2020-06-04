@@ -33,18 +33,16 @@ export default {
         }
         if (newVal.length === 1){
           // first device
-          if (this.count === 0){
-            this.addTrace()
-          }
+          this.addTrace()
         }
       }
     },
     data() {
     return {
       altitude: Number,
-      count: 0,
       currentDevice: '',
       showlegend: false,
+      count: 0,
       chart: {
         uuid: "123",
         traces: [],
@@ -77,13 +75,18 @@ export default {
     },
     methods: {
       addData (altitude, traceIndex) {
-        this.chart.layout.datarevision = new Date().getTime();
-        this.chart.traces[traceIndex].y.push(altitude);
-        let time = new Date()
-        this.chart.traces[traceIndex].x.push(time);
-        if (this.chart.traces[traceIndex].x.length === 360){
-          this.chart.traces[traceIndex].x.shift()
-          this.chart.traces[traceIndex].y.shift()
+        this.count = this.count + 1
+        if (this.count === 2) {
+          this.chart.layout.datarevision = new Date().getTime();
+          this.chart.traces[traceIndex].y.push(altitude);
+          let time = new Date()
+          this.chart.traces[traceIndex].x.push(time);
+          if (this.chart.traces[traceIndex].x.length === 360){
+            this.chart.traces[traceIndex].x.shift()
+            this.chart.traces[traceIndex].y.shift()
+          }
+          this.count = 0
+          console.log(this.chart.traces[traceIndex].x.length)
         }
       },
       findTrace (deviceList) {

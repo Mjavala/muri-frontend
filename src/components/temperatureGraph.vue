@@ -18,8 +18,8 @@ export default {
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        let altitude = objKeyMap[0] / 1000
-        this.altitude = altitude
+        let temp = objKeyMap[0] / 1000
+        this.temp = temp
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
@@ -33,18 +33,16 @@ export default {
         }
         if (newVal.length === 1){
           // first device
-          if (this.count === 0){
-            this.addTrace()
-          }
+          this.addTrace()
         }
       }
     },
     data() {
     return {
-      altitude: Number,
-      count: 0,
+      temp: Number,
       currentDevice: '',
       showlegend: false,
+      count: 0,
       chart: {
         uuid: "12345",
         traces: [],
@@ -76,20 +74,24 @@ export default {
     }
     },
     methods: {
-      addData (altitude, traceIndex) {
-        this.chart.layout.datarevision = new Date().getTime();
-        this.chart.traces[traceIndex].y.push(altitude);
-        let time = new Date()
-        this.chart.traces[traceIndex].x.push(time);
-        if (this.chart.traces[traceIndex].x.length === 360){
-          this.chart.traces[traceIndex].x.shift()
-          this.chart.traces[traceIndex].y.shift()
+      addData (temp, traceIndex) {
+        this.count = this.count + 1
+        if (this.count === 2) {
+          this.chart.layout.datarevision = new Date().getTime();
+          this.chart.traces[traceIndex].y.push(temp);
+          let time = new Date()
+          this.chart.traces[traceIndex].x.push(time);
+          if (this.chart.traces[traceIndex].x.length === 360){
+            this.chart.traces[traceIndex].x.shift()
+            this.chart.traces[traceIndex].y.shift()
+          }
+          this.count = 0
         }
       },
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.altitude, i)
+            this.addData(this.temp, i)
           }
         }
       },

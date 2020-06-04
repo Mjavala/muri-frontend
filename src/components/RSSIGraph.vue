@@ -37,9 +37,7 @@ export default {
         }
         if (newVal.length === 1){
           // first device
-          if (this.count === 0){
-            this.addTrace()
-          }
+          this.addTrace()
         }
       }
     },
@@ -81,13 +79,17 @@ export default {
     },
     methods: {
       addData (rssi, traceIndex) {
-        this.chart.layout.datarevision = new Date().getTime();
-        this.chart.traces[traceIndex].y.push(rssi);
-        let time = new Date()
-        this.chart.traces[traceIndex].x.push(time);
-        if (this.chart.traces[traceIndex].x.length === 360){
-          this.chart.traces[traceIndex].x.shift()
-          this.chart.traces[traceIndex].y.shift()
+        this.count = this.count + 1
+        if (this.count === 2) {
+          this.chart.layout.datarevision = new Date().getTime();
+          this.chart.traces[traceIndex].y.push(rssi);
+          let time = new Date()
+          this.chart.traces[traceIndex].x.push(time);
+          if (this.chart.traces[traceIndex].x.length === 360){
+            this.chart.traces[traceIndex].x.shift()
+            this.chart.traces[traceIndex].y.shift()
+          }
+          this.count = 0
         }
       },
       findTrace (deviceList) {

@@ -20,7 +20,6 @@ const getHeaders = () => {
      'content-type': `application/json`,
      'x-hasura-access-key': 'mylongsecretkey'
      }
-   console.log(headers)
 
    return headers;
 
@@ -38,7 +37,6 @@ const getHeaders = () => {
   headers: getHeaders()
 
 });
-console.log(link)
 const client = new ApolloClient({
 
   link: link,

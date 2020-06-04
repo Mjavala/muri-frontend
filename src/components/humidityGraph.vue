@@ -19,7 +19,7 @@ export default {
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.rssi = objKeyMap[0]
+        this.humidity = objKeyMap[0]
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
@@ -45,9 +45,8 @@ export default {
     },
     data() {
     return {
-      rssi: Number,
+      humidity: Number,
       currentDevice: '',
-      count: 0,
       chart: {
         uuid: "1234",
         traces: [],
@@ -80,20 +79,24 @@ export default {
     }
     },
     methods: {
-      addData (rssi, traceIndex) {
-        this.chart.layout.datarevision = new Date().getTime();
-        this.chart.traces[traceIndex].y.push(rssi);
-        let time = new Date()
-        this.chart.traces[traceIndex].x.push(time);
-        if (this.chart.traces[traceIndex].x.length === 360){
-          this.chart.traces[traceIndex].x.shift()
-          this.chart.traces[traceIndex].y.shift()
+      addData (humidity, traceIndex) {
+        this.count = this.count + 1
+        if (this.count === 2) {
+          this.chart.layout.datarevision = new Date().getTime();
+          this.chart.traces[traceIndex].y.push(humidity);
+          let time = new Date()
+          this.chart.traces[traceIndex].x.push(time);
+          if (this.chart.traces[traceIndex].x.length === 360){
+            this.chart.traces[traceIndex].x.shift()
+            this.chart.traces[traceIndex].y.shift()
+          }
+          this.count = 0
         }
       },
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.rssi, i)
+            this.addData(this.humidity, i)
           }
         }
       },

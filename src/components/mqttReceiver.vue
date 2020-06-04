@@ -62,6 +62,8 @@ export default{
     onConnectionLost() {
       console.log('disconnected')
       this.status = 'disconnected'
+      this.connect()
+      console.log('reconnecting')
     },
     disconnect(){
       this.client.disconnect()

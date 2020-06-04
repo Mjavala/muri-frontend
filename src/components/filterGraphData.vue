@@ -41,13 +41,14 @@ export default {
         filteredTemp: {},
         filteredHum: {},
         altitude: {},
-        rssi: Number
+        rssi: Number,
+        time: new Date()
     }
   },
   methods: {
     filterMessage(message){
-        this.messageOBJ = JSON.parse(message)
-        this.assignDataObjects(this.messageOBJ)
+      this.messageOBJ = JSON.parse(message)
+      this.assignDataObjects(this.messageOBJ)
     },
     assignDataObjects(message){
         const id = message.data['ADDR_FROM']
