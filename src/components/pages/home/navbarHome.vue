@@ -1,0 +1,83 @@
+<template>    
+    <v-app-bar
+        app
+        dark
+        id="nav"
+    >
+      <v-img id="iriss-logo" max-height="100" max-width="225" src="../../../assets/iriss_logo.png" />
+      <v-btn icon depressed rounded id="live" v-if="mqttConnected">
+          <v-icon id="live-icon" color="#76FF03">mdi-wifi</v-icon>
+      </v-btn>
+      <v-spacer />
+        <v-btn id="station-diagnostics" light small v-if="showStationRedirect">
+            <router-link :to="{name: 'stationDiagnostics', params: { id: this.stationRedirect }}">
+                Station Diagnostics
+            </router-link>
+        </v-btn>
+        <v-btn  id="station-data" light small v-if="showStationRedirect">
+            <router-link :to="{name: 'station', params: { id: this.stationRedirect }}">
+                Station Data
+            </router-link>
+        </v-btn>
+    </v-app-bar>
+</template>
+
+<script>
+export default {
+  props: ['station', 'live'],
+  data () {
+    return {
+      stationRedirect: '',
+      mqttConnected: false,
+      showStationRedirect: false
+    }
+  },
+  watch: {
+    station (newVal) {
+      this.showStationRedirect = true
+      this.stationRedirect = newVal
+    },
+    live (newVal){
+      this.mqttConnected = newVal
+    }
+  }
+}
+</script>
+
+<style>
+  #nav{
+    position: absolute;
+    z-index: 1000;
+    background: #667db6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;
+  }
+  a {
+    color: black !important;
+    text-decoration: none;
+  }
+  .noShowGraph {
+    z-index: -1 !important;
+  }
+  .active {
+    background-color: #76FF03 !important;
+  }
+  #station-data {
+    margin: 0 0.5em;
+    transform-origin: center !important;
+    animation: wiggle 3s infinite ease-in-out forwards 4s;
+  }
+  #station-diagnostics {
+    margin: 0 0.5em;
+    transform-origin: center !important;
+    animation: wiggle 3s infinite ease-in-out forwards 2s;
+  }
+  @keyframes wiggle {
+    0% {transform: rotate(0deg);}
+    25% {transform: rotate(-0.1deg);}
+    30% {transform: rotate(-2deg);}
+    35% {transform: rotate(3deg);}
+    40% {transform: rotate(0deg);}
+    100% {transform: rotate(0deg);}
+  }
+</style>

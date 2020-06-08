@@ -6,7 +6,7 @@
 
 <script>
 import L from 'leaflet';
-import MapRender from './mapRenderMarkers'
+import MapRender from './mapRender'
 
 export default {
   props: ['id', 'message'],
@@ -34,7 +34,7 @@ export default {
   methods: {
     filterMessage(message){
       this.messageOBJ = JSON.parse(message)
-      if (this.idList !== undefined) {
+      if (this.idList !== [undefined]) {
         this.assignDataObjects(this.messageOBJ)
       }
     },

@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import altitudeGraph from './altitudeGraph'
-import rssiGraph from './RSSIGraph'
-import tempGraph from './temperatureGraph'
-import humGraph from './humidityGraph'
+import altitudeGraph from '../../../graphs/altitudeGraph'
+import rssiGraph from '../../../graphs/RSSIGraph'
+import tempGraph from '../../../graphs/temperatureGraph'
+import humGraph from '../../../graphs/humidityGraph'
 
 export default {
 

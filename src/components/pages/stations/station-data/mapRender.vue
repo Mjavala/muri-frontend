@@ -21,7 +21,7 @@
 //TODO: Test render of markers / popups / prop data
 import {LMap, LTileLayer, LMarker, LIcon} from 'vue2-leaflet'
 import L from 'leaflet';
-import Pin from '../assets/pin.png'
+import Pin from '../../../../assets/pin.png'
 
 export default {
   components: { 
@@ -44,19 +44,19 @@ export default {
     idList(newVal, oldVal){
       if (newVal.length === oldVal.length){
         // loop through array and find the array index that matches the 'currentDevice'
-        // update the 'markers' array L.latlng field at the given index
-        this.matchDeviceId(newVal, this.currentDevice)
+        // update the 'markers' array L.latlng field at the given index ..
+        this.matchDeviceId()
       }
-      if (newVal.length > oldVal.length){
+      if (newVal.length > oldVal.length && newVal.length > 1){
         // new device detected, push the 'filteredMarkers' object into the 'markers' array
         this.addMarkerToMarkerArray()
       }
       if (newVal.length === 1){
         // first device, add the first marker
         if (this.count === 0){
-          if (!this.currentPosition === undefined) {
+          if (this.currentPosition !== undefined) {
             this.addMarkerToMarkerArray()
-            this.count++
+            this.count = this.count + 1
           }
         }
       }
@@ -67,8 +67,9 @@ export default {
       markers: [],
       currentDevice: '',
       currentPosition: {},
+      count: 0,
       mapConfig: {
-        zoom: 8,
+        zoom: 7,
         minZoom: 2,
         center: L.latLng(40, -105),
         Bounds: [
@@ -93,15 +94,15 @@ export default {
     latLng(lat,long){
       return L.latLng(lat,long)
     },
-    matchDeviceId (deviceList, currentDevice) {
-      for (const [i, id] of deviceList.entries()) {
-        if (currentDevice === id) {
-          this.updateMarker(this.currentPosition, i)
+    updateMarker(i) {
+      this.markers[i].latlng = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
+    },
+    matchDeviceId () {
+      for (const [i, markersObj] of this.markers.entries()) {
+        if (this.currentDevice === markersObj.id) {
+          this.updateMarker(i)
         }
       }
-    },
-    updateMarker(currentPosition, markerIndex) {
-      this.markers[markerIndex] = currentPosition
     },
     addMarkerToMarkerArray() {
       const markerObj = {

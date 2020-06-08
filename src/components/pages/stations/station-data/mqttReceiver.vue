@@ -22,12 +22,20 @@
 import filterID from './filterID'
 import Feed from './feed'
 
-export default{
+export default {
+  props:
+  ['station'],
+  watch: {
+    station(newVal) {
+      this.stationFilter = newVal
+    }
+  },
   data () {
     return {
       message: '',
       logs: [],
       status: false,
+      stationFilter: '',
       clientID: "clientID-" + parseInt(Math.random() * 100),
       host: 'irisslive.net',
       port: 9001,
@@ -51,26 +59,40 @@ export default{
       );
       this.client.onMessageArrived = this.onMessageArrived;
       this.client.onConnectionLost = this.onConnectionLost
+      this.client.onConnect = this.onConnect
     },
     onConnect(){
         // Once a connection has been made, make a subscription and send a message.
         console.log("Connected");
         this.status = true
         this.client.subscribe("muri/raw");
-        console.log('subscribed')
+        console.log('subscribed to muri/raw')
     },
-    onConnectionLost() {
+    onConnectionLost(responseObject) {
       console.log('disconnected')
-      this.status = 'disconnected'
-      this.connect()
-      console.log('reconnecting')
+      if (responseObject.errorCode !== 0) {
+        console.log(responseObject.errorCode)
+        console.log("onConnectionLost:"+responseObject.errorMessage)
+        this.client.connect({      
+          onSuccess: this.onConnect,
+          useSSL: true, 
+          userName : this.username,
+          password : this.password
+          }
+        )
+        console.log('reconnecting')
+      }
+      this.status = false
     },
     disconnect(){
       this.client.disconnect()
       this.status = false
     },
     onMessageArrived(message) {
-      this.message = message.payloadString
+      const messageOBJ = JSON.parse(message.payloadString)
+      if (messageOBJ['station'] === this.stationFilter){
+        this.message = message.payloadString
+      }
     },
   }
 }

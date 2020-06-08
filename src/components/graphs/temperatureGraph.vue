@@ -1,24 +1,30 @@
 <template>
   <div id="temp-graph">
-        <temperatureReactivity :chart="chart" />
   </div>
 </template>
 
 <script>
-import temperatureReactivity from './temperatureReactivity.vue'
+import Plotly from 'plotly.js-dist/plotly'
+
 export default {
-    components: {
-        temperatureReactivity
-    },
     props: [
       'idList', 'filteredTemp'
     ],
+    mounted () {
+      let config = {responsive: true}
+      Plotly.react(
+        'temp-graph',
+        this.chart.traces,
+        this.chart.layout,
+        config
+      )
+    },
     watch: {
       filteredTemp(newVal){
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        let temp = objKeyMap[0] / 1000
+        let temp = objKeyMap[0]
         this.temp = temp
       },
       idList(newVal, oldVal){
@@ -26,14 +32,18 @@ export default {
           // current device message
           this.findTrace(newVal)
         }
-        if (newVal.length > oldVal.length){
+        if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace()
+          this.addTrace(this.temp)
           this.findTrace(newVal)
         }
         if (newVal.length === 1){
           // first device
-          this.addTrace()
+          if (this.counter === 0) {
+            this.timer = new Date()
+            this.addTrace()
+            this.counter = this.counter + 1
+          }
         }
       }
     },
@@ -42,7 +52,9 @@ export default {
       temp: Number,
       currentDevice: '',
       showlegend: false,
+      timer: Number,
       count: 0,
+      counter: 0,
       chart: {
         uuid: "12345",
         traces: [],
@@ -75,17 +87,28 @@ export default {
     },
     methods: {
       addData (temp, traceIndex) {
-        this.count = this.count + 1
-        if (this.count === 2) {
-          this.chart.layout.datarevision = new Date().getTime();
-          this.chart.traces[traceIndex].y.push(temp);
-          let time = new Date()
-          this.chart.traces[traceIndex].x.push(time);
-          if (this.chart.traces[traceIndex].x.length === 360){
-            this.chart.traces[traceIndex].x.shift()
-            this.chart.traces[traceIndex].y.shift()
-          }
-          this.count = 0
+        /*let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
+        if (last === temp){
+          this.count = this.count + 1
+        }
+        if (last !== temp || this.count === 10) { 
+          this.count = 1 
+          } */
+        const update = {
+          x: [[new Date()]],
+          y: [[temp]]
+        }
+        Plotly.extendTraces(
+          'temp-graph',
+          update, 
+          [traceIndex],
+        )
+        const newTime = new Date()
+        const delta =  (newTime - this.timer) / 1000
+        if (delta >= 1800) {
+          // 30 minute timeframe reached, need to remove first element of array as new one gets added
+          this.chart.traces[traceIndex].y.shift()
+          this.chart.traces[traceIndex].x.shift()
         }
       },
       findTrace (deviceList) {
@@ -95,12 +118,12 @@ export default {
           }
         }
       },
-      addTrace () {
+      addTrace (temp) {
         const traceObj = {
-            y: [],
+            y: [temp],
             x: [new Date()],
-            type: 'scatter',
-            mode: 'lines+markers',
+            type: 'scattergl',
+            mode: 'lines',
             connectgaps: true,
             name: this.currentDevice
         }
@@ -111,12 +134,12 @@ export default {
 </script>
 
 <style scoped>
-    #temp-graph{
-        display: inline-block;
-        position: absolute;
-        top: 0%;
-        width: 50%;
-    }
+  #temp-graph{
+      display: inline-block;
+      position: absolute;
+      top: 0%;
+      width: 50%;
+  }
   @media only screen and (max-width: 768px) {
     #temp-graph {
       display: block;

@@ -1,19 +1,24 @@
 <template>
   <div id="hum-graph">
-        <humidityReactivity :chart="chart" />
   </div>
 </template>
 
 <script>
-import humidityReactivity from './humidityReactivity'
+import Plotly from 'plotly.js-dist/plotly'
 
 export default {
-    components: {
-        humidityReactivity
-    },
     props: [
       'idList', 'filteredHum'
     ],
+    mounted () {
+      let config = {responsive: true}
+      Plotly.react(
+        'hum-graph',
+        this.chart.traces,
+        this.chart.layout,
+        config
+      )
+    },
     watch: {
       filteredHum(newVal){
         let objKey = Object.keys(newVal)
@@ -26,19 +31,17 @@ export default {
           // current device message
           this.findTrace(newVal)
         }
-        if (newVal.length > oldVal.length){
+        if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace()
+          this.addTrace(this.humidity)
           this.findTrace(newVal)
-        }
-        if (newVal.length < 1){
-          // first device
-          this.chart.traces[0].name = this.currentDevice
         }
         if (newVal.length === 1){
           // first device
-          if (this.count === 0){
+          if (this.counter === 0){
+            this.timer = new Date()
             this.addTrace()
+            this.counter = this.counter + 1
           }
         }
       }
@@ -47,6 +50,9 @@ export default {
     return {
       humidity: Number,
       currentDevice: '',
+      count: 0,
+      timer: Number,
+      counter: 0,
       chart: {
         uuid: "1234",
         traces: [],
@@ -80,17 +86,29 @@ export default {
     },
     methods: {
       addData (humidity, traceIndex) {
-        this.count = this.count + 1
-        if (this.count === 2) {
-          this.chart.layout.datarevision = new Date().getTime();
-          this.chart.traces[traceIndex].y.push(humidity);
-          let time = new Date()
-          this.chart.traces[traceIndex].x.push(time);
-          if (this.chart.traces[traceIndex].x.length === 360){
-            this.chart.traces[traceIndex].x.shift()
-            this.chart.traces[traceIndex].y.shift()
-          }
-          this.count = 0
+        /* extend trace throttle ~
+        let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
+        if (last === humidity){
+          this.count = this.count + 1
+        }
+        if (last !== humidity || this.count === 10) {
+          this.count = 1
+        } */
+        const update = {
+          x: [[new Date()]],
+          y: [[humidity]]
+        }
+        Plotly.extendTraces(
+          'hum-graph',
+          update, 
+          [traceIndex],
+        )
+        const newTime = new Date()
+        const delta =  (newTime - this.timer) / 1000
+        if (delta >= 1800) {
+          // 30 minute timeframe reached, need to remove first element of array as new one gets added
+          this.chart.traces[traceIndex].y.shift()
+          this.chart.traces[traceIndex].x.shift()
         }
       },
       findTrace (deviceList) {
@@ -100,12 +118,12 @@ export default {
           }
         }
       },
-      addTrace () {
+      addTrace (humidity) {
         const traceObj = {
-            y: [],
+            y: [humidity],
             x: [new Date()],
-            type: 'scatter',
-            mode: 'lines+markers',
+            type: 'scattergl',
+            mode: 'lines',
             connectgaps: true,
             name: this.currentDevice
         }

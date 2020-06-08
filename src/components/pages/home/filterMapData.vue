@@ -1,0 +1,61 @@
+<template>
+  <div>
+    <MapRender :idList="idList" :filteredMarker="filteredMarker" />
+  </div>
+</template>
+
+<script>
+import L from 'leaflet';
+import MapRender from './mapRender'
+
+export default {
+  props: ['id', 'message'],
+  components: {
+    MapRender
+  },
+  watch: {
+    message(newVal) {
+      this.payload = newVal
+      this.filterMessage(this.payload)
+    },
+    id(newVal){
+      this.idList = newVal
+    }
+  },
+  data() {
+    return {
+      payload: [],
+      filteredMarker: {},
+      idList: []
+    }
+  },
+  methods: {
+    filterMessage(message){
+      const messageOBJ = JSON.parse(message)
+      if (this.idList !== [undefined]) {
+        this.assignDataObjects(messageOBJ)
+      }
+    },
+    assignDataObjects(message){
+        const id = message['station']
+        this.latLngDataCleanup(message.tracker.gps['gps_lat'], message.tracker.gps['gps_lon'])
+
+        try {
+          var marker = {
+            [id] : L.latLng(this.lat, this.lon)
+          }
+        } catch {
+          return
+        }
+        console.log('filtered marker passed...')
+        this.filteredMarker = marker
+    },
+    latLngDataCleanup(latitude, longitude){
+      const lat = (latitude / 10000000).toFixed(2)
+      const lon = (longitude / 10000000).toFixed(2)
+      this.lat = lat
+      this.lon = lon
+      }
+    }
+}
+</script>

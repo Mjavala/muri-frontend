@@ -1,19 +1,24 @@
 <template>
   <div id="rssi-graph">
-        <rsssiReactivity :chart="chart" />
   </div>
 </template>
 
 <script>
-import rsssiReactivity from './RSSIReactivity'
+import Plotly from 'plotly.js-dist/plotly'
 
 export default {
-    components: {
-        rsssiReactivity
-    },
     props: [
       'idList', 'filteredRSSI'
     ],
+    mounted () {
+      let config = {responsive: true}
+      Plotly.react(
+        'rssi-graph',
+        this.chart.traces,
+        this.chart.layout,
+        config
+      )
+    },
     watch: {
       filteredRSSI(newVal){
         let objKey = Object.keys(newVal)
@@ -26,9 +31,9 @@ export default {
           // current device message
           this.findTrace(newVal)
         }
-        if (newVal.length > oldVal.length){
+        if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace()
+          this.addTrace(this.rssi)
           this.findTrace(newVal)
         }
         if (newVal.length < 1){
@@ -37,7 +42,11 @@ export default {
         }
         if (newVal.length === 1){
           // first device
-          this.addTrace()
+          if (this.counter === 0) {
+            this.timer = new Date()
+            this.addTrace()
+            this.counter = this.counter + 1
+          }
         }
       }
     },
@@ -45,7 +54,9 @@ export default {
     return {
       rssi: Number,
       currentDevice: '',
+      timer: Number,
       count: 0,
+      counter: 0,
       chart: {
         uuid: "1233",
         traces: [],
@@ -79,17 +90,28 @@ export default {
     },
     methods: {
       addData (rssi, traceIndex) {
-        this.count = this.count + 1
-        if (this.count === 2) {
-          this.chart.layout.datarevision = new Date().getTime();
-          this.chart.traces[traceIndex].y.push(rssi);
-          let time = new Date()
-          this.chart.traces[traceIndex].x.push(time);
-          if (this.chart.traces[traceIndex].x.length === 360){
-            this.chart.traces[traceIndex].x.shift()
-            this.chart.traces[traceIndex].y.shift()
-          }
-          this.count = 0
+        /*let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
+        if (last === rssi){
+          this.count = this.count + 1
+        }
+        if (last !== rssi || this.count === 10) { 
+          this.count = 1
+        }*/
+        const update = {
+          x: [[new Date()]],
+          y: [[rssi]]
+        }
+        Plotly.extendTraces(
+          'rssi-graph',
+          update, 
+          [traceIndex],
+        )
+        const newTime = new Date()
+        const delta =  (newTime - this.timer) / 1000
+        if (delta >= 1800) {
+          // 30 minute timeframe reached, need to remove first element of array as new one gets added
+          this.chart.traces[traceIndex].y.shift()
+          this.chart.traces[traceIndex].x.shift()
         }
       },
       findTrace (deviceList) {
@@ -99,12 +121,12 @@ export default {
           }
         }
       },
-      addTrace () {
+      addTrace (rssi) {
         const traceObj = {
-            y: [],
+            y: [rssi],
             x: [new Date()],
-            type: 'scatter',
-            mode: 'lines+markers',
+            type: 'scattergl',
+            mode: 'lines',
             connectgaps: true,
             name: this.currentDevice
         }

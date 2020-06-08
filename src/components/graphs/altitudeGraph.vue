@@ -1,18 +1,24 @@
 <template>
   <div id="altitude-graph">
-        <altitudeReactivity :chart="chart" />
   </div>
 </template>
 
 <script>
-import altitudeReactivity from './altitudeReactivity.vue'
+import Plotly from 'plotly.js-dist/plotly'
+
 export default {
-    components: {
-        altitudeReactivity
-    },
     props: [
       'idList', 'filteredAltitude'
     ],
+    mounted () {
+      let config = {responsive: true}
+      Plotly.react(
+        'altitude-graph',
+        this.chart.traces,
+        this.chart.layout,
+        config
+      )
+    },
     watch: {
       filteredAltitude(newVal){
         let objKey = Object.keys(newVal)
@@ -25,15 +31,20 @@ export default {
         if (newVal.length === oldVal.length){
           // current device message
           this.findTrace(newVal)
+          // check timeframe
         }
-        if (newVal.length > oldVal.length){
+        if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace()
+          this.addTrace(this.altitude)
           this.findTrace(newVal)
         }
         if (newVal.length === 1){
           // first device
-          this.addTrace()
+          if (this.counter === 0) {
+            this.timer = new Date()
+            this.addTrace()
+            this.counter = this.counter + 1
+          }
         }
       }
     },
@@ -41,7 +52,9 @@ export default {
     return {
       altitude: Number,
       currentDevice: '',
-      showlegend: false,
+      throttleCount: 0,
+      timer: Number,
+      counter: 0,
       count: 0,
       chart: {
         uuid: "123",
@@ -49,6 +62,7 @@ export default {
         layout: {
           height: 325 ,
           title: 'Altitude vs Time',
+          showlegend: false,
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
@@ -75,18 +89,24 @@ export default {
     },
     methods: {
       addData (altitude, traceIndex) {
-        this.count = this.count + 1
-        if (this.count === 2) {
-          this.chart.layout.datarevision = new Date().getTime();
-          this.chart.traces[traceIndex].y.push(altitude);
-          let time = new Date()
-          this.chart.traces[traceIndex].x.push(time);
-          if (this.chart.traces[traceIndex].x.length === 360){
-            this.chart.traces[traceIndex].x.shift()
-            this.chart.traces[traceIndex].y.shift()
-          }
-          this.count = 0
-          console.log(this.chart.traces[traceIndex].x.length)
+        // const t0 = new Date()
+        const update = {
+          x: [[new Date()]],
+          y: [[altitude]]
+        }
+        Plotly.extendTraces(
+          'altitude-graph',
+          update,
+          [traceIndex],
+        )
+        // const t1 = new Date()
+        // console.log('took ' + (t1-t0) + 'miliseconds')
+        const newTime = new Date()
+        const delta =  (newTime - this.timer) / 1000
+        if (delta >= 1800) {
+          // 30 minute timeframe reached, need to remove first element of array as new one gets added
+          this.chart.traces[traceIndex].y.shift()
+          this.chart.traces[traceIndex].x.shift()
         }
       },
       findTrace (deviceList) {
@@ -96,12 +116,12 @@ export default {
           }
         }
       },
-      addTrace () {
+      addTrace (altitude) {
         const traceObj = {
-            y: [],
+            y: [altitude],
             x: [new Date()],
-            type: 'scatter',
-            mode: 'lines+markers',
+            type: 'scattergl',
+            mode: 'lines',
             connectgaps: true,
             name: this.currentDevice
         }

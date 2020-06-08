@@ -3,18 +3,17 @@
         <Loader v-if="show"></loader>
         <NavBar/>
         <v-content>
-        <mqttReceiver />
+        <mqttReceiver :station="station"/>
         </v-content>
     </div>
 </template>
 
 <script>
 import mqttReceiver from './mqttReceiver'
-import NavBar from './navbar'
-import Loader from './loader'
+import NavBar from './navbarStation'
+import Loader from '../../../loader'
 
 export default {
-
   components: {
     mqttReceiver,
     NavBar,
@@ -22,8 +21,18 @@ export default {
   },
   data () {
     return {
-      show: true
+      show: true,
+      id: '',
+      station: ''
     }
+  },
+  watch: {
+    id(newVal) {
+      this.station = newVal
+    }
+  },
+  created () {
+    this.id = this.$route.params.id
   },
   mounted() {
     this.showToggle()

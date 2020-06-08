@@ -1,6 +1,5 @@
 <template>
   <div class="data-wrapper">
-    <NavBar />
     <Loader v-if="show"></loader>
     <div id="data">
       {{this.muri_data}}
@@ -9,13 +8,11 @@
 </template>
 
 <script>
-import NavBar from './navbar'
 import Loader from './loader'
 import gql from 'graphql-tag';
 
 export default {
   components: {
-    NavBar,
     Loader
   },
   data () {
