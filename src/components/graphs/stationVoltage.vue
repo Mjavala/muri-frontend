@@ -1,5 +1,5 @@
 <template>
-  <div id="hum-graph">
+  <div id="volt-graph">
   </div>
 </template>
 
@@ -8,23 +8,23 @@ import Plotly from 'plotly.js-dist/plotly'
 
 export default {
     props: [
-      'idList', 'filteredHum'
+      'idList', 'filteredVoltage'
     ],
     mounted () {
-      let config = {displayModeBar: false, responsive: true}
+      let config = {responsive: true}
       Plotly.react(
-        'hum-graph',
+        'volt-graph',
         this.chart.traces,
         this.chart.layout,
         config
       )
     },
     watch: {
-      filteredHum(newVal){
+      filteredRSSI(newVal){
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.humidity = objKeyMap[0]
+        this.volt = objKeyMap[0]
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
@@ -33,12 +33,16 @@ export default {
         }
         if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace(this.humidity)
+          this.addTrace(this.volt)
           this.findTrace(newVal)
+        }
+        if (newVal.length < 1){
+          // first device
+          this.chart.traces[0].name = this.currentDevice
         }
         if (newVal.length === 1){
           // first device
-          if (this.counter === 0){
+          if (this.counter === 0) {
             this.timer = new Date()
             this.addTrace()
             this.counter = this.counter + 1
@@ -48,53 +52,34 @@ export default {
     },
     data() {
     return {
-      humidity: Number,
+      volt: Number,
       currentDevice: '',
-      count: 0,
       timer: Number,
+      count: 0,
       counter: 0,
       chart: {
-        uuid: "1234",
+        uuid: "1233",
         traces: [],
         layout: {
-          plot_bgcolor: '#F5F5F5',
-          title: {
-            text: 'Humidity vs Time',
-            font: {
-              size: 11
-            }
-          },
-          margin: {
-            t: 17.5,
-            b: 25,
-            r: 20,
-            l: 35
-          },
+          height: 325,
+          title: 'Voltage vs Time',
           showlegend: false,
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
             gridwidth: 1,
-            rangemode: 'tozero',
-            showline:  true,
-            zeroline: false,
+            title: 'time (s)',
+            titlefont: {
+              size: 11
+            },
             tickfont:{
-              size: 8
+              size: 10
             }
           },
           yaxis: {
-            title: {
-              text: 'Humidity',
-              standoff: 20
-            },
-            zeroline: false,
-            showline:  true,
-            rangemode: 'tozero',
+            title: 'Voltage',
             titlefont: {
-              size: 10
-            },
-            tickfont:{
-              size: 8
+              size: 11
             },
             gridwidth: 1,
             gridcolor: '#bdbdbd',
@@ -104,21 +89,21 @@ export default {
     }
     },
     methods: {
-      addData (humidity, traceIndex) {
-        /* extend trace throttle ~
-        let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
-        if (last === humidity){
+      addData (volt, traceIndex) {
+        // ~ throttling logic ~
+        /*let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
+        if (last === rssi){
           this.count = this.count + 1
         }
-        if (last !== humidity || this.count === 10) {
+        if (last !== rssi || this.count === 10) { 
           this.count = 1
-        } */
+        }*/
         const update = {
           x: [[new Date()]],
-          y: [[humidity]]
+          y: [[volt]]
         }
         Plotly.extendTraces(
-          'hum-graph',
+          'volt-graph',
           update, 
           [traceIndex],
         )
@@ -133,13 +118,13 @@ export default {
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.humidity, i)
+            this.addData(this.volt, i)
           }
         }
       },
-      addTrace (humidity) {
+      addTrace (volt) {
         const traceObj = {
-            y: [humidity],
+            y: [volt],
             x: [new Date()],
             type: 'scattergl',
             mode: 'lines',
@@ -153,17 +138,15 @@ export default {
 </script>
 
 <style scoped>
-  #hum-graph{
-    display: inline;
+  #volt-graph{
+    display: inline-block;
     position: absolute;
-    top: 45%;
-    left: 74%;
-    width: 25%;
-    height: 35%;
+    top: 47.5%;
+    width: 50%;
     z-index: 10;
   }
   @media only screen and (max-width: 768px) {
-    #hum-graph {
+    #volt-graph {
       display: block;
       position: relative;
       width: 100%;

@@ -11,12 +11,14 @@ export default {
       'idList', 'filteredAltitude'
     ],
     mounted () {
-      let config = {responsive: true}
+      // let resp = {responsive: true}
+      let config = {displayModeBar: false, responsive: true}
       Plotly.react(
         'altitude-graph',
         this.chart.traces,
         this.chart.layout,
         config
+
       )
     },
     watch: {
@@ -60,25 +62,46 @@ export default {
         uuid: "123",
         traces: [],
         layout: {
-          height: 325 ,
-          title: 'Altitude vs Time',
+          plot_bgcolor: '#F5F5F5',
+          title: {
+            text: 'Altitude vs Time(s)',
+            font: {
+              size: 11
+            }
+          },
+          margin: {
+            t: 17.5,
+            b: 25,
+            r: 20,
+            l: 35
+          },
           showlegend: false,
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
-            gridwidth: 1,
-            title: 'time (s)',
+            rangemode: 'tozero',
+            showline:  true,
+            zeroline: false,
             titlefont: {
-              size: 11
+              size: 10
             },
             tickfont:{
-              size: 10
+              size: 8
             }
           },
           yaxis: {
-            title: 'Altitude (m)',
+            title: {
+              text: 'Altitude (m)',
+              standoff: 20
+            },
+            zeroline: false,
+            showline:  true,
+            rangemode: 'tozero',
             titlefont: {
-              size: 11
+              size: 9
+            },
+            tickfont:{
+              size: 8
             },
             gridwidth: 1,
             gridcolor: '#bdbdbd',
@@ -132,13 +155,15 @@ export default {
 </script>
 
 <style scoped>
-    #altitude-graph{
-        display: inline-block;
-        position: absolute;
-        top: 0%;
-        width: 50%;
-        z-index: 10;
-    }
+  #altitude-graph{
+      display: inline;
+      position: absolute;
+      top: 5%;
+      left: 49%;
+      width: 25%;
+      height: 35%;
+      z-index: 10;
+  } 
   @media only screen and (max-width: 768px) {
     #altitude-graph {
       display: block;

@@ -8,20 +8,38 @@
     />
     <l-marker
         :key="marker.id"
+        v-for="marker in markersBalloon"
+        :lat-lng="marker.latlng"
+      >
+      <l-icon v-bind="iconConfigBalloon" />
+    </l-marker>
+    <l-marker
+        :key="marker.id"
         v-for="marker in markers"
         :lat-lng="marker.latlng"
+        :options="{alt: marker.id}"
       >
       <l-icon v-bind="iconConfig" />
     </l-marker>
+    <l-circle
+      :key="'circle' + marker.id"
+      v-for="marker in markers"
+      :lat-lng="marker.latlng"
+      :radius="185200"
+      :opacity="0.75"
+      :fillOpacity="0.1"
+    >
+    </l-circle>
     </l-map>
   </div>
 </template>
 
 <script>
 //TODO: Test render of markers / popups / prop data
-import {LMap, LTileLayer, LMarker, LIcon} from 'vue2-leaflet'
+import {LMap, LTileLayer, LMarker, LIcon, LCircle} from 'vue2-leaflet'
 import L from 'leaflet';
-import Pin from '../../../assets/pin.png'
+import Station from '../../../assets/broadcast.png'
+import Balloon from '../../../assets/pin.png'
 
 export default {
   components: { 
@@ -29,9 +47,19 @@ export default {
     LTileLayer, 
     LMarker,
     LIcon,
+    LCircle
+  },
+  mounted () {
+    document.addEventListener('click', (e) => {
+      for (const [i, markersObj] of this.markers.entries()) {
+        if (e.target.alt === markersObj.id) {
+          this.$emit('addStation', this.markers[i].id)
+        }
+      }
+    })
   },
   props: [
-    'filteredMarker', 'idList'
+    'filteredMarker', 'idList', 'filteredBalloonMarker', 'balloonIdList'
   ],
   watch: {
     filteredMarker(newVal){
@@ -53,9 +81,33 @@ export default {
       if (newVal.length === 1){
         // first device, add the first marker
         if (this.count === 0){
-          if ('lat' in this.currentPosition) {
-            this.addMarkerToMarkerArray()
-            this.count = this.count + 1
+          this.addMarkerToMarkerArray()
+          this.count = this.count + 1
+        }
+      }
+    },
+    filteredBalloonMarker(newVal) {
+      let objKey = Object.keys(newVal)
+      this.currentBalloon = objKey[0]
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k])
+      this.currentBalloonPosition = objKeyMap[0]
+    },
+    balloonIdList(newVal, oldVal) {
+      if (newVal.length === oldVal.length){
+        // loop through array and find the array index that matches the 'currentDevice'
+        // update the 'markers' array L.latlng field at the given index
+        this.matchBalloonId()
+      }
+      if (newVal.length > oldVal.length && newVal.length > 1){
+        // new device detected, push the 'filteredMarkers' object into the 'markers' array
+        this.addMarkerToBalloonMarkerArray()
+      }
+      if (newVal.length === 1){
+        // first device, add the first marker
+        if (this.countBalloon === 0){
+          if ('lat' in this.currentBalloonPosition) {
+            this.addMarkerToBalloonMarkerArray()
+            this.countBalloon = this.countBalloon + 1
           }
         }
       }
@@ -64,9 +116,13 @@ export default {
   data() {
     return {
       markers: [],
+      markersBalloon: [],
       currentDevice: '',
+      currentBalloon: '',
       currentPosition: {},
+      currentBalloonPosition: {},
       count: 0,
+      countBalloon: 0,
       mapConfig: {
         zoom: 7,
         minZoom: 2,
@@ -81,7 +137,11 @@ export default {
         ],
       },
       iconConfig: {
-        'icon-url': Pin,
+        'icon-url': Station,
+        'icon-size': [30,30],
+      },
+      iconConfigBalloon: {
+        'icon-url': Balloon,
         'icon-size': [30,30],
       },
       mapRender: {
@@ -96,10 +156,20 @@ export default {
     updateMarker(i) {
       this.markers[i].latlng = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
     },
+    updateBalloonMarker(i) {
+      this.markersBalloon[i].latlng = L.latLng(this.currentBalloonPosition.lat, this.currentBalloonPosition.lng)
+    },
     matchDeviceId () {
       for (const [i, markersObj] of this.markers.entries()) {
         if (this.currentDevice === markersObj.id) {
           this.updateMarker(i)
+        }
+      }
+    },
+    matchBalloonId () {
+      for (const [i, markersObj] of this.markersBalloon.entries()) {
+        if (this.currentBalloon === markersObj.id) {
+          this.updateBalloonMarker(i)
         }
       }
     },
@@ -109,6 +179,13 @@ export default {
         latlng: L.latLng(this.currentPosition.lat, this.currentPosition.lng)
       }
       this.markers.push(markerObj)
+    },
+    addMarkerToBalloonMarkerArray() {
+      const markerObj = {
+        id: this.currentBalloon,
+        latlng: L.latLng(this.currentBalloonPosition.lat, this.currentBalloonPosition.lng)
+      }
+      this.markersBalloon.push(markerObj)
     }
   }
 }

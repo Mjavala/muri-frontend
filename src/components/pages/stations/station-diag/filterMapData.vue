@@ -3,7 +3,9 @@
     <MapRender 
       :idList="idList" 
       :filteredMarker="filteredMarker" 
-      :filteredAltitude="filteredAltitude" />
+      :filteredAltitude="filteredAltitude" 
+      :filteredMarkerStat="filteredMarkerStat"
+    />
   </div>
 </template>
 
@@ -12,7 +14,7 @@ import L from 'leaflet';
 import MapRender from './mapRender'
 
 export default {
-  props: ['id', 'message'],
+  props: ['id', 'message', 'payloadStat'],
   components: {
     MapRender
   },
@@ -23,14 +25,20 @@ export default {
     },
     id(newVal){
       this.idList = newVal
+    },
+    payloadStat(newVal) {
+      this.payloadStats = newVal
+      this.assignDataObjectsStat(this.payloadStats)
     }
   },
   data() {
     return {
       payload: [],
+      payloadStats: [],
       messageOBJ: [],
       idList: [],
       filteredMarker: {},
+      filteredMarkerStat: {},
       filteredAltitude: {},
       rssi: Number
     }
@@ -49,6 +57,21 @@ export default {
           [id] : L.latLng(this.lat, this.lon)
           }
       this.filteredAltitude =  message.data.frame_data['gps_alt'] / 1000
+    },
+    assignDataObjectsStat (message){
+        const messageOBJ = JSON.parse(message)
+        const id = messageOBJ['station']
+        this.lat = messageOBJ.tracker.gps['gps_lat'] 
+        this.lon = messageOBJ.tracker.gps['gps_lon']
+        try {
+          var marker = {
+            [id] : L.latLng(this.lat, this.lon)
+          }
+        } catch {
+          return
+        }
+        this.filteredMarkerStat = marker
+
     },
     latLngDataCleanup(latitude, longitude){
       const lat = (latitude / 10000000).toFixed(2)

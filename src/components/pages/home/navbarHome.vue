@@ -19,6 +19,9 @@
                 Station Data
             </router-link>
         </v-btn>
+        <v-btn  id="station-data" light small>
+          <v-list-item href="http://159.89.152.16/logs/" target="_blank">Log Files</v-list-item>
+        </v-btn>
     </v-app-bar>
 </template>
 
@@ -61,6 +64,9 @@ export default {
   }
   .active {
     background-color: #76FF03 !important;
+  }
+  #live-icon {
+    margin-top: 25%;
   }
   #station-data {
     margin: 0 0.5em;

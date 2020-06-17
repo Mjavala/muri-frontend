@@ -11,7 +11,7 @@ export default {
       'idList', 'filteredRSSI'
     ],
     mounted () {
-      let config = {responsive: true}
+      let config = {displayModeBar: false, responsive: true}
       Plotly.react(
         'rssi-graph',
         this.chart.traces,
@@ -61,25 +61,44 @@ export default {
         uuid: "1233",
         traces: [],
         layout: {
-          height: 325,
-          title: 'RSSI vs Time',
+          plot_bgcolor: '#F5F5F5',
+          title: {
+            text: 'RSSI vs Time',
+            font: {
+              size: 11
+            }
+          },
+          margin: {
+            t: 17.5,
+            b: 25,
+            r: 20,
+            l: 35
+          },
           showlegend: false,
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
+            rangemode: 'tozero',
+            showline:  true,
+            zeroline: false,
             gridwidth: 1,
-            title: 'time (s)',
-            titlefont: {
-              size: 11
-            },
             tickfont:{
-              size: 10
+              size: 8
             }
           },
           yaxis: {
-            title: 'RSSI',
+            zeroline: false,
+            showline:  true,
+            rangemode: 'tozero',
+            title: {
+              text: 'RSSI',
+              standoff: 20
+            },
             titlefont: {
-              size: 11
+              size: 9
+            },
+            tickfont:{
+              size: 8
             },
             gridwidth: 1,
             gridcolor: '#bdbdbd',
@@ -138,10 +157,12 @@ export default {
 
 <style scoped>
   #rssi-graph{
-    display: inline-block;
+    display: inline;
     position: absolute;
-    top: 47.5%;
-    width: 50%;
+    top: 45%;
+    left: 49%;
+    width: 25%;
+    height: 35%;
     z-index: 10;
   }
   @media only screen and (max-width: 768px) {

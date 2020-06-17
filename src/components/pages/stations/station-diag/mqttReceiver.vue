@@ -6,14 +6,6 @@
       </v-btn>
       <filterID v-bind:message="this.message" :messageStat="messageStat" />
       <div id='conFeedWrap'>
-        <!--
-        <v-btn id="connect" @click="connect">
-          Connect
-        </v-btn>
-        <v-btn id="disconnect" @click="disconnect">
-          Disconnect
-        </v-btn>
-        -->
       </div>
     </div>
   </div>

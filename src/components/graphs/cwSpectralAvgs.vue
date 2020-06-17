@@ -1,5 +1,5 @@
 <template>
-  <div id="hum-graph">
+  <div id="cw-graph">
   </div>
 </template>
 
@@ -8,39 +8,42 @@ import Plotly from 'plotly.js-dist/plotly'
 
 export default {
     props: [
-      'idList', 'filteredHum'
+      'idList', 'filteredCwAvgs'
     ],
     mounted () {
       let config = {displayModeBar: false, responsive: true}
       Plotly.react(
-        'hum-graph',
+        'cw-graph',
         this.chart.traces,
         this.chart.layout,
         config
       )
     },
     watch: {
-      filteredHum(newVal){
+      filteredCwAvgs(newVal){
+        // need slightly different setup for bar chart
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.humidity = objKeyMap[0]
+        let cwAverages = objKeyMap[0]
+        this.cw = cwAverages
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
           // current device message
           this.findTrace(newVal)
+          // check timeframe
         }
         if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace(this.humidity)
+          this.addTrace(this.cw)
           this.findTrace(newVal)
         }
         if (newVal.length === 1){
           // first device
-          if (this.counter === 0){
+          if (this.counter === 0) {
             this.timer = new Date()
-            this.addTrace()
+            this.addTrace(this.cw)
             this.counter = this.counter + 1
           }
         }
@@ -48,18 +51,17 @@ export default {
     },
     data() {
     return {
-      humidity: Number,
+      cw: [],
       currentDevice: '',
-      count: 0,
-      timer: Number,
       counter: 0,
+      count: 0,
       chart: {
-        uuid: "1234",
+        uuid: "123",
         traces: [],
         layout: {
           plot_bgcolor: '#F5F5F5',
           title: {
-            text: 'Humidity vs Time',
+            text: 'CW Spectral Averages',
             font: {
               size: 11
             }
@@ -74,96 +76,80 @@ export default {
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
-            gridwidth: 1,
-            rangemode: 'tozero',
             showline:  true,
             zeroline: false,
+            gridwidth: 1,
             tickfont:{
               size: 8
             }
           },
           yaxis: {
-            title: {
-              text: 'Humidity',
-              standoff: 20
-            },
-            zeroline: false,
+            tickmode: 'auto',
             showline:  true,
-            rangemode: 'tozero',
-            titlefont: {
-              size: 10
-            },
-            tickfont:{
-              size: 8
-            },
+            zeroline: false,
             gridwidth: 1,
             gridcolor: '#bdbdbd',
+            tickfont:{
+              size: 8
+            }
           }
         }
       }
     }
     },
     methods: {
-      addData (humidity, traceIndex) {
-        /* extend trace throttle ~
-        let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
-        if (last === humidity){
-          this.count = this.count + 1
-        }
-        if (last !== humidity || this.count === 10) {
-          this.count = 1
-        } */
+      addData (cw, traceIndex) {
+        // only restyle if the data is different
         const update = {
-          x: [[new Date()]],
-          y: [[humidity]]
+          y: cw,
         }
-        Plotly.extendTraces(
-          'hum-graph',
-          update, 
-          [traceIndex],
-        )
-        const newTime = new Date()
-        const delta =  (newTime - this.timer) / 1000
-        if (delta >= 1800) {
-          // 30 minute timeframe reached, need to remove first element of array as new one gets added
-          this.chart.traces[traceIndex].y.shift()
-          this.chart.traces[traceIndex].x.shift()
-        }
+        Plotly.animate(
+          'cw-graph', {
+            data: [update],
+            layout: this.chart.layout,
+            traces: [traceIndex]
+          }, {
+            transition: {duration: 0},
+            frame: {duration: 0, redraw: false}
+          })
       },
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.humidity, i)
+            this.addData(this.cw, i)
           }
         }
       },
-      addTrace (humidity) {
+      addTrace (cw) {
         const traceObj = {
-            y: [humidity],
-            x: [new Date()],
-            type: 'scattergl',
-            mode: 'lines',
-            connectgaps: true,
+            y: cw,
+            x: ['cw0','cw1', 'cw2', 'cw3', 'cw4', 'cw5', 'cw6', 'cw7', 'cw8'],
+            type: 'bar',
             name: this.currentDevice
         }
         this.chart.traces.push(traceObj)
-      },
-    }
+        Plotly.react(
+          'cw-graph',
+          this.chart.traces,
+          this.chart.layout
+        )
+      }
+    } 
   }
 </script>
 
 <style scoped>
-  #hum-graph{
-    display: inline;
-    position: absolute;
-    top: 45%;
-    left: 74%;
-    width: 25%;
-    height: 35%;
-    z-index: 10;
-  }
+    #cw-graph{
+      display: inline;
+      position: absolute;
+      top: 81%;
+      left: 74%;
+      width: 25%;
+      height: 35%;
+      z-index: 10;
+    }
   @media only screen and (max-width: 768px) {
-    #hum-graph {
+    #cw-graph {
       display: block;
       position: relative;
       width: 100%;

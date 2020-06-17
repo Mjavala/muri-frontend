@@ -2,7 +2,11 @@
     <v-app>
     <div id="home-wrap">
         <navbar :station="station" :live="live"/>
-        <mqttReceiver @stations="newStationListFunc" @live="mqttConnected"/>
+        <mqttReceiver 
+            @stations="newStationListFunc" 
+            @live="mqttConnected"
+            @stationsFromMap="StationClickedFromMap"
+        />
         <div id="stations-dropdown">
             <v-select
                 :items="items"
@@ -35,6 +39,9 @@ export default {
         },
         mqttConnected(data) {
             this.live = data
+        },
+        StationClickedFromMap(station){
+            this.station = station
         }
     },
     data () {

@@ -16,8 +16,19 @@
           alt: {{marker.altitude}}
         </div> 
       </l-popup>
-      <l-icon v-bind="iconConfig" />
+      <l-icon v-bind="iconConfigBalloon" />
       </l-marker>
+      <l-marker v-if="this.statCount === 1" :lat-lng="statMarker">
+        <l-icon v-bind="iconConfig" />
+      </l-marker>
+      <l-circle
+        v-if="this.statCount === 1"
+        :lat-lng="statMarker"
+        :radius="185200"
+        :opacity="0.75"
+        :fillOpacity="0.1"
+      >
+      </l-circle>
       <l-polyline
         :key="marker.id + 'line'"
         v-for="marker in markers"
@@ -32,9 +43,11 @@
 
 <script>
 //TODO: Test render of markers / popups / prop data
-import {LMap, LTileLayer, LMarker, LIcon, LPolyline , LPopup} from 'vue2-leaflet'
+import {LMap, LTileLayer, LMarker, LIcon, LPolyline , LPopup, LCircle} from 'vue2-leaflet'
 import L from 'leaflet';
 import Pin from '../../../../assets/pin.png'
+import Station from '../../../../assets/broadcast.png'
+
 
 export default {
   components: { 
@@ -43,10 +56,11 @@ export default {
     LMarker,
     LIcon,
     LPolyline,
-    LPopup
+    LPopup,
+    LCircle
   },
   props: [
-    'filteredMarker', 'idList', 'filteredAltitude'
+    'filteredMarker', 'idList', 'filteredAltitude', 'filteredMarkerStat'
   ],
   watch: {
     filteredMarker(newVal){
@@ -54,10 +68,21 @@ export default {
       this.currentDevice = objKey[0]
       let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
       this.currentPosition = objKeyMap[0]
-      this.mapConfig.center = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
     },
     filteredAltitude(newVal) {
       this.currentAltitude = (newVal).toFixed(1)
+    },
+    filteredMarkerStat(newVal) {
+
+      let objKey = Object.keys(newVal)
+      this.currentStation = objKey[0]
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k])
+      this.currentStationPosition = objKeyMap[0]
+      this.mapConfig.center = L.latLng(this.currentStationPosition.lat, this.currentStationPosition.lng)
+      this.statMarker = objKeyMap[0]
+      if(this.statCount === 0) {
+        this.statCount = this.statCount + 1
+      }
     },
     idList(newVal, oldVal){
       if (newVal.length === oldVal.length){
@@ -83,12 +108,16 @@ export default {
   data() {
     return {
       markers: [],
+      statMarker: {},
+      statCount: 0,
       currentDevice: '',
       currentAltitude: Number,
       currentPosition: {},
+      currentStation: '',
+      currentStationPosition: {},
       count: 0,
       mapConfig: {
-        zoom: 10,
+        zoom: 7,
         minZoom: 2,
         center: L.latLng(40, -105),
         Bounds: [
@@ -100,8 +129,12 @@ export default {
           [90, 180]
         ],
       },
-      iconConfig: {
+      iconConfigBalloon: {
         'icon-url': Pin,
+        'icon-size': [30,30],
+      },
+      iconConfig: {
+        'icon-url': Station,
         'icon-size': [30,30],
       },
       mapRender: {

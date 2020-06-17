@@ -10,7 +10,7 @@
         <router-link to="/">Home</router-link>
       </v-btn>
       <v-btn id="station-diagnostics" light small @click="routeToDiagnostics">
-        Station Diagnostics
+        Station Data
       </v-btn>
     </v-app-bar>
 </template>
@@ -21,7 +21,6 @@ export default {
   watch: {
     station(newVal) {
       this.diagnostics = newVal
-      console.log('STATION FROM HOME ' + newVal)
     }
   },
   data () {
@@ -31,7 +30,7 @@ export default {
   },
   methods: {
     routeToDiagnostics(){
-      let routeData = this.$router.resolve({name: 'stationDiagnostics', params: {id: this.station}})
+      let routeData = this.$router.resolve({name: 'station', params: {id: this.station}})
       window.open(routeData.href, '_blank')
     }
   }

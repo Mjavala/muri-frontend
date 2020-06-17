@@ -3,6 +3,7 @@
       <filterMapData 
         :id='deviceList' 
         :message='payload' 
+        :payloadStat='payloadStat'
       />
       <filterGraphData 
         :id='deviceList' 

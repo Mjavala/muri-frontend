@@ -1,6 +1,12 @@
 <template>
   <div>
-      <filterMapData :id='deviceList' :message='payload' />
+      <filterMapData 
+        :stationList='stationList' 
+        :message='payload' 
+        :messageRaw="payloadRaw" 
+        :balloonIds="balloonIds"
+        @as2="yo"
+      />
   </div>
 
 </template>
@@ -10,7 +16,7 @@ import filterMapData from './filterMapData'
 
 export default {
   
-  props: ['message'],
+  props: ['message', 'messageRaw'],
   components: {
     filterMapData,
   },
@@ -18,22 +24,39 @@ export default {
     message(newVal) {
       this.payload = newVal
       this.addIdAndFilterMessage(newVal)
+    },
+    messageRaw(newVal) {
+      this.payloadRaw = newVal
+      this.addIdAndFilterMessageRaw(newVal)
     }
   },
   data() {
     return {
         payload: [],
+        payloadRaw: [],
         messageOBJ: [],
-        deviceList: [],
-        listOfIds: new Set(), //Set() -  list of unique items
+        messageOBJRaw: [],
+        stationList: [],
+        balloonIds: [],
+        uniqueStations: new Set(), //Set() -  list of unique items (station)
+        uniqueBalloons: new Set()
     }
   },
   methods: {
     addIdAndFilterMessage(message){
-        this.messageOBJ = JSON.parse(message)
-        this.listOfIds.add(this.messageOBJ['station'])
-        this.deviceList = Array.from(this.listOfIds)
-        }
+      this.messageOBJ = JSON.parse(message)
+      this.uniqueStations.add(this.messageOBJ['station'])
+      this.stationList = Array.from(this.uniqueStations)
+    },
+    addIdAndFilterMessageRaw(message){
+      this.messageOBJRaw = JSON.parse(message)
+      this.uniqueBalloons.add(this.messageOBJRaw.data['ADDR_FROM'])
+      this.balloonIds = Array.from(this.uniqueBalloons)
+    },
+    yo (station) {
+      console.log(station)
+      this.$emit('addStation', station)
     }
+  }
 }
 </script>

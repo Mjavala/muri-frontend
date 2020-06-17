@@ -1,5 +1,5 @@
 <template>
-  <div id="hum-graph">
+  <div id="rssi-graph">
   </div>
 </template>
 
@@ -8,23 +8,23 @@ import Plotly from 'plotly.js-dist/plotly'
 
 export default {
     props: [
-      'idList', 'filteredHum'
+      'idList', 'filteredRSSI'
     ],
     mounted () {
       let config = {displayModeBar: false, responsive: true}
       Plotly.react(
-        'hum-graph',
+        'rssi-graph',
         this.chart.traces,
         this.chart.layout,
         config
       )
     },
     watch: {
-      filteredHum(newVal){
+      filteredRSSI(newVal){
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.humidity = objKeyMap[0]
+        this.rssi = objKeyMap[0]
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
@@ -33,12 +33,16 @@ export default {
         }
         if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace(this.humidity)
+          this.addTrace(this.rssi)
           this.findTrace(newVal)
+        }
+        if (newVal.length < 1){
+          // first device
+          this.chart.traces[0].name = this.currentDevice
         }
         if (newVal.length === 1){
           // first device
-          if (this.counter === 0){
+          if (this.counter === 0) {
             this.timer = new Date()
             this.addTrace()
             this.counter = this.counter + 1
@@ -48,18 +52,18 @@ export default {
     },
     data() {
     return {
-      humidity: Number,
+      rssi: Number,
       currentDevice: '',
-      count: 0,
       timer: Number,
+      count: 0,
       counter: 0,
       chart: {
-        uuid: "1234",
+        uuid: "1233",
         traces: [],
         layout: {
           plot_bgcolor: '#F5F5F5',
           title: {
-            text: 'Humidity vs Time',
+            text: 'RSSI vs Time',
             font: {
               size: 11
             }
@@ -74,24 +78,24 @@ export default {
           xaxis: {
             tickmode: 'auto',
             gridcolor: '#bdbdbd',
-            gridwidth: 1,
             rangemode: 'tozero',
             showline:  true,
             zeroline: false,
+            gridwidth: 1,
             tickfont:{
               size: 8
             }
           },
           yaxis: {
-            title: {
-              text: 'Humidity',
-              standoff: 20
-            },
             zeroline: false,
             showline:  true,
             rangemode: 'tozero',
+            title: {
+              text: 'RSSI',
+              standoff: 20
+            },
             titlefont: {
-              size: 10
+              size: 9
             },
             tickfont:{
               size: 8
@@ -104,21 +108,20 @@ export default {
     }
     },
     methods: {
-      addData (humidity, traceIndex) {
-        /* extend trace throttle ~
-        let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
-        if (last === humidity){
+      addData (rssi, traceIndex) {
+        /*let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
+        if (last === rssi){
           this.count = this.count + 1
         }
-        if (last !== humidity || this.count === 10) {
+        if (last !== rssi || this.count === 10) { 
           this.count = 1
-        } */
+        }*/
         const update = {
           x: [[new Date()]],
-          y: [[humidity]]
+          y: [[rssi]]
         }
         Plotly.extendTraces(
-          'hum-graph',
+          'rssi-graph',
           update, 
           [traceIndex],
         )
@@ -133,13 +136,13 @@ export default {
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.humidity, i)
+            this.addData(this.rssi, i)
           }
         }
       },
-      addTrace (humidity) {
+      addTrace (rssi) {
         const traceObj = {
-            y: [humidity],
+            y: [rssi],
             x: [new Date()],
             type: 'scattergl',
             mode: 'lines',
@@ -153,20 +156,13 @@ export default {
 </script>
 
 <style scoped>
-  #hum-graph{
+  #rssi-graph{
     display: inline;
     position: absolute;
-    top: 45%;
-    left: 74%;
-    width: 25%;
+    top: 5%;
+    left: 51%;
+    width: 45%;
     height: 35%;
     z-index: 10;
-  }
-  @media only screen and (max-width: 768px) {
-    #hum-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
   }
 </style>
