@@ -1,0 +1,16 @@
+2020-06-04 11:22:17,528 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:23:34,666 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:26:06,766 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:26:23,366 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:26:28,434 - db - app_lvl - --- Writing Data to Raw database (0xc109) ---
+2020-06-04 11:26:32,450 - db - app_lvl - Exception in Database (0xc109) Connection Script: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-06-04 11:27:19,690 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:27:24,758 - db - app_lvl - --- Writing Data to Raw database (0xc109) ---
+2020-06-04 11:27:28,775 - db - app_lvl - Exception in Database (0xc109) Connection Script: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-06-04 11:31:40,534 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:31:45,766 - db - app_lvl - Exception in Database (0xd2a8) Connection Script: password authentication failed for user "POSTGRES"
+2020-06-04 11:31:50,633 - db - app_lvl - --- Writing Data to Raw database (0xc109) ---
+2020-06-04 11:31:50,805 - db - app_lvl - Exception in Database (0xc109) Connection Script: password authentication failed for user "POSTGRES"
+2020-06-04 11:32:07,892 - db - app_lvl - --- Raw database service started succesfully ---
+2020-06-04 11:32:12,947 - db - app_lvl - --- Writing Data to Raw database (0xc109) ---
+2020-06-04 11:32:13,186 - db - app_lvl - Exception in Database (0xc109) Connection Script: invalid input for query argument $1: 'TEST_01' (an integer is required (got type str))
