@@ -104,6 +104,8 @@ export default {
       if (responseObject.errorCode !== 0) {
         console.log(responseObject.errorCode)
         console.log("onConnectionLost:"+responseObject.errorMessage)
+        this.clientID = "clientID-" + parseInt(Math.random() * 100)
+        this.client = new window.Paho.MQTT.Client(this.host, this.port, this.clientID)
         setTimeout(() => {
           this.client.connect({      
           onSuccess: this.onConnect,
@@ -215,18 +217,6 @@ export default {
   }
   #disconnect-home {
     z-index: 11;
-  }
-  @media only screen and (max-width: 768px) {
-    #connect-home {
-      position: absolute;
-      top: -4%;
-      right: 52.5%;
-    }
-    #disconnect-home {
-      position: absolute;
-      top: -4%;
-      left: 50%;
-    }
   }
   @keyframes shadow-pulse
   {

@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div id="map-graph-wrap">
       <filterMapData 
         :id='deviceList' 
         :message='payload' 
+        :balloonToTrack3="balloonToTrack3"
       />
       <filterGraphData 
         :id='deviceList' 
@@ -19,7 +20,7 @@ import filterGraphData from './filterGraphData'
 
 export default {
   
-  props: ['message', 'messageStat'],
+  props: ['message', 'messageStat', 'balloonToTrack2'],
   components: {
     filterMapData,
     filterGraphData
@@ -31,6 +32,9 @@ export default {
     },
     messageStat(newVal) {
       this.payloadStat = newVal
+    },
+    balloonToTrack2(newVal) {
+      this.balloonToTrack3 = newVal
     }
   },
   data() {
@@ -40,6 +44,7 @@ export default {
         messageOBJ: [],
         deviceList: [],
         listOfIds: new Set(), //Set() -  list of unique items
+        balloonToTrack3: '',
     }
   },
   methods: {
@@ -47,7 +52,14 @@ export default {
         this.messageOBJ = JSON.parse(message)
         this.listOfIds.add(this.messageOBJ.data['ADDR_FROM'])
         this.deviceList = Array.from(this.listOfIds)
-        }
+      }
     }
-}
+  }
 </script>
+
+<style>
+  #map-graph-wrap{
+    position: relative;
+    height: 60vh;
+  }
+</style>

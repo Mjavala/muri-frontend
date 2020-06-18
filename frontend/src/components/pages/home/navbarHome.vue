@@ -4,7 +4,7 @@
         dark
         id="nav"
     >
-      <v-img id="iriss-logo" max-height="100" max-width="225" src="../../../assets/iriss_logo.png" />
+      <v-img id="iriss-logo" max-height="50" max-width="200" src="../../../assets/iriss_logo.jpg" />
       <v-btn icon depressed rounded id="live" v-if="mqttConnected">
           <v-icon id="live-icon" color="#76FF03">mdi-wifi</v-icon>
       </v-btn>
@@ -51,9 +51,6 @@ export default {
   #nav{
     position: absolute;
     z-index: 1000;
-    background: #667db6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;
   }
   a {
     color: black !important;

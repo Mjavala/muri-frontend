@@ -15,10 +15,7 @@ export default {
 
 <style>
 #loader {
-    background: #667db6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;
-    background-color: black;
+    background-color: white;
     display: flex;
     justify-content: center;
     height: 105vh;
@@ -39,7 +36,7 @@ export default {
   
   .internal-circle,
   .external-circle {
-    stroke: #ffffff;
+    stroke: #667db6;
     stroke-dashoffset: 0;
     transform-origin: center;
   }

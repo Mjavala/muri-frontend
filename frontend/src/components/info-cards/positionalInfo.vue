@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-card id="positional-card">
-            <v-card-title id="position-title">Station positional info</v-card-title>
+        <v-card id="positional-card" flat>
+            <v-card-title id="pos-title">Station Positional Info</v-card-title>
             <v-data-table disable-sort dense hide-default-footer :headers="headers" :items="info" item-key="name"></v-data-table>
         </v-card>
     </div>
@@ -37,8 +37,8 @@ export default {
         parseAndSetValues(payload) {
             const messageOBJ = JSON.parse(payload)
             // both frame types -
-            this.info[0].lat = (messageOBJ.tracker.gps['gps_lat']).toFixed(1)
-            this.info[0].lon = (messageOBJ.tracker.gps['gps_lon']).toFixed(1)
+            this.info[0].lat = (messageOBJ.tracker.gps['gps_lat']).toFixed(1)  + '°'
+            this.info[0].lon = (messageOBJ.tracker.gps['gps_lon']).toFixed(1)  + '°'
             this.info[0].alt = (messageOBJ.tracker.gps['gps_alt'] / 1000).toFixed(2)
             this.info[0].gps_numsats = messageOBJ.tracker.gps['gps_numsats']
         }
@@ -50,12 +50,6 @@ export default {
     .card-styles {
         padding: 0.1em;
         width: 11em;
-    }
-    #position-title{
-        font-size: 1em;
-        padding: 0 0.5em;
-        color: rgba(0, 0, 0, 0.6);
-        font-weight: bolder;
     }
     .wrap{
         display: flex;
@@ -81,9 +75,10 @@ export default {
     .spacing {
         margin: 0 0.5em;
     }
-    #positional-card {
-        position: absolute;
-        left: 56.5%;
-        top: 72.6%;
+    #pos-title{
+        font-size: 0.8em;
+        padding: 0 0.5em;
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: bolder;
     }
 </style>

@@ -135,7 +135,7 @@ class MQTT_SAMPLE_NODE():
 
     def message1_stat(self):
         msg1 = {
-            "station": "TEST_01",
+            "station": "TEST_02",
             "stat_time": 1591377410.7666922,
             "receiver_1": {
             "last": {},
@@ -160,8 +160,8 @@ class MQTT_SAMPLE_NODE():
             "tracker": {
             "time": 1591377410.7666922,
             "gps": {
-                "gps_lat": self.lat1,
-                "gps_lon": self.lon1,
+                "gps_lat": 39.0639,
+                "gps_lon": -108.5506,
                 "gps_alt": "n/a",
                 "gps_fix": "n/a",
                 "gps_numsats": 3,
@@ -173,7 +173,7 @@ class MQTT_SAMPLE_NODE():
             },
             "ant": {
                 "last_update": 0,
-                "azm": 0,
+                "azm": 90,
                 "elv": 0,
                 "req_azm": 0,
                 "req_elv": 0,
@@ -281,9 +281,9 @@ class MQTT_SAMPLE_NODE():
         msg1 = self.message1_stat()
         msg2 = self.message2_stat()
 
-        self.publish_message_wrap("muri/_test", msg1)
+        self.publish_message_wrap("muri/stat", msg1)
         time.sleep(1)
-        self.publish_message_wrap("muri/_test", msg2)
+        #self.publish_message_wrap("muri/_test", msg2)
         
         t.start()
 

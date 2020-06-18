@@ -37,8 +37,8 @@ export default {
         parseAndSetValues(payload) {
             const messageOBJ = JSON.parse(payload)
             // both frame types -
-            this.info[0].lat = (messageOBJ.tracker.gps['gps_lat']).toFixed(1)
-            this.info[0].lon = (messageOBJ.tracker.gps['gps_lon']).toFixed(1)
+            this.info[0].lat = (messageOBJ.tracker.gps['gps_lat']).toFixed(1)  + '°'
+            this.info[0].lon = (messageOBJ.tracker.gps['gps_lon']).toFixed(1)   + '°'
             this.info[0].alt = (messageOBJ.tracker.gps['gps_alt'] / 1000).toFixed(2)
             this.info[0].gps_numsats = messageOBJ.tracker.gps['gps_numsats']
         }

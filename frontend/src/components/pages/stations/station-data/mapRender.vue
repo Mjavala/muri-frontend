@@ -13,7 +13,7 @@
       >
       <l-popup> 
         <div class="popups">
-          alt: {{marker.altitude}}
+          alt(m): {{marker.altitude}}
         </div> 
       </l-popup>
       <l-icon v-bind="iconConfig" />
@@ -22,8 +22,9 @@
         :key="marker.id + 'line'"
         v-for="marker in markers"
         :lat-lngs="marker.pathLine"
+        :color="'#76FF03'"
         :opacity="1"
-        :weight="1"
+        :weight="3"
         :dashArray="'12'"
       />
     </l-map>
@@ -46,18 +47,23 @@ export default {
     LPopup
   },
   props: [
-    'filteredMarker', 'idList', 'filteredAltitude'
+    'filteredMarker', 'idList', 'filteredAltitude', 'balloonToTrack4'
   ],
   watch: {
     filteredMarker(newVal){
       let objKey = Object.keys(newVal)
       this.currentDevice = objKey[0]
-      let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k])
       this.currentPosition = objKeyMap[0]
-      this.mapConfig.center = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
+      if (this.currentDevice === this.balloonToTrackFinal){
+        this.mapConfig.center = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
+      }
     },
     filteredAltitude(newVal) {
       this.currentAltitude = (newVal).toFixed(1)
+    },
+    balloonToTrack4(newVal){
+      this.balloonToTrackFinal = newVal
     },
     idList(newVal, oldVal){
       if (newVal.length === oldVal.length){
@@ -86,9 +92,10 @@ export default {
       currentDevice: '',
       currentAltitude: Number,
       currentPosition: {},
+      balloonToTrackFinal: '',
       count: 0,
       mapConfig: {
-        zoom: 10,
+        zoom: 13,
         minZoom: 2,
         center: L.latLng(40, -105),
         Bounds: [
@@ -137,12 +144,11 @@ export default {
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .map{
   height: 60vh;
-  width: 50vw;
+  width: 40vw;
   display: inherit;
   padding: 2% 2% 0 1%;
 }
@@ -164,15 +170,4 @@ export default {
   background: white !important;
   color: #121212 !important;
 }
-
-  @media only screen and (max-width: 768px) {
-    .map{
-      height: 50vh;
-      width: 100vw;
-      display: inherit;
-      margin: 1% auto;
-      margin-top: 15%;
-      margin-bottom: 10%;
-    }
-  }
 </style>

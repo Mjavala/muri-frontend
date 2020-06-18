@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-card id="balloon-card">
-            <v-card-title id="balloon-title">Balloon Info - tracking [{{this.current_balloon}}]</v-card-title>
+        <v-card id="balloon-card" flat>
+            <div id="balloon-title">Balloon Info - tracking [{{this.current_balloon}}]</div>
             <v-data-table disable-sort dense hide-default-footer :headers="headers" :items="info" item-key="name"></v-data-table>
         </v-card>
     </div>
@@ -49,8 +49,8 @@ export default {
                 { text: 'vz (m/s)', value: 'velz' },
                 { text: 'wind', value: 'wind' },
                 { text: 'temp (k)', value: 'temp' },
-                { text: 'RMS_Hor_Vel', value: 'RMS_Hor_Vel' },
-                { text: 'RMS_Ver_Vel', value: 'RMS_Ver_Vel'},
+                { text: 'RMS_HVel', value: 'RMS_Hor_Vel' },
+                { text: 'RMS_VVel', value: 'RMS_Ver_Vel'},
                 { text: 'interval_index', value: 'interval_index' },
                 { text: 'epoch_index', value: 'epoch_index' },
                 { text: 'vent', value: 'vent' },
@@ -107,7 +107,7 @@ export default {
         margin: 0.75em 0;
     }
     #balloon-title{
-        font-size: 1em;
+        font-size: 0.8em;
         padding: 0 0.5em;
         color: rgba(0, 0, 0, 0.6);
         font-weight: bolder;
@@ -138,5 +138,11 @@ export default {
     }
     #balloon-card{
         max-width: 95% !important;
+    }
+    .v-data-table th{
+        font-size: 0.7rem !important;
+    }
+    .v-data-table td{
+        font-size: 0.7rem !important
     }
 </style>

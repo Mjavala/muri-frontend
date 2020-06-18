@@ -135,20 +135,13 @@ export default {
 </script>
 
 <style scoped>
-    #hw-graph{
-      display: inline;
-      position: absolute;
-      top: 117%;
-      left: 74%;
-      width: 25%;
-      height: 35%;
-      z-index: 10;
-    }
-  @media only screen and (max-width: 768px) {
-    #hw-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
+  #hw-graph{
+    display: inline;
+    position: absolute;
+    top: 70%;
+    left: 39%;
+    width: 30%;
+    height: 34%;
+    z-index: 10;
   }
 </style>

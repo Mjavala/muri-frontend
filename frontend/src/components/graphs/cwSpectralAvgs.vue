@@ -139,20 +139,13 @@ export default {
 </script>
 
 <style scoped>
-    #cw-graph{
-      display: inline;
-      position: absolute;
-      top: 81%;
-      left: 74%;
-      width: 25%;
-      height: 35%;
-      z-index: 10;
-    }
-  @media only screen and (max-width: 768px) {
-    #cw-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
+  #cw-graph{
+    display: inline;
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    width: 30%;
+    height: 34%;
+    z-index: 10;
   }
 </style>

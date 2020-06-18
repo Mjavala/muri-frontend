@@ -4,7 +4,7 @@
         dark
         id="nav"
     >
-      <v-img id="iriss-logo" max-height="100" max-width="225" src="../../../../assets/iriss_logo.png" />
+      <v-img id="iriss-logo" max-height="100" max-width="225" src="../../../../assets/iriss_logo.jpg" />
       <v-spacer />
       <v-btn class="spacing-nav" light small>
         <router-link to="/">Home</router-link>

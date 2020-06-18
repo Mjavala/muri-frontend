@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <v-container
-        id="feed"
-        style="max-height: 200px"
-    >
-    </v-container>
-  </div>
+    <v-container id="feed" />
 </template>
 
 <script>
@@ -16,18 +10,28 @@ export default {
         }
     },
     props: [
-        'message'
+        'balloonInfoMessage', 'stationTrackingInfoMessage'
     ],
     watch: {
-        message(newVal){
+        balloonInfoMessage(newVal){
             this.messageMain = newVal
             this.addToFeed()
+        },
+        stationTrackingInfoMessage (newVal){
+            this.messageMain = newVal
+            this.addToFeedStat()
         }
     },
     methods: {
         addToFeed(){
+            let feed = document.getElementById('feed')
+            const message = JSON.parse(this.messageMain)
+            feed.innerHTML = 'muri/raw' + ' ' + JSON.stringify(message, undefined, '\t') ;
+        },
+        addToFeedStat () {
             let feed = document.getElementById('feed');
-            feed.innerHTML = this.messageMain ;
+            const message = JSON.parse(this.messageMain)
+            feed.innerHTML = 'muri/stat' + ' ' + JSON.stringify(message, undefined, '\t')
         }
     }
 }
@@ -35,8 +39,16 @@ export default {
 
 <style scoped>
     #feed{
-        border: solid black;
+        position: fixed;
+        top: 8%;
+        right: 0;
+        width: 20vw;
+        height: 100vh;
+        border: solid grey;
+        border-radius: 5px;
         border-width: 1px;
-        overflow-x: scroll;
+        z-index: 10;
+        background-color: white;
+        overflow-y: scroll;
     }
 </style>>

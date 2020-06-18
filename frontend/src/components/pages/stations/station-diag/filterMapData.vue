@@ -5,6 +5,8 @@
       :filteredMarker="filteredMarker" 
       :filteredAltitude="filteredAltitude" 
       :filteredMarkerStat="filteredMarkerStat"
+      :filteredAzimuth="filteredAzimuth"
+      :filteredElevation="filteredElevation"
     />
   </div>
 </template>
@@ -40,6 +42,8 @@ export default {
       filteredMarker: {},
       filteredMarkerStat: {},
       filteredAltitude: {},
+      filteredAzimuth: {},
+      filteredElevation: {},
       rssi: Number
     }
   },
@@ -59,19 +63,24 @@ export default {
       this.filteredAltitude =  message.data.frame_data['gps_alt'] / 1000
     },
     assignDataObjectsStat (message){
-        const messageOBJ = JSON.parse(message)
-        const id = messageOBJ['station']
-        this.lat = messageOBJ.tracker.gps['gps_lat'] 
-        this.lon = messageOBJ.tracker.gps['gps_lon']
-        try {
-          var marker = {
-            [id] : L.latLng(this.lat, this.lon)
-          }
-        } catch {
-          return
+      const messageOBJ = JSON.parse(message)
+      const id = messageOBJ['station']
+      this.lat = messageOBJ.tracker.gps['gps_lat'] 
+      this.lon = messageOBJ.tracker.gps['gps_lon']
+      try {
+        var marker = {
+          [id] : L.latLng(this.lat, this.lon)
         }
-        this.filteredMarkerStat = marker
-
+      } catch {
+        return
+      }
+      this.filteredMarkerStat = marker
+      this.filteredAzimuth = {
+        [id]: messageOBJ.tracker.ant['azm']
+      }
+      this.filteredElevation = {
+        [id]: messageOBJ.tracker.ant['elv']
+        }
     },
     latLngDataCleanup(latitude, longitude){
       const lat = (latitude / 10000000).toFixed(2)

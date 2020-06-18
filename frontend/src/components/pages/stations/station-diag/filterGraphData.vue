@@ -2,7 +2,7 @@
   <div>
     <rssiGraph :idList="idList" :filteredRSSI="filteredRSSI" />
     <voltageGraph :idList="idList" :filteredVoltage="filteredVoltage" />
-    <currentGraph :idList="idList" :filteredCurrent="filteredCurrent" />
+    <currentGraph :filteredAzimuth="filteredAzimuth" :filteredElevation="filteredElevation" />
 
   </div>
 </template>
@@ -40,7 +40,8 @@ export default {
         messageOBJ: [],
         idList: [],
         filteredVoltage: {},
-        filteredCurrent: {},
+        filteredAzimuth: {},
+        filteredElevation: {},
         filteredRSSI: {},
         rssi: Number,
         time: new Date()
@@ -61,7 +62,6 @@ export default {
       this.filteredRSSI = {
           [id] : message.data['RSSI_RX']
         }
-      console.log(this.filteredRSSI)
       },
     assignDataObjectsStation (message) {
       const id = message['station']
@@ -69,8 +69,11 @@ export default {
       this.filteredVoltage = {
         [id]: message.tracker.ant['volts']
         }
-      this.filteredCurrent = {
-        [id]: message.tracker.ant['curr']
+      this.filteredAzimuth = {
+        [id]: message.tracker.ant['azm']
+        }
+      this.filteredElevation = {
+        [id]: message.tracker.ant['elv']
         }
       }
     }

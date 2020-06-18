@@ -13,6 +13,14 @@
       >
       <l-icon v-bind="iconConfigBalloon" />
     </l-marker>
+      <l-polyline
+        :key="marker.id + 'line'"
+        v-for="marker in markers"
+        :lat-lngs="marker.polylines"
+        :opacity="1"
+        :weight="3"
+      >
+      </l-polyline>
     <l-marker
         :key="marker.id"
         v-for="marker in markers"
@@ -36,7 +44,7 @@
 
 <script>
 //TODO: Test render of markers / popups / prop data
-import {LMap, LTileLayer, LMarker, LIcon, LCircle} from 'vue2-leaflet'
+import {LMap, LTileLayer, LMarker, LIcon, LCircle, LPolyline} from 'vue2-leaflet'
 import L from 'leaflet';
 import Station from '../../../assets/broadcast.png'
 import Balloon from '../../../assets/pin.png'
@@ -47,7 +55,8 @@ export default {
     LTileLayer, 
     LMarker,
     LIcon,
-    LCircle
+    LCircle,
+    LPolyline,
   },
   mounted () {
     document.addEventListener('click', (e) => {
@@ -59,7 +68,7 @@ export default {
     })
   },
   props: [
-    'filteredMarker', 'idList', 'filteredBalloonMarker', 'balloonIdList'
+    'filteredMarker', 'idList', 'filteredBalloonMarker', 'balloonIdList', 'filteredAzimuth', 'filteredElevation'
   ],
   watch: {
     filteredMarker(newVal){
@@ -67,6 +76,20 @@ export default {
       this.currentDevice = objKey[0]
       let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
       this.currentPosition = objKeyMap[0]
+    },
+    filteredAzimuth (newVal) {
+      let objKey = Object.keys(newVal)
+      this.currentDeviceAzimuth = objKey[0]
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
+      this.currentAzimuth = objKeyMap[0]
+      this.matchDeviceIdForPolyline()
+    },
+    filteredElevation (newVal) {
+      let objKey = Object.keys(newVal)
+      this.currentDeviceElevation = objKey[0]
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
+      this.currentElevation = objKeyMap[0]
+      this.matchDeviceIdForElevation()
     },
     idList(newVal, oldVal){
       if (newVal.length === oldVal.length){
@@ -118,6 +141,11 @@ export default {
       markers: [],
       markersBalloon: [],
       currentDevice: '',
+      currentAzimuth: Number,
+      currentElevation: Number,
+      bearing: Number,
+      currentDeviceAzimuth: '',
+      currentDeviceElevation: '',
       currentBalloon: '',
       currentPosition: {},
       currentBalloonPosition: {},
@@ -156,15 +184,63 @@ export default {
     updateMarker(i) {
       this.markers[i].latlng = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
     },
+    updateElevation(i) {
+      this.markers[i].elevation = this.currentElevation
+    },
     updateBalloonMarker(i) {
       this.markersBalloon[i].latlng = L.latLng(this.currentBalloonPosition.lat, this.currentBalloonPosition.lng)
     },
     matchDeviceId () {
       for (const [i, markersObj] of this.markers.entries()) {
-        if (this.currentDevice === markersObj.id) {
+        if (this.currentDeviceAzimuth === markersObj.id) {
           this.updateMarker(i)
         }
       }
+    },
+    matchDeviceIdForPolyline () {
+      for (const [i, markersObj] of this.markers.entries()) {
+        if (this.currentDeviceAzimuth === markersObj.id) {
+          this.pushPolylineArray(i)
+        }
+      }
+    },
+    matchDeviceIdForElevation () {
+      for (const [i, markersObj] of this.markers.entries()) {
+        if (this.currentDeviceElevation === markersObj.id) {
+          this.updateElevation(i)
+        }
+      }
+    },
+    pushPolylineArray (i) {
+      const start = L.latLng(this.currentPosition.lat, this.currentPosition.lng)
+      const end = this.calculatePolylineEndpoint(this.currentPosition, this.currentAzimuth)
+      this.markers[i].polylines = [start, end]
+    },
+    calculatePolylineEndpoint(start, azimuth) {
+      if (azimuth >= 0 && azimuth <= 90) {
+        this.bearing = azimuth
+      }
+      if (azimuth >= 90 && azimuth <= 180) {
+        this.bearing = 180 - azimuth
+      }
+      if (azimuth >= 180 && azimuth <= 270) {
+        this.bearing = azimuth - 180
+      }
+      if (azimuth >= 270 && azimuth <= 360) {
+        this.bearing = 360 - azimuth
+      }
+        const R = 6378.1
+        const brng = this.bearing * Math.PI / 180
+        const d = 185.2 
+        const lat1 = start.lat *  Math.PI / 180
+        const lon1 = start.lng *  Math.PI / 180
+        const lat2 = Math.asin( Math.sin(lat1) * Math.cos(d/R) + Math.cos(lat1)*Math.sin(d/R)*Math.cos(brng))
+        const lon2 = lon1 + Math.atan2(Math.sin(brng)*Math.sin(d/R)*Math.cos(lat1), Math.cos(d/R)-Math.sin(lat1)*Math.sin(lat2))
+
+        const lat2Final = lat2 * 180 / Math.PI
+        const lon2Final = lon2 * 180 / Math.PI
+        const endpoint = L.latLng(lat2Final, lon2Final)
+        return endpoint
     },
     matchBalloonId () {
       for (const [i, markersObj] of this.markersBalloon.entries()) {
@@ -176,7 +252,9 @@ export default {
     addMarkerToMarkerArray() {
       const markerObj = {
         id: this.currentDevice,
-        latlng: L.latLng(this.currentPosition.lat, this.currentPosition.lng)
+        latlng: L.latLng(this.currentPosition.lat, this.currentPosition.lng),
+        polylines: [],
+        elevation: Number
       }
       this.markers.push(markerObj)
     },
@@ -226,15 +304,4 @@ export default {
   background: white !important;
   color: #121212 !important;
 }
-
-  @media only screen and (max-width: 768px) {
-    .map{
-      height: 50vh;
-      width: 100vw;
-      display: inherit;
-      margin: 1% auto;
-      margin-top: 15%;
-      margin-bottom: 10%;
-    }
-  }
 </style>

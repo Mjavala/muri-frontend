@@ -1,5 +1,5 @@
 <template>
-  <div id="hum-graph">
+  <div id="batt-graph">
   </div>
 </template>
 
@@ -8,23 +8,23 @@ import Plotly from 'plotly.js-dist/plotly'
 
 export default {
     props: [
-      'idList', 'filteredHum'
+      'idList', 'filteredBatteryMonitor'
     ],
     mounted () {
       let config = {displayModeBar: false, responsive: true}
       Plotly.react(
-        'hum-graph',
+        'batt-graph',
         this.chart.traces,
         this.chart.layout,
         config
       )
     },
     watch: {
-      filteredHum(newVal){
+      filteredBatteryMonitor(newVal){
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.humidity = objKeyMap[0]
+        this.batt = objKeyMap[0]
       },
       idList(newVal, oldVal){
         if (newVal.length === oldVal.length){
@@ -33,7 +33,7 @@ export default {
         }
         if (newVal.length > oldVal.length && newVal.length > 1){
           // new device detected, add trace
-          this.addTrace(this.humidity)
+          this.addTrace(this.batt)
           this.findTrace(newVal)
         }
         if (newVal.length === 1){
@@ -48,7 +48,7 @@ export default {
     },
     data() {
     return {
-      humidity: Number,
+      batt: Number,
       currentDevice: '',
       count: 0,
       timer: Number,
@@ -59,7 +59,7 @@ export default {
         layout: {
           plot_bgcolor: '#F5F5F5',
           title: {
-            text: 'Humidity vs Time',
+            text: 'Battery Monitor',
             font: {
               size: 11
             }
@@ -83,10 +83,6 @@ export default {
             }
           },
           yaxis: {
-            title: {
-              text: 'Humidity',
-              standoff: 20
-            },
             zeroline: false,
             showline:  true,
             rangemode: 'tozero',
@@ -104,7 +100,7 @@ export default {
     }
     },
     methods: {
-      addData (humidity, traceIndex) {
+      addData (batt, traceIndex) {
         /* extend trace throttle ~
         let last = this.chart.traces[traceIndex].y[this.chart.traces[traceIndex].y.length - 1]
         if (last === humidity){
@@ -115,10 +111,10 @@ export default {
         } */
         const update = {
           x: [[new Date()]],
-          y: [[humidity]]
+          y: [[batt]]
         }
         Plotly.extendTraces(
-          'hum-graph',
+          'batt-graph',
           update, 
           [traceIndex],
         )
@@ -133,13 +129,13 @@ export default {
       findTrace (deviceList) {
         for (const [i, id] of deviceList.entries()){
           if (id === this.currentDevice){
-            this.addData(this.humidity, i)
+            this.addData(this.batt, i)
           }
         }
       },
-      addTrace (humidity) {
+      addTrace (batt) {
         const traceObj = {
-            y: [humidity],
+            y: [batt],
             x: [new Date()],
             type: 'scattergl',
             mode: 'lines',
@@ -153,20 +149,13 @@ export default {
 </script>
 
 <style scoped>
-  #hum-graph{
+  #batt-graph{
     display: inline;
     position: absolute;
-    top: 45%;
-    left: 74%;
-    width: 25%;
-    height: 35%;
+    top: 35%;
+    left: 70%;
+    width: 30%;
+    height: 34%;
     z-index: 10;
-  }
-  @media only screen and (max-width: 768px) {
-    #hum-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
   }
 </style>

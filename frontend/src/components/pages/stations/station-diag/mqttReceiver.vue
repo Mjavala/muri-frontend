@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     connect () {
-      this.client = new window.Paho.MQTT.Client(this.host, this.port, this.clientID);
+      this.client = new window.Paho.MQTT.Client(this.host, this.port, this.clientID)
       this.client.connect({      
         onSuccess: this.onConnect,
         useSSL: true, 
@@ -84,6 +84,8 @@ export default {
       if (responseObject.errorCode !== 0) {
         console.log(responseObject.errorCode)
         console.log("onConnectionLost:"+responseObject.errorMessage)
+        this.clientID = "clientID-" + parseInt(Math.random() * 100)
+        this.client = new window.Paho.MQTT.Client(this.host, this.port, this.clientID)
         setTimeout(() => {
           this.client.connect({      
           onSuccess: this.onConnect,

@@ -84,7 +84,7 @@ export default {
             }
           },
           yaxis: {
-            title: 'Temp (K)',
+            title: 'Temp (C)',
             showline:  true,
             zeroline: false,
             rangemode: 'tozero',
@@ -151,19 +151,12 @@ export default {
 
 <style scoped>
   #temp-graph{
-      display: inline;
-      position: absolute;
-      top: 5%;
-      left: 74%;
-      width: 25%;
-      height: 35%;
-      z-index: 10;
+    display: inline;
+    position: absolute;
+    top: 0;
+    left: 70%;
+    width: 30%;
+    height: 34%;
+    z-index: 100;
   } 
-  @media only screen and (max-width: 768px) {
-    #temp-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
-  }
 </style>

@@ -5,6 +5,8 @@
       :filteredMarker="filteredMarker" 
       :filteredBalloonMarker="filteredBalloonMarker"
       :balloonIdList="balloonIdList"
+      :filteredAzimuth="filteredAzimuth"
+      :filteredElevation="filteredElevation"
       @addStation="passStationFunc"
     />
   </div>
@@ -47,6 +49,8 @@ export default {
       payloadRaw: [],
       filteredMarker: {},
       filteredBalloonMarker: {},
+      filteredAzimuth: {},
+      filteredElevation: {},
       idList: [],
       balloonIdList: []
     }
@@ -65,17 +69,23 @@ export default {
       }
     },
     assignDataObjects(message){
-        const id = message['station']
-        this.lat = message.tracker.gps['gps_lat'] 
-        this.lon = message.tracker.gps['gps_lon']
-        try {
-          var marker = {
-            [id] : L.latLng(this.lat, this.lon)
-          }
-        } catch {
-          return
+      const id = message['station']
+      this.lat = message.tracker.gps['gps_lat'] 
+      this.lon = message.tracker.gps['gps_lon']
+      try {
+        var marker = {
+          [id] : L.latLng(this.lat, this.lon)
         }
-        this.filteredMarker = marker
+      } catch {
+        return
+      }
+      this.filteredMarker = marker
+      this.filteredAzimuth = {
+        [id]: message.tracker.ant['azm']
+      }
+      this.filteredElevation = {
+        [id]: message.tracker.ant['elv']
+      }
     },
     assignDataObjectsRaw(message){
         const id = message.data['ADDR_FROM']

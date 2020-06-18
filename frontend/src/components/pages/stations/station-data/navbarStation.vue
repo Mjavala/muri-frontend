@@ -1,16 +1,20 @@
 <template>    
     <v-app-bar
         app
-        dark
         id="nav"
+        flat
+        color="#fff"
     >
-      <v-img id="iriss-logo" max-height="100" max-width="225" src="../../../../assets/iriss_logo.png" />
+      <v-img id="iriss-logo" max-height="100" max-width="225" src="../../../../assets/iriss_logo.jpg" />
       <v-spacer />
       <v-btn class="spacing-nav" light small>
         <router-link to="/">Home</router-link>
       </v-btn>
       <v-btn id="station-diagnostics" light small @click="routeToDiagnostics">
         Station Diagnostics
+      </v-btn>
+      <v-btn class="spacing-nav" light small @click="toggleFeed">
+        Feed
       </v-btn>
     </v-app-bar>
 </template>
@@ -27,12 +31,17 @@ export default {
   data () {
     return {
       diagnostics: '',
+      showFeed: false
     }
   },
   methods: {
     routeToDiagnostics(){
       let routeData = this.$router.resolve({name: 'stationDiagnostics', params: {id: this.station}})
       window.open(routeData.href, '_blank')
+    },
+    toggleFeed(){
+      this.showFeed = !this.showFeed
+      this.$emit('showFeed', this.showFeed)
     }
   }
 }
@@ -42,9 +51,7 @@ export default {
   #nav{
     position: absolute;
     z-index: 1000;
-    background: #667db6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6) !important;
+    height: 2.5em !important;
   }
   a {
     color: inherit;

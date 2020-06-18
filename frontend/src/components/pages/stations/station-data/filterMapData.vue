@@ -3,7 +3,9 @@
     <MapRender 
       :idList="idList" 
       :filteredMarker="filteredMarker" 
-      :filteredAltitude="filteredAltitude" />
+      :filteredAltitude="filteredAltitude"
+      :balloonToTrack4="balloonToTrack4"
+     />
   </div>
 </template>
 
@@ -12,7 +14,7 @@ import L from 'leaflet';
 import MapRender from './mapRender'
 
 export default {
-  props: ['id', 'message'],
+  props: ['id', 'message', 'balloonToTrack3'],
   components: {
     MapRender
   },
@@ -23,6 +25,9 @@ export default {
     },
     id(newVal){
       this.idList = newVal
+    },
+    balloonToTrack3(newVal){
+      this.balloonToTrack4 = newVal
     }
   },
   data() {
@@ -32,7 +37,8 @@ export default {
       idList: [],
       filteredMarker: {},
       filteredAltitude: {},
-      rssi: Number
+      rssi: Number,
+      balloonToTrack4: ''
     }
   },
   methods: {
@@ -47,7 +53,7 @@ export default {
       this.latLngDataCleanup(message.data.frame_data['gps_lat'], message.data.frame_data['gps_lon'])
       this.filteredMarker = {
           [id] : L.latLng(this.lat, this.lon)
-          }
+        }
       this.filteredAltitude =  message.data.frame_data['gps_alt'] / 1000
     },
     latLngDataCleanup(latitude, longitude){

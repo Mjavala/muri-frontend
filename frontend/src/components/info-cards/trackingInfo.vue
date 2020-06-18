@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card id="tracking-card">
+        <v-card id="tracking-card" flat>
             <v-card-title id="tracking-title">Ground station info</v-card-title>
             <v-data-table disable-sort dense hide-default-footer :headers="headers" :items="info" item-key="name"></v-data-table>
         </v-card>
@@ -24,7 +24,6 @@ export default {
                 Az: 39,
                 req_Az: 17000,
                 req_El: 50,
-                curr_Az: 100,
                 elv: 5000,
                 last_req_mode: 'WAITING',
                 last_req_mode_time: 'WAITING',
@@ -34,10 +33,9 @@ export default {
             headers: [
                 { text: 'range', value: 'range' },
                 { text: 'Az', value: 'Az' },
+                { text: 'elv', value: 'elv' },
                 { text: 'req_Az', value: 'req_Az' },
                 { text: 'req_El', value: 'req_El' },
-                { text: 'curr_Az', value: 'curr_Az' },
-                { text: 'elv', value: 'elv' },
                 { text: 'last_req_mode', value: 'last_req_mode' },
                 { text: 'last_req_mode_time', value: 'last_req_mode_time' },
                 { text: 'last_man_az', value: 'last_man_az' },
@@ -79,7 +77,7 @@ export default {
         margin: 0.75em 0;
     }
     #tracking-title {
-        font-size: 1em;
+        font-size: 0.8em;
         padding: 0 0.5em;
         color: rgba(0, 0, 0, 0.6);
         font-weight: bolder;

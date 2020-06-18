@@ -1,5 +1,5 @@
 <template>
-  <div id="current-graph">
+  <div id="azm-elv-graph">
   </div>
 </template>
 
@@ -7,51 +7,69 @@
 import Plotly from 'plotly.js-dist/plotly'
 
 export default {
-    props: [
-      'idList', 'filteredCurrent'
+    props: [ 
+      'filteredElevation', 'filteredAzimuth'
     ],
     mounted () {
       let config = {displayModeBar: false, responsive: true}
       Plotly.react(
-        'current-graph',
+        'azm-elv-graph',
         this.chart.traces,
         this.chart.layout,
         config
       )
     },
     watch: {
-      filteredCurrent(newVal){
+      filteredAzimuth(newVal){
         if (this.statMessageCount === 0) {
           this.statMessageCount = this.statMessageCount + 1
         }
         let objKey = Object.keys(newVal)
         this.currentDevice = objKey[0]
         let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
-        this.current = objKeyMap[0]
+        this.az = objKeyMap[0]
         if (this.counter === 0 && this.statMessageCount === 1) {
           this.timer = new Date()
-          this.addTrace(this.current)
+          this.addTrace(this.az, 'az')
           this.counter = this.counter + 1
         } else {
-          this.addData(this.current)
+          this.addData(this.az)
+        }
+      },
+      filteredElevation(newVal){
+        if (this.statMessageCount1 === 0) {
+          this.statMessageCount1 = this.statMessageCount1 + 1
+        }
+        let objKey = Object.keys(newVal)
+        this.currentDevice1 = objKey[0]
+        let objKeyMap = Object.keys(newVal).map((k) => newVal[k]);
+        this.elv = objKeyMap[0]
+        if (this.counter1 === 0 && this.statMessageCount1 === 1) {
+          this.addTrace(this.elv, 'elv')
+          this.counter1 = this.counter1 + 1
+        } else {
+          this.addDataElv(this.elv)
         }
       }
     },
     data() {
     return {
-      current: Number,
+      az: Number,
+      elv: Number,
       currentDevice: '',
+      currentDevice1: '',
       timer: Number,
-      count: 0,
       counter: 0,
+      counter1: 0,
       statMessageCount: 0,
+      statMessageCount1: 0,
       chart: {
         uuid: "1233",
         traces: [],
         layout: {
           plot_bgcolor: '#F5F5F5',
           title: {
-            text: 'Current vs Time',
+            text: 'Azimuth & Elevation',
             font: {
               size: 11
             }
@@ -78,10 +96,6 @@ export default {
             zeroline: false,
             showline:  true,
             rangemode: 'tozero',
-            title: {
-              text: 'Current',
-              standoff: 20
-            },
             titlefont: {
               size: 9
             },
@@ -96,13 +110,13 @@ export default {
     }
     },
     methods: {
-      addData (current) {
+      addData (point) {
         const update = {
           x: [[new Date()]],
-          y: [[current]]
+          y: [[point]]
         }
         Plotly.extendTraces(
-          'current-graph',
+          'azm-elv-graph',
           update, 
           [0],  // only 1 station
         )
@@ -112,16 +126,29 @@ export default {
           // 30 minute timeframe reached, need to remove first element of array as new one gets added
           this.chart.traces[0].y.shift()
           this.chart.traces[0].x.shift()
+          this.chart.traces[1].y.shift()
+          this.chart.traces[1].x.shift()
         }
       },
-      addTrace (current) {
+      addDataElv (point) {
+        const update = {
+          x: [[new Date()]],
+          y: [[point]]
+        }
+        Plotly.extendTraces(
+          'azm-elv-graph',
+          update, 
+          [1],  // repeating yourself cuz you suuuuuuuuck ~ deadlineisbelikedeadlinedo ~
+        )
+      },
+      addTrace (point, name) {
         const traceObj = {
-            y: [current],
+            y: [point],
             x: [new Date()],
             type: 'scattergl',
             mode: 'lines',
             connectgaps: true,
-            name: this.currentDevice
+            name: name
         }
         this.chart.traces.push(traceObj)
       },
@@ -130,7 +157,7 @@ export default {
 </script>
 
 <style scoped>
-  #current-graph{
+  #azm-elv-graph{
     display: inline;
     position: absolute;
     top: 42%;

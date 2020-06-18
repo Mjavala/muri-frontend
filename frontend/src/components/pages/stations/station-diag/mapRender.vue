@@ -37,6 +37,18 @@
         :weight="1"
         :dashArray="'12'"
       />
+      <l-polyline
+        v-if="this.statCount === 1"
+        :lat-lngs="azimuthLine"
+        :opacity="1"
+        :weight="3"
+      >
+      <l-popup v-if="this.statCount === 1"> 
+        <div class="popups">
+          elv: {{this.elv}}
+        </div> 
+      </l-popup>
+      </l-polyline>
     </l-map>
   </div>
 </template>
@@ -60,7 +72,7 @@ export default {
     LCircle
   },
   props: [
-    'filteredMarker', 'idList', 'filteredAltitude', 'filteredMarkerStat'
+    'filteredMarker', 'idList', 'filteredAltitude', 'filteredMarkerStat', 'filteredAzimuth', 'filteredElevation'
   ],
   watch: {
     filteredMarker(newVal){
@@ -73,7 +85,6 @@ export default {
       this.currentAltitude = (newVal).toFixed(1)
     },
     filteredMarkerStat(newVal) {
-
       let objKey = Object.keys(newVal)
       this.currentStation = objKey[0]
       let objKeyMap = Object.keys(newVal).map((k) => newVal[k])
@@ -83,6 +94,41 @@ export default {
       if(this.statCount === 0) {
         this.statCount = this.statCount + 1
       }
+    },
+    filteredAzimuth (newVal) {
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k])
+      this.az = objKeyMap[0]
+      if (this.az >= 0 && this.az <= 90) {
+        this.bearing = this.az
+      }
+      if (this.az >= 90 && this.az <= 180) {
+        this.bearing = 180 - this.az
+      }
+      if (this.az >= 180 && this.az <= 270) {
+        this.bearing = this.az - 180
+      }
+      if (this.az >= 270 && this.az <= 360) {
+        this.bearing = 360 - this.az
+      }
+      if(this.statCount === 1){
+        const start = this.mapConfig.center
+        const R = 6378.1
+        const brng = this.bearing * Math.PI / 180
+        const d = 185.2 
+        const lat1 = start.lat *  Math.PI / 180
+        const lon1 = start.lng *  Math.PI / 180
+        const lat2 = Math.asin( Math.sin(lat1) * Math.cos(d/R) + Math.cos(lat1)*Math.sin(d/R)*Math.cos(brng))
+        const lon2 = lon1 + Math.atan2(Math.sin(brng)*Math.sin(d/R)*Math.cos(lat1), Math.cos(d/R)-Math.sin(lat1)*Math.sin(lat2))
+
+        const lat2Final = lat2 * 180 / Math.PI
+        const lon2Final = lon2 * 180 / Math.PI
+        this.azimuthLineEnd = L.latLng(lat2Final, lon2Final)
+        this.azimuthLine = [this.mapConfig.center, this.azimuthLineEnd]
+      }
+    },
+    filteredElevation (newVal) {
+      let objKeyMap = Object.keys(newVal).map((k) => newVal[k])
+      this.elv = objKeyMap[0]
     },
     idList(newVal, oldVal){
       if (newVal.length === oldVal.length){
@@ -108,6 +154,11 @@ export default {
   data() {
     return {
       markers: [],
+      azimuthLine: {},
+      azimuthLineEnd: {},
+      az: Number,
+      elv: Number,
+      bearing: Number,
       statMarker: {},
       statCount: 0,
       currentDevice: '',

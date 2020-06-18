@@ -1,20 +1,10 @@
 <template>
-  <div id="app">
+  <div>
     <div id="wrapper">
       <v-btn icon depressed rounded id="live" v-if="this.status">
         <v-icon id="live-icon" color="#76FF03">mdi-wifi</v-icon>
       </v-btn>
-      <filterID v-bind:message="this.message" :messageStat="messageStat" />
-      <div id='conFeedWrap'>
-        <!--
-        <v-btn id="connect" @click="connect">
-          Connect
-        </v-btn>
-        <v-btn id="disconnect" @click="disconnect">
-          Disconnect
-        </v-btn>
-        -->
-      </div>
+      <filterID v-bind:message="this.message" :messageStat="messageStat" :balloonToTrack2="balloonToTrack2"/>
     </div>
   </div>
 </template>
@@ -24,7 +14,7 @@ import filterID from './filterID'
 
 export default {
   props:
-  ['station', 'connectReq', 'disconnectReq'],
+  ['station', 'connectReq', 'disconnectReq', 'balloonToTrack'],
   mounted () {
     try {
       this.connect()
@@ -45,12 +35,16 @@ export default {
       if (newVal === true) {
         this.disconnect()
       }
+    },
+    balloonToTrack (newVal) {
+      this.balloonToTrack2 = newVal
     }
   },
   data () {
     return {
       message: '',
       messageStat: '',
+      balloonToTrack2: '',
       logs: [],
       status: false,
       stationFilter: '',
@@ -92,6 +86,8 @@ export default {
       if (responseObject.errorCode !== 0) {
         console.log(responseObject.errorCode)
         console.log("onConnectionLost:"+responseObject.errorMessage)
+        this.clientID = "clientID-" + parseInt(Math.random() * 100)
+        this.client = new window.Paho.MQTT.Client(this.host, this.port, this.clientID)
         setTimeout(() => {
           this.client.connect({      
           onSuccess: this.onConnect,
@@ -127,10 +123,8 @@ export default {
         if (messageOBJ['station'] === this.stationFilter){
           this.messageStat = message.payloadString
           this.$emit('statMessage', this.messageStat)
-
         }
       }
-
     },
     checkMessagePurity(message) {
       const messageOBJ = JSON.parse(message)
@@ -162,8 +156,8 @@ export default {
     margin-top: 0.5%;
   }
   #live{
-    position: fixed;
-    top: 1.5%;
+    position: absolute;
+    top: -13.5%;
     left: 18em;
     z-index: 1001;
     background: transparent;
@@ -171,21 +165,10 @@ export default {
   #live-icon{
     animation: shadow-pulse 3s infinite;
     border-radius: 50%;
+    background: #E3F2FD;  /* fallback for old browsers */
   }
   #disconnect {
     z-index: 11;
-  }
-  @media only screen and (max-width: 768px) {
-    #connect {
-      position: absolute;
-      top: -4%;
-      right: 52.5%;
-    }
-    #disconnect {
-      position: absolute;
-      top: -4%;
-      left: 50%;
-    }
   }
   @keyframes shadow-pulse
   {

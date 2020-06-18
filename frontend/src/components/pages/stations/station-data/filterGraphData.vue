@@ -3,7 +3,7 @@
     <altitudeGraph :idList="idList" :filteredAltitude="filteredAltitude" />
     <rssiGraph :idList="idList" :filteredRSSI="filteredRSSI" />
     <tempGraph :idList="idList" :filteredTemp="filteredTemp" />
-    <humGraph :idList="idList" :filteredHum="filteredHum" />
+    <battMon :idList="idList" :filteredBatteryMonitor="filteredBatteryMonitor" />
     <hwAvgs :idList="idList" :filteredHwAvgs="filteredHwAvgs" />
     <cwAvgs :idList="idList" :filteredCwAvgs="filteredCwAvgs" />
   </div>
@@ -13,7 +13,7 @@
 import altitudeGraph from '../../../graphs/altitudeGraph'
 import rssiGraph from '../../../graphs/RSSIGraph'
 import tempGraph from '../../../graphs/temperatureGraph'
-import humGraph from '../../../graphs/humidityGraph'
+import battMon from '../../../graphs/battMonGraph'  // nanannanana
 import hwAvgs from '../../../graphs/hwSpectralAvgs'
 import cwAvgs from '../../../graphs/cwSpectralAvgs'
 
@@ -26,7 +26,7 @@ export default {
     altitudeGraph,
     rssiGraph,
     tempGraph,
-    humGraph,
+    battMon,
     hwAvgs,
     cwAvgs
   },
@@ -47,7 +47,7 @@ export default {
         filteredAltitude: {},
         filteredRSSI: {},
         filteredTemp: {},
-        filteredHum: {},
+        filteredBatteryMonitor: {},
         filteredHwAvgs: {},
         filteredCwAvgs: {},
         altitude: {},
@@ -70,12 +70,14 @@ export default {
             [id] : message.data['RSSI_RX']
           }
         this.filteredTemp = {
-            [id]: message.data.frame_data['temp Ta1 (amb)']
+            [id]: ((message.data.frame_data['temp Ta2 (amb)'] / 409.6) - 100)
           }
         //  need RS41 for humidity
-        this.filteredHum = {
-            [id]: message.data.frame_data['RS41 Hum']
+        if (message.data['FRAME_TYPE'] === '0xd2a8') {
+          this.filteredBatteryMonitor = {
+              [id]: message.data.frame_data['Batt Mon']
           }
+        }
         if (message.data['FRAME_TYPE'] === '0xc109') {
           const cw0 = message.data.frame_data['CW SA 0']
           const cw1 = message.data.frame_data['CW SA 1']

@@ -156,19 +156,12 @@ export default {
 
 <style scoped>
   #altitude-graph{
-      display: inline;
-      position: absolute;
-      top: 5%;
-      left: 49%;
-      width: 25%;
-      height: 35%;
-      z-index: 10;
-  } 
-  @media only screen and (max-width: 768px) {
-    #altitude-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
+    display: inline;
+    position: absolute;
+    top: 0;
+    left: 39%;
+    width: 30%;
+    height: 34%;
+    z-index: 100;
   }
 </style>

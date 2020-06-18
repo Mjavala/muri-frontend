@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card id="mqtt-card">
+        <v-card id="mqtt-card" flat>
             <v-card-title id="mqtt-title">Mqtt stat info</v-card-title>
             <v-data-table disable-sort dense hide-default-footer :headers="headers" :items="info" item-key="name"></v-data-table>
         </v-card>
@@ -68,7 +68,8 @@ export default {
         border-bottom: 1px black solid;
     }
     #mqtt-title{
-        font-size: 1em;
+        max-height: 1.5em;
+        font-size: 0.8em;
         padding: 0 0.5em;
         color: rgba(0, 0, 0, 0.6);
         font-weight: bolder;
@@ -79,10 +80,5 @@ export default {
         border: 1px solid grey;
         border-radius: 2.5px;
         padding: 0.1em;
-    }
-    #mqtt-card {
-        position: absolute;
-        left: 56.5%;
-        top: 87.6%;
     }
 </style>

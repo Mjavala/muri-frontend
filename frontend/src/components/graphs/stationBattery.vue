@@ -145,11 +145,4 @@ export default {
     width: 50%;
     z-index: 10;
   }
-  @media only screen and (max-width: 768px) {
-    #battery-graph {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
-  }
 </style>
