@@ -1,211 +1,799 @@
-2020-06-04 11:18:04,273 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:18:04,344 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:18:04,480 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:18:04,587 - app - app_lvl - --- Raw database service started succesfully ---
-2020-06-04 11:18:04,682 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:18:09,354 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:09,643 - app - app_lvl - Exception in raw database service: 'muri_db_raw' object has no attribute 'message_type'
-2020-06-04 11:18:38,364 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:18:38,364 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:18:38,364 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:18:38,364 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:18:38,368 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:18:38,368 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:18:38,368 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:18:38,368 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:18:38,370 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Raw database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Raw database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Raw database service started succesfully ---
-2020-06-04 11:18:38,370 - app - app_lvl - --- Raw database service started succesfully ---
-2020-06-04 11:18:38,570 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:18:38,570 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:18:38,570 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:18:38,570 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:18:43,379 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:43,379 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:43,379 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:43,379 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:43,433 - app - app_lvl - Exception in raw database service: 'muri_db_raw' object has no attribute 'message_type'
-2020-06-04 11:18:43,433 - app - app_lvl - Exception in raw database service: 'muri_db_raw' object has no attribute 'message_type'
-2020-06-04 11:18:43,433 - app - app_lvl - Exception in raw database service: 'muri_db_raw' object has no attribute 'message_type'
-2020-06-04 11:18:43,433 - app - app_lvl - Exception in raw database service: 'muri_db_raw' object has no attribute 'message_type'
-2020-06-04 11:18:48,388 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:48,388 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:48,388 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:48,388 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:53,394 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:53,394 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:53,394 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:18:53,394 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:00,066 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:00,066 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:00,066 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:00,066 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:00,067 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:00,067 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:00,067 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:00,067 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:00,068 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:00,068 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:00,068 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:00,068 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:00,272 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:00,272 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:00,272 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:00,272 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:05,072 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:05,072 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:05,072 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:05,072 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:52,700 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:52,700 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:52,700 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:52,700 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:21:52,701 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:52,701 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:52,701 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:52,701 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:21:52,702 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:52,702 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:52,702 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:52,702 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:21:52,929 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:52,929 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:52,929 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:52,929 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:21:57,703 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:57,703 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:57,703 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:21:57,703 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:17,524 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:22:17,524 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:22:17,524 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:22:17,524 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:22:17,526 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:22:17,526 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:22:17,526 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:22:17,526 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:22:17,527 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:22:17,527 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:22:17,527 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:22:17,527 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:22:17,730 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:22:17,730 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:22:17,730 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:22:17,730 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:22:22,528 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:22,528 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:22,528 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:22,528 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:27,532 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:27,532 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:27,532 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:27,532 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:32,533 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:32,533 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:32,533 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:22:32,533 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:23:34,663 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:23:34,663 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:23:34,663 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:23:34,663 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:23:34,664 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:23:34,664 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:23:34,664 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:23:34,664 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:23:34,665 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:23:34,665 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:23:34,665 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:23:34,665 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:23:34,864 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:23:34,864 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:23:34,864 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:23:34,864 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:23:39,665 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:23:39,665 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:23:39,665 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:23:39,665 - app - app_lvl - Main Loop Exception: 'data'
-2020-06-04 11:26:06,763 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:06,763 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:06,763 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:06,763 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:06,764 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:06,764 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:06,764 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:06,764 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:06,765 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:06,765 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:06,765 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:06,765 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:06,967 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:06,967 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:06,967 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:06,967 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:23,363 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:23,363 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:23,363 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:23,363 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:26:23,364 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:23,364 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:23,364 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:23,364 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:26:23,365 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:23,365 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:23,365 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:23,365 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:26:23,565 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:23,565 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:23,565 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:26:23,565 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:27:19,687 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:27:19,687 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:27:19,687 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:27:19,687 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:27:19,688 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:27:19,688 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:27:19,688 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:27:19,688 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:27:19,689 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:27:19,689 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:27:19,689 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:27:19,689 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:27:19,895 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:27:19,895 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:27:19,895 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:27:19,895 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:31:40,531 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:31:40,531 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:31:40,531 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:31:40,531 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:31:40,533 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:31:40,533 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:31:40,533 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:31:40,533 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:31:40,534 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:31:40,534 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:31:40,534 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:31:40,534 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:31:40,744 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:31:40,744 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:31:40,744 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:31:40,744 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:32:07,888 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:32:07,888 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:32:07,888 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:32:07,888 - app - app_lvl - Starting MURI App Main Program
-2020-06-04 11:32:07,889 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:32:07,889 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:32:07,889 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:32:07,889 - app - app_lvl - Connecting to MQTT Server....
-2020-06-04 11:32:07,890 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:32:07,890 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:32:07,890 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:32:07,890 - app - app_lvl - --- Database service started succesfully ---
-2020-06-04 11:32:08,096 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:32:08,096 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:32:08,096 - app - app_lvl - --- MQTT Connected! ---
-2020-06-04 11:32:08,096 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:19:03,883 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:19:03,903 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:19:04,425 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:19:18,978 - app - app_lvl - Main Loop Exception: name 'db' is not defined
+2020-06-30 13:19:50,519 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:19:50,519 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:19:50,519 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:19:50,520 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:19:50,520 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:19:50,520 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:19:50,757 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:19:50,757 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:19:50,757 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:20:23,723 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:20:23,723 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:20:23,723 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:20:23,724 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:20:23,724 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:20:23,724 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:20:23,949 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:20:23,949 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:20:23,949 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:21:30,530 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:21:30,530 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:21:30,530 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:21:30,532 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:21:30,532 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:21:30,532 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:21:30,765 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:21:30,765 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:21:30,765 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:21:43,590 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:21:43,590 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:21:43,590 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:21:45,898 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:21:45,898 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:21:45,898 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:21:52,958 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:21:52,958 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:21:52,958 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:21:55,267 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:21:55,267 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:21:55,267 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:26:46,115 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:26:46,115 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:26:46,115 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:26:46,117 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:26:46,117 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:26:46,117 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:26:46,373 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:26:46,373 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:26:46,373 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:27:13,249 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:27:13,249 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:27:13,249 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:27:15,577 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:27:15,577 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:27:15,577 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:27:30,675 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:27:30,675 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:27:30,675 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:27:33,057 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:27:33,057 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:27:33,057 - app - app_lvl - Exception in Database Connection Script: [Errno 10061] Connect call failed ('159.89.152.16', 5432)
+2020-06-30 13:45:19,437 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:45:19,437 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:45:19,437 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:45:19,439 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:45:19,439 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:45:19,439 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:45:19,670 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:45:19,670 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:45:19,670 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:45:28,477 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:45:28,477 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:45:28,477 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:45:28,814 - app - app_lvl - Exception in Database Connection Script: column "timestamp" does not exist
+2020-06-30 13:45:28,814 - app - app_lvl - Exception in Database Connection Script: column "timestamp" does not exist
+2020-06-30 13:45:28,814 - app - app_lvl - Exception in Database Connection Script: column "timestamp" does not exist
+2020-06-30 13:47:48,355 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:47:48,355 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:47:48,355 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:47:48,357 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:47:48,357 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:47:48,357 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:47:48,600 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:47:48,600 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:47:48,600 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:48:08,461 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:48:08,461 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:48:08,461 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:48:08,767 - app - app_lvl - Exception in Database Connection Script: column "station" does not exist
+HINT:  Perhaps you meant to reference the column "device_data.station_id".
+2020-06-30 13:48:08,767 - app - app_lvl - Exception in Database Connection Script: column "station" does not exist
+HINT:  Perhaps you meant to reference the column "device_data.station_id".
+2020-06-30 13:48:08,767 - app - app_lvl - Exception in Database Connection Script: column "station" does not exist
+HINT:  Perhaps you meant to reference the column "device_data.station_id".
+2020-06-30 13:49:27,372 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:49:27,372 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:49:27,372 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:49:27,373 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:49:27,373 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:49:27,373 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:49:27,599 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:49:27,599 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:49:27,599 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:50:04,580 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:50:04,580 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:50:04,580 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:50:04,956 - app - app_lvl - Exception in Database Connection Script: column "temp" does not exist
+2020-06-30 13:50:04,956 - app - app_lvl - Exception in Database Connection Script: column "temp" does not exist
+2020-06-30 13:50:04,956 - app - app_lvl - Exception in Database Connection Script: column "temp" does not exist
+2020-06-30 13:50:22,753 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:50:22,753 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:50:22,753 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:50:22,755 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:50:22,755 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:50:22,755 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:50:22,970 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:50:22,970 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:50:22,970 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:50:34,820 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:50:34,820 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:50:34,820 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:50:35,145 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:50:35,145 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:50:35,145 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:56:34,831 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:56:34,831 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:56:34,831 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:56:34,832 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:56:34,832 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:56:34,832 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:56:35,060 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:56:35,060 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:56:35,060 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:56:53,931 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:56:53,931 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:56:53,931 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:56:54,279 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:56:20', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:56:54,279 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:56:20', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:56:54,279 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:56:20', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:56:54,280 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:56:54,280 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:56:54,280 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:56:54,534 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:56:27', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:56:54,534 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:56:27', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:56:54,534 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:56:27', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:56:54,857 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:56:54,857 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:56:54,857 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:58:40,055 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:58:40,055 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:58:40,055 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:58:40,057 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:58:40,057 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:58:40,057 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:58:40,274 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:58:40,274 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:58:40,274 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:59:13,582 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:59:13,582 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:59:13,582 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 13:59:13,583 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:59:13,583 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:59:13,583 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 13:59:13,797 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:59:13,797 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:59:13,797 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 13:59:36,742 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:59:36,742 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:59:36,742 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:59:36,994 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:59:07', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:59:36,994 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:59:07', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:59:36,994 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:59:07', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:59:36,995 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:59:36,995 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:59:36,995 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 13:59:37,278 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:59:09', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:59:37,278 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:59:09', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:59:37,278 - app - app_lvl - Exception in Database Connection Script: invalid input for query argument $1: ('2020-06-30 14:59:09', 'xbee_0013A20041... (expected str, got tuple)
+2020-06-30 13:59:37,619 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:59:37,619 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 13:59:37,619 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 14:00:21,686 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:00:21,686 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:00:21,686 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:00:21,688 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:00:21,688 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:00:21,688 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:00:21,915 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:00:21,915 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:00:21,915 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:01:19,967 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:01:19,967 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:01:19,967 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:01:20,293 - app - app_lvl - Exception in Database Connection Script: null value in column "addr" violates not-null constraint
+DETAIL:  Failing row contains (1, null).
+2020-06-30 14:01:20,293 - app - app_lvl - Exception in Database Connection Script: null value in column "addr" violates not-null constraint
+DETAIL:  Failing row contains (1, null).
+2020-06-30 14:01:20,293 - app - app_lvl - Exception in Database Connection Script: null value in column "addr" violates not-null constraint
+DETAIL:  Failing row contains (1, null).
+2020-06-30 14:01:20,294 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:01:20,294 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:01:20,294 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:01:20,643 - app - app_lvl - Exception in Database Connection Script: null value in column "stat_addr" violates not-null constraint
+DETAIL:  Failing row contains (1, null).
+2020-06-30 14:01:20,643 - app - app_lvl - Exception in Database Connection Script: null value in column "stat_addr" violates not-null constraint
+DETAIL:  Failing row contains (1, null).
+2020-06-30 14:01:20,643 - app - app_lvl - Exception in Database Connection Script: null value in column "stat_addr" violates not-null constraint
+DETAIL:  Failing row contains (1, null).
+2020-06-30 14:01:21,009 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 14:01:21,009 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 14:01:21,009 - app - app_lvl - Exception in Database Connection Script: insert or update on table "device_data" violates foreign key constraint "device_data_device_id_fkey"
+DETAIL:  Key (device_id)=(xbee_0013A20041B8473F) is not present in table "DEVICES".
+2020-06-30 14:02:59,923 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:02:59,923 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:02:59,923 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:02:59,924 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:02:59,924 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:02:59,924 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:03:00,148 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:03:00,148 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:03:00,148 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:03:20,030 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:03:20,030 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:03:20,030 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:03:20,355 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:03:20,355 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:03:20,355 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:20,344 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:20,344 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:20,344 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:20,660 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:20,660 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:20,660 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:53,538 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:53,538 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:53,538 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:53,885 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:53,885 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:04:53,885 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:22,675 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:22,675 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:22,675 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:22,999 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:22,999 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:22,999 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:55,867 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:55,867 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:55,867 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:56,192 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:56,192 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:05:56,192 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:06:52,178 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:06:52,178 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:06:52,178 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:06:52,526 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:06:52,526 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:06:52,526 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:15,303 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:15,303 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:15,303 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:15,656 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:15,656 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:15,656 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:45,526 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:45,526 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:45,526 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:46,730 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:46,730 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:07:46,730 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:02,528 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:02,528 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:02,528 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:02,858 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:02,858 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:02,858 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:27,698 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:27,698 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:27,698 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:28,025 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:28,025 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:28,025 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:38,769 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:38,769 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:38,769 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:39,094 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:39,094 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:08:39,094 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:09:01,916 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:09:01,916 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:09:01,916 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:09:02,255 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:09:02,255 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:09:02,255 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:07,262 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:07,262 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:07,262 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:07,592 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:07,592 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:07,592 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:19,321 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:19,321 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:19,321 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:19,656 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:19,656 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:19,656 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:38,409 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:38,409 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:38,409 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:38,750 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:38,750 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:10:38,750 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:00,554 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:00,554 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:00,554 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:00,872 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:00,872 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:00,872 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:17,645 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:17,645 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:17,645 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:18,000 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:18,000 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:18,000 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:39,788 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:39,788 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:39,788 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:40,112 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:40,112 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:11:40,112 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:22,352 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:22,352 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:22,352 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:22,676 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:22,676 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:22,676 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:42,468 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:42,468 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:42,468 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:42,853 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:42,853 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:13:42,853 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:14:38,822 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:14:38,822 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:14:38,822 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:14:39,139 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:14:39,139 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:14:39,139 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:16:17,365 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:16:17,365 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:16:17,365 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:16:17,731 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:16:17,731 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:16:17,731 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:03,650 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:03,650 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:03,650 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:03,972 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:03,972 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:03,972 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:34,849 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:34,849 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:34,849 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:35,170 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:35,170 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:17:35,170 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:18:27,101 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:18:27,101 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:18:27,101 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:18:27,440 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:18:27,440 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:18:27,440 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:05,296 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:05,296 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:05,296 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:05,625 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:05,625 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:05,625 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:45,601 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:45,601 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:45,601 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:45,924 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:45,924 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:19:45,924 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:20:13,779 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:20:13,779 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:20:13,779 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:20:14,121 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:20:14,121 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:20:14,121 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:12,185 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:12,185 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:12,185 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:12,528 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:12,528 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:12,528 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:50,393 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:50,393 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:50,393 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:50,719 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:50,719 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:21:50,719 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:02,476 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:02,476 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:02,476 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:02,819 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:02,819 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:02,819 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:38,701 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:38,701 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:38,701 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:39,044 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:39,044 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:22:39,044 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:04,185 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:04,185 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:04,185 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:04,536 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:04,536 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:04,536 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:28,324 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:28,324 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:28,324 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:28,659 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:28,659 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:28,659 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:45,459 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:45,459 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:45,459 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:45,778 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:45,778 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:45,778 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:59,552 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:59,552 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:59,552 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:59,991 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:59,991 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:24:59,991 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:15,736 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:15,736 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:15,736 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:16,093 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:16,093 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:16,093 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:39,887 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:39,887 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:39,887 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:40,235 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:40,235 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:25:40,235 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:26:09,063 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:26:09,063 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:26:09,063 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:26:09,382 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:26:09,382 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:26:09,382 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:34,493 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:34,493 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:34,493 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:34,820 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:34,820 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:34,820 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:58,616 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:58,616 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:58,616 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:58,939 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:58,939 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:27:58,939 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:27,804 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:27,804 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:27,804 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:28,146 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:28,146 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:28,146 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:41,953 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:41,953 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:41,953 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:42,266 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:42,266 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:28:42,266 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:29:08,100 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:29:08,100 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:29:08,100 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:29:08,452 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:29:08,452 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:29:08,452 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:21,503 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:21,503 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:21,503 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:21,814 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:21,814 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:21,814 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:34,579 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:34,579 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:34,579 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:34,906 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:34,906 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:34,906 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:54,684 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:54,684 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:54,684 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:54,992 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:54,992 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:30:54,992 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:18,817 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:18,817 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:18,817 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:19,135 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:19,135 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:19,135 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:47,983 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:47,983 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:47,983 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:48,328 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:48,328 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:31:48,328 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:32:41,305 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:32:41,305 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:32:41,305 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:32:41,636 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:32:41,636 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:32:41,636 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:05,440 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:05,440 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:05,440 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:05,773 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:05,773 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:05,773 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:14,551 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:14,551 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:14,551 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:14,884 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:14,884 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:14,884 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:39,919 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:39,919 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:39,919 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:40,278 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:40,278 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:33:40,278 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,078 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,078 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,078 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,213 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,213 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,213 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,214 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,214 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,214 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:01,344 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,344 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,344 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,500 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,500 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:01,500 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,224 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:27,224 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:27,224 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:27,347 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,347 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,347 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,348 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:27,348 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:27,348 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:27,488 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,488 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,488 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,618 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,618 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:27,618 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,289 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:38,289 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:38,289 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:38,435 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,435 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,435 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,436 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:38,436 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:38,436 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:38,581 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,581 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,581 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,720 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,720 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:38,720 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,378 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:55,378 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:55,378 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:55,510 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,510 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,510 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,512 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:55,512 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:55,512 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:34:55,651 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,651 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,651 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,795 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,795 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:34:55,795 - app - app_lvl - Exception in Database Connection Script: sorry, too many clients already
+2020-06-30 14:39:50,617 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:39:50,617 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:39:50,617 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:39:50,619 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:39:50,619 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:39:50,619 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:39:50,964 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:39:50,964 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:39:50,964 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:40:03,945 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:40:03,945 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:40:03,945 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:40:03,947 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:40:03,947 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:40:03,947 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:40:04,160 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:40:04,160 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:40:04,160 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:40:28,058 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:40:28,058 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:40:28,058 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:40:28,059 - app - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-06-30 14:40:28,059 - app - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-06-30 14:40:28,059 - app - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-06-30 14:40:28,060 - app - app_lvl - Main Loop Exception: 'NoneType' object has no attribute 'release'
+2020-06-30 14:40:28,060 - app - app_lvl - Main Loop Exception: 'NoneType' object has no attribute 'release'
+2020-06-30 14:40:28,060 - app - app_lvl - Main Loop Exception: 'NoneType' object has no attribute 'release'
+2020-06-30 14:41:16,888 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:41:16,888 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:41:16,888 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:41:16,890 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:41:16,890 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:41:16,890 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:41:17,114 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:41:17,114 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:41:17,114 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:42:01,347 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:42:01,347 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:42:01,347 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:42:01,348 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:42:01,348 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:42:01,348 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:42:01,584 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:42:01,584 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:42:01,584 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:42:20,454 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:42:20,454 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:42:20,454 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:42:20,455 - app - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-06-30 14:42:20,455 - app - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-06-30 14:42:20,455 - app - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-06-30 14:42:20,455 - app - app_lvl - Main Loop Exception: 'NoneType' object has no attribute 'release'
+2020-06-30 14:42:20,455 - app - app_lvl - Main Loop Exception: 'NoneType' object has no attribute 'release'
+2020-06-30 14:42:20,455 - app - app_lvl - Main Loop Exception: 'NoneType' object has no attribute 'release'
+2020-06-30 14:42:44,733 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:42:44,733 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:42:44,733 - app - app_lvl - Starting MURI App Main Program
+2020-06-30 14:42:44,735 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:42:44,735 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:42:44,735 - app - app_lvl - Connecting to MQTT Server....
+2020-06-30 14:42:44,736 - app - app_lvl - --- Database service started succesfully ---
+2020-06-30 14:42:44,736 - app - app_lvl - --- Database service started succesfully ---
+2020-06-30 14:42:44,736 - app - app_lvl - --- Database service started succesfully ---
+2020-06-30 14:42:44,951 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:42:44,951 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:42:44,951 - app - app_lvl - --- MQTT Connected! ---
+2020-06-30 14:43:06,837 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:43:06,837 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:43:06,837 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:43:30,978 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:43:30,978 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:43:30,978 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:19,251 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:19,251 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:19,251 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:38,356 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:38,356 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:38,356 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:57,482 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:57,482 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:44:57,482 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:45:26,657 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:45:26,657 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:45:26,657 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:46:02,860 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:46:02,860 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:46:02,860 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:46:25,015 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:46:25,015 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:46:25,015 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:47:18,298 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:47:18,298 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:47:18,298 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:47:58,508 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:47:58,508 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:47:58,508 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:10,561 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:10,561 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:10,561 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:27,648 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:27,648 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:27,648 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:49,772 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:49,772 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:48:49,772 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:49:10,875 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:49:10,875 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:49:10,875 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:49:59,148 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:49:59,148 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:49:59,148 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:50:23,247 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:50:23,247 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:50:23,247 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:50:42,341 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:50:42,341 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:50:42,341 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:51:18,485 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:51:18,485 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:51:18,485 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:51:45,628 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:51:45,628 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:51:45,628 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:52:01,718 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:52:01,718 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:52:01,718 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:09,027 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:09,027 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:09,027 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:21,076 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:21,076 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:21,076 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:55,270 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:55,270 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:53:55,270 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:54:24,393 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:54:24,393 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:54:24,393 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:54:45,494 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:54:45,494 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:54:45,494 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:56:05,911 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:56:05,911 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:56:05,911 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:56:39,081 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:56:39,081 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:56:39,081 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:57:25,331 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:57:25,331 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:57:25,331 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:58:39,771 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:58:39,771 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:58:39,771 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:58:47,815 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:58:47,815 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:58:47,815 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:59:43,067 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:59:43,067 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 14:59:43,067 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:00:35,348 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:00:35,348 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:00:35,348 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:01:26,637 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:01:26,637 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:01:26,637 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:01:50,781 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:01:50,781 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:01:50,781 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:02:07,862 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:02:07,862 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:02:07,862 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:02:48,077 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:02:48,077 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:02:48,077 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:03:27,294 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:03:27,294 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:03:27,294 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:04:53,747 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:04:53,747 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:04:53,747 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:05:13,835 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:05:13,835 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:05:13,835 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:06:14,215 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:06:14,215 - app - app_lvl - --- Writing Data to Database ---
+2020-06-30 15:06:14,215 - app - app_lvl - --- Writing Data to Database ---

@@ -23,7 +23,7 @@ def device_log_setup(id):
     daily_path,  hourly_path = build_dir(id)
 
 
-    formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(message)s')
+    formatter = logging.Formatter('%(message)s')
 
     handler_daily = TimedRotatingFileHandler( daily_path + 'log', 
                                     when= 'D',
@@ -45,8 +45,8 @@ def device_log_setup(id):
 def build_dir(id):
     
     # config to your directory structure
-    path_hourly = './logs/{0}/hourly/'.format(id)
-    path_daily = './logs/{0}/daily/'.format(id)
+    path_hourly = '/home/muri-app/backend/logs/{0}/hourly/'.format(id)
+    path_daily = '/home/muri-app/backend/logs/{0}/daily/'.format(id)
 
     try:
         os.makedirs(path_hourly, mode=0o777, exist_ok=True)

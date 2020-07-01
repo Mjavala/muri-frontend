@@ -17,63 +17,78 @@ HOST = os.getenv('DB_HOST')
 
 class muri_db():
     def __init__(self):
-        self.current_message = {}
-                
-        self.last_time = time.time()
-        self.id = str
-        self.alt = float
-        self.rssi = int
-        self.temp = float
-        self.hum = float 
+        self.client_pool = None
 
         self.app_log_setup = muri_app_log.main_app_logs()
         self.logger = logging.getLogger('app')
 
-    async def run(self):
+        self.current_payload = []
+        self.device_id = None
+        self.station_id = None
+
+    async def write_db(self):
         try:
             self.logger.log_app('--- Writing Data to Database ---')
             print(USER,PW,DATABASE,HOST)
-            conn = await asyncpg.connect(user=USER, password=PW, database=DATABASE, host=HOST)
+            conn = await self.client_pool.acquire()
             await conn.execute(
                 '''
-                    INSERT INTO muri_data VALUES (NOW(), $1, $2, $3, $4, $5)
-                ''', self.id, self.alt, self.rssi, self.temp, self.hum)
-            await conn.close()
+                INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                ''', self.device_id
+                )
+
+            await conn.execute(
+                '''
+                INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                ''', self.station_id
+                )
+
+            await conn.copy_records_to_table(
+                'device_data', records=self.current_payload,
+                columns=[
+                    'data_time', 'device_id', 'station_id', 'latitude', 'longitude', 
+                    'altitude', 'rssi', 'temperature', 'batt_mon', 'vent_batt',
+                ])
 
         except Exception as e:
             self.logger.log_app("Exception in Database Connection Script: %s" % e)
 
-    def msg_in(self, payload):
-        self.current_message = payload
-        print(self.current_message)
+        finally:
+            await self.client_pool.release(conn)
 
+    async def msg_in(self, payload):
+        self.current_payload = payload
 
-    def stat_update(self):
-        self.id = self.current_message['mqtt']['device_id']
-        self.alt = self.current_message['mqtt']['altitude']
-        self.rssi = self.current_message['mqtt']['rssi']
-        self.temp = self.current_message['mqtt']['temperature']
-        self.hum = self.current_message['mqtt']['humidity']
+        result = self.initialConditionChecks(self.current_payload)
+        
+        if result:
+            self.device_id = self.current_payload[1][1]
+            self.station_id = self.current_payload[2][2]
+            await self.write_db()
 
     def initialConditionChecks(self, message):
-        if message == {} or message == None:
+        if message == {}:
             return False
-        if message['humidity'] == float or message['temperature'] == float:
+
+        if message == None:
             return False
+
         return True
 
     async def main_loop(self):
         last_time = time.time()
         self.logger.log_app('--- Database service started succesfully ---')
         try:
+            self.client_pool = await asyncpg.create_pool(user=USER, password=PW, database=DATABASE, host=HOST)
+            print(self.client_pool)
             while(True):
+                # need to make this reactive to self.current_message instead of at 5 sec intervals
                 if (time.time() - last_time > 5): 
                     last_time = time.time()
-                    message = self.current_message.get('mqtt', None)
                     
-                    if (self.initialConditionChecks(message)):
-                        self.stat_update()
-                        await self.run()
+                    #if (self.initialConditionChecks(message)):
+                        #self.stat_update()
+                        #await self.write_db()
 
                 await asyncio.sleep(0.1)
         except Exception as e:
