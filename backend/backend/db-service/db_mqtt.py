@@ -3,7 +3,7 @@ import json
 import time
 import asyncio
 import logging
-import muri_app_log as muri_app_log
+import db_log
 from datetime import datetime
 import pytz
 import os
@@ -20,7 +20,7 @@ MQTT_HOST = os.getenv('MQTT_HOST')
 class muri_app_mqtt():
 
     def __init__(self): 
-        self.app_log_setup = muri_app_log.main_app_logs()
+        self.app_log_setup = db_log.main_app_logs()
         self.logger = logging.getLogger('app')
         
         self.bucket = []
@@ -30,6 +30,7 @@ class muri_app_mqtt():
         self.mqttc.on_connect = self.on_mqtt_conn
         self.mqttc.on_disconnect = self.on_mqtt_disc
         self.mqttc.on_message = self.on_mqtt_msg
+        self.message_count = 0
 
         self.timestamp = None
         self.id = None
@@ -63,12 +64,14 @@ class muri_app_mqtt():
 
     def on_mqtt_msg(self, client,  userdata, message):
         # need to call the the status function in main every second
+        print('!--- Message Received ---!')
         payload = json.loads(str(message.payload.decode()))
 
         #self.msg_to_db_raw = payload
         if payload['data']['frame_data']:
             result = self.simulation_check(payload['data']['ADDR_FROM'])
             if result:
+                self.message_count = self.message_count + 1
                 self.db_data(payload)
                 self.stats()
 
@@ -124,6 +127,12 @@ class muri_app_mqtt():
             self.vent_batt
         )
         self.bucket.append(self.current_message)
+
+    def message_tracker(self):
+        if self.message_count == 0:
+            return False
+        if self.message_count > 0:
+            return True
 
     #def get_stats(self):
         #return self.current_message

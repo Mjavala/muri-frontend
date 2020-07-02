@@ -20,33 +20,38 @@ import muri_db as muri_db
 import db_log as muri_db_log
 
 STAT_INTERVAL = 1
+STAT_INTERVAL_LIVE = 5
 
 mqtt_conn = mqttc.muri_app_mqtt()
 db = muri_db.muri_db()
 #db_raw = muri_db_raw.muri_db_raw()
 
-async def main_loop(): 
+async def main_loop():
 
     last_stat = time.time()
     logger = logging.getLogger('app')
+    live = False
 
     while (True):
-
-        try: 
-            if (time.time() - last_stat > STAT_INTERVAL): 
-                last_stat = time.time()
-                result = mqtt_conn.bucket_to_db()
-                if (result):
-                    await db.msg_in(result)
-                #stat_msg = {"mqtt": mqtt_conn.get_stats()}
-                #raw_msg = mqtt_conn.get_raw_msg()
-                # stat msg to database
-                #db_raw.msg_in(raw_msg)
-                #logger.log_app(json.dumps(stat_msg))
-            await asyncio.sleep(0.01)
-        
-        except Exception as e:
-            logger.log_app("Main Loop Exception: %s" % e)
+        if (time.time() - last_stat > STAT_INTERVAL_LIVE):
+            last_stat = time.time()
+            live = mqtt_conn.message_tracker()
+        if live:
+            try: 
+                if (time.time() - last_stat > STAT_INTERVAL): 
+                    last_stat = time.time()
+                    result = mqtt_conn.bucket_to_db()
+                    if (result):
+                        await db.msg_in(result)
+                    #stat_msg = {"mqtt": mqtt_conn.get_stats()}
+                    #raw_msg = mqtt_conn.get_raw_msg()
+                    # stat msg to database
+                    #db_raw.msg_in(raw_msg)
+                    #logger.log_app(json.dumps(stat_msg))
+                await asyncio.sleep(0.01)
+                
+            except Exception as e:
+                logger.log_app("Main Loop Exception: %s" % e)
 
 
 

@@ -5,7 +5,7 @@ import logging
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-import muri_app_log as muri_app_log
+import db_log
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -19,8 +19,8 @@ class muri_db():
     def __init__(self):
         self.client_pool = None
 
-        self.app_log_setup = muri_app_log.main_app_logs()
-        self.logger = logging.getLogger('app')
+        self.app_log_setup = db_log.main_app_logs()
+        self.logger = logging.getLogger('db')
 
         self.current_payload = []
         self.device_id = None
@@ -62,6 +62,7 @@ class muri_db():
         result = self.initialConditionChecks(self.current_payload)
         
         if result:
+        #   Multple balloons logic, must check each bucket for different ID/StationID fields
             self.device_id = self.current_payload[1][1]
             self.station_id = self.current_payload[2][2]
             await self.write_db()
@@ -80,7 +81,7 @@ class muri_db():
         self.logger.log_app('--- Database service started succesfully ---')
         try:
             self.client_pool = await asyncpg.create_pool(user=USER, password=PW, database=DATABASE, host=HOST)
-            print(self.client_pool)
+            self.logger.log_app('--- Database client pool started succesfully ---')
             while(True):
                 # need to make this reactive to self.current_message instead of at 5 sec intervals
                 if (time.time() - last_time > 5): 
