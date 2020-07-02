@@ -2,11 +2,11 @@
 
 # Muri App Main Program
 # Program Structure: 
-#   - muri_app_main (runs async, mult instances allowed)
-#   - muri_app_mqtt (runs async, sgl instance)
+#   - db_main (runs async, mult instances allowed)
+#   - db_mqtt (runs async, sgl instance)
 #   - muri_db (sgl instance, single operation (R/W) connection to DB)
-#   - muri_app_log (sgl instance, needs to be configured for your directory structure)
-#   - Muri App Main Program (muri_app_main)
+#   - db_log (sgl instance, needs to be configured for your directory structure)
+#   - Muri App Main Program (db_main)
 #       - Async. Runs logging, MQTT and Database service. Watchdog. General Logging
 
 import asyncio
