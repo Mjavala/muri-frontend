@@ -36,22 +36,25 @@ async def main_loop():
         if (time.time() - last_stat > STAT_INTERVAL_LIVE):
             last_stat = time.time()
             live = mqtt_conn.message_tracker()
+            await asyncio.sleep(0.1)
         if live:
             try: 
                 if (time.time() - last_stat > STAT_INTERVAL): 
                     last_stat = time.time()
                     result = mqtt_conn.bucket_to_db()
                     if (result):
+
                         await db.msg_in(result)
                     #stat_msg = {"mqtt": mqtt_conn.get_stats()}
                     #raw_msg = mqtt_conn.get_raw_msg()
                     # stat msg to database
                     #db_raw.msg_in(raw_msg)
                     #logger.log_app(json.dumps(stat_msg))
-                await asyncio.sleep(0.01)
+                await asyncio.sleep(0.5)
                 
             except Exception as e:
                 logger.log_app("Main Loop Exception: %s" % e)
+        await asyncio.sleep(0.1)
 
 
 

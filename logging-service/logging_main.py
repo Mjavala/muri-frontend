@@ -69,7 +69,9 @@ class muri_app_mqtt():
 
         if payload['data']['frame_data']:
             result = self.simulation_check(self.id) 
+            print('result')
             if result:
+                print('here')
                 device_logger.device_logger(self.id_set, self.id, payload)
 
     def simulation_check(self, addr_from):

@@ -2,11 +2,11 @@
 Description=muri db python service
 
 [Service]
-WorkingDirectory=/home/muri-app/backend
-ExecStart=/usr/bin/python3 /home/muri-app/backend/db-service/db_main.py
+WorkingDirectory=/home/muri-db
+ExecStart=/usr/bin/python3 /home/muri-db/db-service/db_main.py
 Restart=always
-StandardOutput=file:/home/muri-app/backend/db-service/std.out
-StandardError=file:/home/muri-app/backend/db-service/err.out
+StandardOutput=file:/home/muri-db/db-service/std.out
+StandardError=file:/home/muri-db/db-service/err.out
 
 [Install]
 WantedBy=multi-user.target

@@ -80,7 +80,7 @@ class muri_db():
         last_time = time.time()
         self.logger.log_app('--- Database service started succesfully ---')
         try:
-            self.client_pool = await asyncpg.create_pool(user=USER, password=PW, database=DATABASE, host=HOST)
+            self.client_pool = await asyncpg.create_pool(user=USER, password=PW)
             self.logger.log_app('--- Database client pool started succesfully ---')
             while(True):
                 # need to make this reactive to self.current_message instead of at 5 sec intervals
@@ -91,7 +91,7 @@ class muri_db():
                         #self.stat_update()
                         #await self.write_db()
 
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(1)
         except Exception as e:
             self.logger.log_app("Exception in Database Service: %s" % e)
 
