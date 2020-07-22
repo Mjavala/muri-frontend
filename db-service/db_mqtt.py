@@ -84,9 +84,9 @@ class muri_app_mqtt():
             self.altitude = (payload['data']['frame_data']['gps_alt'] / 1000)
             self.rssi = payload['data']['RSSI_RX']
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
-                self.temp = round((payload['data']['frame_data']['temp Ta1 (amb)'] / 409.6) - 100, 2)
-                self.batt_mon = round((payload['data']['frame_data']['Batt Mon'] / 255 * 4.95) + 4.95, 2)
-                self.vent_batt = round((payload['data']['frame_data']['VENT_BATT'] / 255 * 4.95) + 4.95, 2)
+                self.temp = payload['data']['frame_data']['Ta2_C']
+                self.batt_mon = round(payload['data']['frame_data']['GOND_BATT_C'], 4)
+                self.vent_batt = payload['data']['frame_data']['VENT_BATT_C']
 
     def timestamp_to_datetime(self, ts):
         tz = pytz.timezone('America/Denver')

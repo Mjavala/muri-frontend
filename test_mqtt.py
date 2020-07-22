@@ -44,7 +44,7 @@ class MQTT_SAMPLE_NODE():
 
     def message2_raw(self):
         msg2 = {
-            "station": "BKYD1",
+            "station": "BKYD121",
             "receiver": "rcvr_1",
             "data": {
                 "ADDR_FROM": "xxTest",
