@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
@@ -43,12 +43,11 @@ class muri_app_mqtt():
         self.batt_mon = None
         self.vent_batt = None
 
-        #   self.msg_to_db_raw = {}
-
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri/raw', qos = 1)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
             self.logger.log_app("--- MQTT Connected! ---")
         else: 
             self.connected = False
@@ -68,12 +67,18 @@ class muri_app_mqtt():
         payload = json.loads(str(message.payload.decode()))
 
         #self.msg_to_db_raw = payload
-        if payload['data']['frame_data']:
-            result = self.simulation_check(payload['data']['ADDR_FROM'])
-            if result:
-                self.message_count = self.message_count + 1
-                self.db_data(payload)
-                self.stats()
+        if message.topic == 'muri/raw':
+            if payload['data']['frame_data']:
+                result = self.simulation_check(payload['data']['ADDR_FROM'])
+                if result:
+                    self.message_count = self.message_count + 1
+                    self.db_data(payload)
+                    self.stats()
+        
+        if message.topic == 'muri/stat':
+            live = mqtt_conn.message_tracker()
+            if live:
+                self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
@@ -82,7 +87,7 @@ class muri_app_mqtt():
             self.latitude = (payload['data']['frame_data']['gps_lat'] / 10000000)
             self.longitude = (payload['data']['frame_data']['gps_lon'] / 10000000)
             self.altitude = (payload['data']['frame_data']['gps_alt'] / 1000)
-            self.rssi = payload['data']['RSSI_RX']
+            #self.rssi = payload['data']['RSSI_RX']
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
                 self.temp = payload['data']['frame_data']['Ta2_C']
                 self.batt_mon = round(payload['data']['frame_data']['GOND_BATT_C'], 4)

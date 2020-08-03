@@ -7,7 +7,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import db_log
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
 
 USER = os.getenv('DB_USER')
@@ -29,7 +29,6 @@ class muri_db():
     async def write_db(self):
         try:
             self.logger.log_app('--- Writing Data to Database ---')
-            print(USER,PW,DATABASE,HOST)
             conn = await self.client_pool.acquire()
             await conn.execute(
                 '''
