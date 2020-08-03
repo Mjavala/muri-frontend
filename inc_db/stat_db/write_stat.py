@@ -30,6 +30,7 @@ class muri_db_stat():
         #self.logger = logging.getLogger('db')
     async def write_stat_db(self, payload):
         try:
+            print('--- Writing to Stat DB ---')
             conn = await self.client_pool.acquire()
 
             await conn.execute(
@@ -117,7 +118,8 @@ class muri_db_stat():
             await self.client_pool.release(conn)
 
     # entrypoint for incoming stat msgs
-    async def msg_in(self, queue):
+    async def msg_in(self, queue, pool):
+        self.client_pool = pool
         self.queue = queue
 
         await asyncio.sleep(0.1)
@@ -135,14 +137,15 @@ class muri_db_stat():
             print('!!! queue state exception !!! %s' % e)
 
     async def main_loop(self):
+        print('--- starting stat message loop ---')
         last_time = time.time()
         try:
-            self.client_pool = await asyncpg.create_pool(host=HOST, user=USER, password=PW, database=DATABASE)
             while(True):
                 if (time.time() - last_time > 1):
                     result, payload = self.queue_state()
                     if result:
-                        await self.write_stat_db(payload)
+                        if self.client_pool != None:
+                            await self.write_stat_db(payload)
 
                     last_time = time.time()
                 await asyncio.sleep(0.1)

@@ -123,9 +123,7 @@ class mqtt_0xd():
         payload = json.loads(str(message.payload.decode()))
         
         if message.topic == 'muri/raw':
-            print('here1')
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
-                print('here2')
                 self.stat_db_data(payload)
                 self.stat_db_msg()
 

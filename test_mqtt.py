@@ -168,7 +168,7 @@ class MQTT_SAMPLE_NODE():
         msg1 = self.message1_raw()
         msg2 = self.message2_raw()
 
-        self.publish_message_wrap("muri/raw", msg1)
+        self.publish_message_wrap("muri/raw", msg2)
         time.sleep(5)
         self.publish_message_wrap("muri/raw", msg2)
         

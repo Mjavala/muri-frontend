@@ -274,7 +274,6 @@ class stat_client():
             while(True):
                 if (time.time() - last_time > 1):
                     last_time = time.time()
-                    await self.write_stat.msg_in(self.queue)
 
                 await asyncio.sleep(0.1)
 
