@@ -3,7 +3,7 @@ Description=muri db python service
 
 [Service]
 WorkingDirectory=/home/muri-db
-ExecStart=/usr/bin/python3 /home/muri-db/db-service/db_main.py
+ExecStart=/usr/bin/python3 /home/muri-backend/historical_flights/db_main.py
 Restart=always
 StandardOutput=file:/home/muri-db/db-service/std.out
 StandardError=file:/home/muri-db/db-service/err.out
