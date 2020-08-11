@@ -1,0 +1,30 @@
+2020-08-05 22:15:57,060 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:16:01,111 - db - app_lvl - Exception in Database Service: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-08-05 22:16:16,138 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:16:20,219 - db - app_lvl - Exception in Database Service: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-08-05 22:16:48,650 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:16:52,691 - db - app_lvl - Exception in Database Service: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-08-05 22:17:50,765 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:17:54,865 - db - app_lvl - Exception in Database Service: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-08-05 22:18:56,915 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:18:56,915 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:19:10,041 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:19:10,041 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:20:08,587 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:20:08,587 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:22:03,872 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:22:03,872 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:22:33,272 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:22:33,274 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:32:52,950 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:32:52,950 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:33:18,578 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:33:22,640 - db - app_lvl - Exception in Database Service: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2020-08-05 22:33:24,940 - db - app_lvl - --- Writing Data to Database ---
+2020-08-05 22:33:24,940 - db - app_lvl - Exception in Database Connection Script: 'NoneType' object has no attribute 'acquire'
+2020-08-05 22:34:16,357 - db - app_lvl - --- Database service started succesfully ---
+2020-08-05 22:34:16,784 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-05 22:34:31,383 - db - app_lvl - --- Writing Data to Database ---
+2020-08-05 22:34:36,145 - db - app_lvl - --- Writing Data to Database ---
+2020-08-05 22:34:41,324 - db - app_lvl - --- Writing Data to Database ---
+2020-08-05 22:34:46,467 - db - app_lvl - --- Writing Data to Database ---

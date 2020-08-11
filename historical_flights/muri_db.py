@@ -7,7 +7,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import db_log
 
-dotenv_path = join(dirname(__file__), '../.env')
+dotenv_path = join(dirname(__file__), '../../.env')
 load_dotenv(dotenv_path)
 
 USER = os.getenv('DB_USER')
@@ -79,7 +79,7 @@ class muri_db():
         last_time = time.time()
         self.logger.log_app('--- Database service started succesfully ---')
         try:
-            self.client_pool = await asyncpg.create_pool(user=USER, password=PW)
+            self.client_pool = await asyncpg.create_pool(host=HOST, user=USER, password=PW)
             self.logger.log_app('--- Database client pool started succesfully ---')
             while(True):
                 # need to make this reactive to self.current_message instead of at 5 sec intervals

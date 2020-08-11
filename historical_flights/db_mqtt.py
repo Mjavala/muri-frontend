@@ -63,7 +63,6 @@ class muri_app_mqtt():
 
     def on_mqtt_msg(self, client,  userdata, message):
         # need to call the the status function in main every second
-        print('!--- Message Received ---!')
         payload = json.loads(str(message.payload.decode()))
 
         #self.msg_to_db_raw = payload
@@ -89,7 +88,7 @@ class muri_app_mqtt():
             self.altitude = (payload['data']['frame_data']['gps_alt'] / 1000)
             #self.rssi = payload['data']['RSSI_RX']
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
-                self.temp = payload['data']['frame_data']['Ta2_C']
+                self.temp = round(payload['data']['frame_data']['Ta2_C'], 4)
                 self.batt_mon = round(payload['data']['frame_data']['GOND_BATT_C'], 4)
                 self.vent_batt = payload['data']['frame_data']['VENT_BATT_C']
 
