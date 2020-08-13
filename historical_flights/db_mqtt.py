@@ -32,6 +32,8 @@ class muri_app_mqtt():
         self.mqttc.on_message = self.on_mqtt_msg
         self.message_count = 0
 
+        self.live = False
+
         self.timestamp = None
         self.id = None
         self.station = None
@@ -65,19 +67,18 @@ class muri_app_mqtt():
         # need to call the the status function in main every second
         payload = json.loads(str(message.payload.decode()))
 
+        if message.topic == 'muri/stat':
+            if self.live:
+                self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
         #self.msg_to_db_raw = payload
         if message.topic == 'muri/raw':
             if payload['data']['frame_data']:
+                self.live = True
                 result = self.simulation_check(payload['data']['ADDR_FROM'])
                 if result:
                     self.message_count = self.message_count + 1
                     self.db_data(payload)
                     self.stats()
-        
-        if message.topic == 'muri/stat':
-            live = mqtt_conn.message_tracker()
-            if live:
-                self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
@@ -130,13 +131,11 @@ class muri_app_mqtt():
             self.batt_mon,
             self.vent_batt
         )
+        print(self.current_message)
         self.bucket.append(self.current_message)
 
     def message_tracker(self):
-        if self.message_count == 0:
-            return False
-        if self.message_count > 0:
-            return True
+        return self.live
 
     #def get_stats(self):
         #return self.current_message

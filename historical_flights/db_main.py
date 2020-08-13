@@ -43,7 +43,8 @@ async def main_loop():
                     last_stat = time.time()
                     result = mqtt_conn.bucket_to_db()
                     if (result):
-                        await db.msg_in(result)
+                        print(result)
+                        #await db.msg_in(result)
                     #stat_msg = {"mqtt": mqtt_conn.get_stats()}
                     #raw_msg = mqtt_conn.get_raw_msg()
                     # stat msg to database
