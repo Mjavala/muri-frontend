@@ -30,7 +30,6 @@ class muri_app_mqtt():
         self.mqttc.on_connect = self.on_mqtt_conn
         self.mqttc.on_disconnect = self.on_mqtt_disc
         self.mqttc.on_message = self.on_mqtt_msg
-        self.message_count = 0
 
         self.live = False
 
@@ -76,7 +75,6 @@ class muri_app_mqtt():
                 self.live = True
                 result = self.simulation_check(payload['data']['ADDR_FROM'])
                 if result:
-                    self.message_count = self.message_count + 1
                     self.db_data(payload)
                     self.stats()
 
