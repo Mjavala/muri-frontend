@@ -46,7 +46,7 @@ async def main_loop():
                         await db.msg_in(result)
                     #stat_msg = {"mqtt": mqtt_conn.get_stats()}
                     #raw_msg = mqtt_conn.get_raw_msg()
-                    # stat msg to database
+                    #stat msg to database
                     #db_raw.msg_in(raw_msg)
                     #logger.log_app(json.dumps(stat_msg))
                 await asyncio.sleep(0.5)

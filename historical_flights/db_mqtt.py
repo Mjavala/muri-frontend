@@ -129,7 +129,7 @@ class muri_app_mqtt():
             self.batt_mon,
             self.vent_batt
         )
-        print(self.current_message)
+        print(type(self.rssi))
         self.bucket.append(self.current_message)
 
     def message_tracker(self):
