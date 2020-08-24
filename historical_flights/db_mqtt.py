@@ -43,12 +43,13 @@ class muri_app_mqtt():
         self.temp = None
         self.batt_mon = None
         self.vent_batt = None
-        self.frame_type = None  #
-        self.packet_id = None   #
-        self.gps_tow = None #
-        self.ta1_c = None   #
-        self.ti1_c = None   #
-        self.ti2_c = None   #
+        self.frame_type = None
+        self.packet_id = None  
+        self.gps_tow = None
+        self.ta1_c = None 
+        self.ti1_c = None   
+        self.ti2_c = None   
+        self.frame = None
 
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
@@ -94,6 +95,7 @@ class muri_app_mqtt():
             self.frame_type = payload['data']['FRAME_TYPE']
             self.packet_id = payload['data']['frame_data']['packet_id']
             self.gps_tow = payload['data']['frame_data']['gps_tow']
+            self.frame = payload['data']['FRAME']
 
             #self.rssi = payload['data']['RSSI_RX']
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
@@ -147,18 +149,13 @@ class muri_app_mqtt():
             self.ti1_c,
             self.ti2_c,
             self.gps_tow,
+            self.frame
 
         )
         self.bucket.append(self.current_message)
 
     def message_tracker(self):
         return self.live
-
-    #def get_stats(self):
-        #return self.current_message
-
-    #def get_raw_msg(self):
-        #return self.msg_to_db_raw
 
     async def start_mqtt(self):
     
