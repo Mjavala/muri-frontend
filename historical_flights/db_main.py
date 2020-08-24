@@ -42,7 +42,6 @@ async def main_loop():
                 if (time.time() - last_stat > STAT_INTERVAL): 
                     last_stat = time.time()
                     result = mqtt_conn.bucket_to_db()
-                    print(result)
                     if (result):
                         await db.msg_in(result)
                     #stat_msg = {"mqtt": mqtt_conn.get_stats()}
