@@ -40,7 +40,8 @@ class muri_db():
                 INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
                 ''', self.station_id
                 )
-
+            print('CURRENT PAYLOAD')
+            print(self.current_payload[6])
             await conn.copy_records_to_table(
                 'device_data', records=self.current_payload,
                 columns=[

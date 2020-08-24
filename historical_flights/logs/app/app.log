@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2020-08-23 22:50:46,691 - app - app_lvl - Starting MURI App Main Program
 2020-08-23 22:50:46,713 - app - app_lvl - Connecting to MQTT Server....
 2020-08-23 22:50:46,956 - app - app_lvl - --- MQTT Connected! ---
@@ -109,3 +110,17 @@
 2020-08-23 23:59:54,186 - app - app_lvl - Connecting to MQTT Server....
 2020-08-23 23:59:54,311 - app - app_lvl - --- MQTT Connected! ---
 2020-08-23 23:59:54,311 - app - app_lvl - --- MQTT Connected! ---
+=======
+2020-08-18 13:25:28,902 - app - app_lvl - Starting MURI App Main Program
+2020-08-18 13:25:28,944 - app - app_lvl - Connecting to MQTT Server....
+2020-08-18 13:25:29,227 - app - app_lvl - --- MQTT Connected! ---
+2020-08-18 13:29:35,312 - app - app_lvl - Starting MURI App Main Program
+2020-08-18 13:29:35,312 - app - app_lvl - Starting MURI App Main Program
+2020-08-18 13:29:35,312 - app - app_lvl - Starting MURI App Main Program
+2020-08-18 13:29:35,319 - app - app_lvl - Connecting to MQTT Server....
+2020-08-18 13:29:35,319 - app - app_lvl - Connecting to MQTT Server....
+2020-08-18 13:29:35,319 - app - app_lvl - Connecting to MQTT Server....
+2020-08-18 13:29:35,453 - app - app_lvl - --- MQTT Connected! ---
+2020-08-18 13:29:35,453 - app - app_lvl - --- MQTT Connected! ---
+2020-08-18 13:29:35,453 - app - app_lvl - --- MQTT Connected! ---
+>>>>>>> 3908ce0efe7599b577e9c3befa7673942866c0d8

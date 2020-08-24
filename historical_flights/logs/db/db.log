@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2020-08-23 22:50:46,746 - db - app_lvl - --- Database service started succesfully ---
 2020-08-23 22:50:47,170 - db - app_lvl - --- Database client pool started succesfully ---
 2020-08-23 22:50:53,529 - db - app_lvl - --- Database service started succesfully ---
@@ -77,3 +78,10 @@
 2020-08-24 00:00:04,708 - db - app_lvl - --- Writing Data to Database ---
 2020-08-24 00:00:09,893 - db - app_lvl - --- Writing Data to Database ---
 2020-08-24 00:00:15,673 - db - app_lvl - --- Writing Data to Database ---
+=======
+2020-08-18 13:25:29,024 - db - app_lvl - --- Database service started succesfully ---
+2020-08-18 13:25:29,487 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-18 13:29:35,321 - db - app_lvl - --- Database service started succesfully ---
+2020-08-18 13:29:35,777 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-18 13:29:44,227 - db - app_lvl - --- Writing Data to Database ---
+>>>>>>> 3908ce0efe7599b577e9c3befa7673942866c0d8

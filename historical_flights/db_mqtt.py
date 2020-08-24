@@ -149,6 +149,10 @@ class muri_app_mqtt():
             self.gps_tow,
 
         )
+<<<<<<< HEAD
+=======
+        print(type(self.rssi))
+>>>>>>> 3908ce0efe7599b577e9c3befa7673942866c0d8
         self.bucket.append(self.current_message)
 
     def message_tracker(self):
