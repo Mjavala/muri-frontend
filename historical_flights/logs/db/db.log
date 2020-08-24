@@ -1,0 +1,7 @@
+2020-08-24 00:35:34,022 - db - app_lvl - --- Database service started succesfully ---
+2020-08-24 00:35:34,432 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-24 00:36:15,501 - db - app_lvl - --- Writing Data to Database ---
+2020-08-24 00:36:15,737 - db - app_lvl - Exception in Database Connection Script: list index out of range
+2020-08-24 00:37:32,666 - db - app_lvl - --- Database service started succesfully ---
+2020-08-24 00:37:33,077 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-24 00:37:51,518 - db - app_lvl - --- Writing Data to Database ---

@@ -19,7 +19,7 @@ import muri_db as muri_db
 #import muri_db_raw as muri_db_raw
 import db_log as muri_db_log
 
-STAT_INTERVAL = 0.5
+STAT_INTERVAL = 1
 STAT_INTERVAL_LIVE = 5
 
 mqtt_conn = mqttc.muri_app_mqtt()
