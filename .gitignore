@@ -1,3 +1,4 @@
 .env
 
-/logs/*
+/logs/app/*
+/logs/db/*
