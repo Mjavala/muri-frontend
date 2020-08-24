@@ -19,7 +19,6 @@ class muri_db():
     def __init__(self):
         self.client_pool = None
 
-        self.app_log_setup = db_log.main_app_logs()
         self.logger = logging.getLogger('db')
 
         self.current_payload = []
@@ -46,7 +45,8 @@ class muri_db():
                 'device_data', records=self.current_payload,
                 columns=[
                     'data_time', 'device_id', 'station_id', 'latitude', 'longitude', 
-                    'altitude', 'rssi', 'temperature', 'batt_mon', 'vent_batt',
+                    'altitude', 'rssi', 'temperature', 'batt_mon', 'vent_batt', 'packet_type',
+                    'packet_id', 'temp_amb_1', 'temp_int_1', 'temp_int_2', 'gps_tow'
                 ])
 
         except Exception as e:

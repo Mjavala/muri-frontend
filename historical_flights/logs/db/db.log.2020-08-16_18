@@ -1,0 +1,8 @@
+2020-08-16 18:55:26,831 - db - app_lvl - --- Database service started succesfully ---
+2020-08-16 18:55:30,926 - db - app_lvl - Exception in Database Service: [WinError 1225] The remote computer refused the network connection
+2020-08-16 18:55:36,793 - db - app_lvl - --- Database service started succesfully ---
+2020-08-16 18:57:43,047 - db - app_lvl - --- Database service started succesfully ---
+2020-08-16 18:57:43,472 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-16 18:59:08,196 - db - app_lvl - --- Database service started succesfully ---
+2020-08-16 18:59:08,616 - db - app_lvl - --- Database client pool started succesfully ---
+2020-08-16 18:59:33,125 - db - app_lvl - --- Writing Data to Database ---

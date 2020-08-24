@@ -43,12 +43,18 @@ class muri_app_mqtt():
         self.temp = None
         self.batt_mon = None
         self.vent_batt = None
+        self.frame_type = None  #
+        self.packet_id = None   #
+        self.gps_tow = None #
+        self.ta1_c = None   #
+        self.ti1_c = None   #
+        self.ti2_c = None   #
 
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
-            self.mqttc.subscribe('muri/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_test/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_test/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
             self.logger.log_app("--- MQTT Connected! ---")
         else: 
             self.connected = False
@@ -66,17 +72,17 @@ class muri_app_mqtt():
         # need to call the the status function in main every second
         payload = json.loads(str(message.payload.decode()))
 
-        if message.topic == 'muri/stat':
+        if message.topic == 'muri_test/stat':
             if self.live:
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
         #self.msg_to_db_raw = payload
-        if message.topic == 'muri/raw':
+        if message.topic == 'muri_test/raw':
             if payload['data']['frame_data']:
                 self.live = True
-                result = self.simulation_check(payload['data']['ADDR_FROM'])
-                if result:
-                    self.db_data(payload)
-                    self.stats()
+                #result = self.simulation_check(payload['data']['ADDR_FROM'])
+                #if result:
+                self.db_data(payload)
+                self.stats()
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
@@ -85,9 +91,16 @@ class muri_app_mqtt():
             self.latitude = (payload['data']['frame_data']['gps_lat'] / 10000000)
             self.longitude = (payload['data']['frame_data']['gps_lon'] / 10000000)
             self.altitude = (payload['data']['frame_data']['gps_alt'] / 1000)
+            self.frame_type = payload['data']['FRAME_TYPE']
+            self.packet_id = payload['data']['frame_data']['packet_id']
+            self.gps_tow = payload['data']['frame_data']['gps_tow']
+
             #self.rssi = payload['data']['RSSI_RX']
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
                 self.temp = round(payload['data']['frame_data']['Ta2_C'], 4)
+                self.ta1_c = round(payload['data']['frame_data']['Ta1_C'], 4)
+                self.ti1_c = round(payload['data']['frame_data']['Ti1_C'], 4)
+                self.ti2_c = round(payload['data']['frame_data']['Ti2_C'], 4)
                 self.batt_mon = round(payload['data']['frame_data']['GOND_BATT_C'], 4)
                 self.vent_batt = payload['data']['frame_data']['VENT_BATT_C']
 
@@ -127,9 +140,15 @@ class muri_app_mqtt():
             self.rssi,
             self.temp,
             self.batt_mon,
-            self.vent_batt
+            self.vent_batt,
+            self.frame_type,
+            self.packet_id,
+            self.ta1_c,
+            self.ti1_c,
+            self.ti2_c,
+            self.gps_tow,
+
         )
-        print(self.current_message)
         self.bucket.append(self.current_message)
 
     def message_tracker(self):
@@ -159,7 +178,6 @@ class muri_app_mqtt():
             await self.start_mqtt()
             while(True):
                 if (time.time() - last_time > 5):
-                    self.bucket_to_db()
                     last_time = time.time()
 
                 await asyncio.sleep(0.1)

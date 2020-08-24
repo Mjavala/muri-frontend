@@ -19,7 +19,7 @@ import muri_db as muri_db
 #import muri_db_raw as muri_db_raw
 import db_log as muri_db_log
 
-STAT_INTERVAL = 1
+STAT_INTERVAL = 0.5
 STAT_INTERVAL_LIVE = 5
 
 mqtt_conn = mqttc.muri_app_mqtt()
@@ -42,6 +42,7 @@ async def main_loop():
                 if (time.time() - last_stat > STAT_INTERVAL): 
                     last_stat = time.time()
                     result = mqtt_conn.bucket_to_db()
+                    print(result)
                     if (result):
                         await db.msg_in(result)
                     #stat_msg = {"mqtt": mqtt_conn.get_stats()}
