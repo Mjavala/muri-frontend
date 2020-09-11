@@ -12,6 +12,7 @@ import asyncio
 import threading
 import random
 import argparse
+import ast
 
 class MQTT_SAMPLE_NODE():
     def __init__(self): 
@@ -35,11 +36,11 @@ class MQTT_SAMPLE_NODE():
         self.hum2 = None
 
     def message1_raw(self):
-        msg1 = {'station': 'BARN1', 'receiver': 'rcvr_1', 'data': {'TIMESTAMP': 1597617053 , 'ADDR_FROM': 'xtest', 'RSSI_RX': 93, 'FRAME_TYPE': '0xd2a8', 'FRAME_CNT': 82, 'FRAME': None, 'frame_data': {'packet_id': 53928, 'packet_num': 860, 'epoch index': 860, 'gps_lat': 405363090, 'gps_lon': 2, 'gps_alt': 15578190, 'gps_tow': 508198000, 'gps_fix': 3, 'gps_numsats': 18, 'GOND_BATT': 24, 'GOND_STA': 0, 'RS41_Temp': 0, 'RS41_Hum': 0, 'RS41_Pres': 0, 'RS41_Stat': 0, 'Ta1': 15384, 'Ti1': 41446, 'Ta2': 15771, 'Ti2': 41779, 'CW_CP_Vr1': 511, 'CW_CP_Vr2': 186, 'CW_CP_Vo1': 92, 'CW_CP_Vo2': 4574, 'CW_CP_Cpot': 2, 'CW_CP_Gpot': 255, 'gps_veln': 530, 'gps_vele': 1293, 'gps_veld': 212, 'HW_CP_Vr1': 511, 'HW_CP_Vr2': 478, 'HW_CP_Vo1': 73, 'HW_CP_Vo2': -19589, 'HW_CP_Cpot': 2, 'HW_CP_Gpot': 126, 'gps_rms_hor': 0, 'gps_rms_ver': 0, 'VENT_BATT': 31, 'VENT_STAT': 54, 'VENT_Ta1': 409, 'VENT_Ti1': 47897, 'VENT_Ta2': 409, 'VENT_Ti2': 47590, 'VENT_DIFF': 0, 'GOND_BATT_C': 5.415882352941177, 'VENT_BATT_C': 5.551764705882353, 'Ta1_C': -62.44140625, 'Ti1_C': 1.1865234375, 'Ta2_C': -61.49658203125, 'Ti2_C': 1.99951171875, 'VENT_Ta1_C': None, 'VENT_Ti1_C': 16.93603515625, 'VENT_Ta2_C': None, 'VENT_Ti2_C': 16.1865234375, 'gps_veln_C': 5.3, 'gps_vele_C': 12.93, 'gps_veld_C': 2.12}, 'converted': 1595624982.4692912}}
+        msg1 = {'station': 'BARN1', 'receiver': 'rcvr_1', 'data': {'TIMESTAMP': 1597617053 , 'ADDR_FROM': 's', 'RSSI_RX': 93, 'FRAME_TYPE': '0xd2a8', 'FRAME_CNT': 82, 'FRAME': None, 'frame_data': {'packet_id': 53928, 'packet_num': 860, 'epoch index': 860, 'gps_lat': 405363090, 'gps_lon': 2, 'gps_alt': 15578190, 'gps_tow': 508198000, 'gps_fix': 3, 'gps_numsats': 18, 'GOND_BATT': 24, 'GOND_STA': 0, 'RS41_Temp': 0, 'RS41_Hum': 0, 'RS41_Pres': 0, 'RS41_Stat': 0, 'Ta1': 15384, 'Ti1': 41446, 'Ta2': 15771, 'Ti2': 41779, 'CW_CP_Vr1': 511, 'CW_CP_Vr2': 186, 'CW_CP_Vo1': 92, 'CW_CP_Vo2': 4574, 'CW_CP_Cpot': 2, 'CW_CP_Gpot': 255, 'gps_veln': 530, 'gps_vele': 1293, 'gps_veld': 212, 'HW_CP_Vr1': 511, 'HW_CP_Vr2': 478, 'HW_CP_Vo1': 73, 'HW_CP_Vo2': -19589, 'HW_CP_Cpot': 2, 'HW_CP_Gpot': 126, 'gps_rms_hor': 0, 'gps_rms_ver': 0, 'VENT_BATT': 31, 'VENT_STAT': 54, 'VENT_Ta1': 409, 'VENT_Ti1': 47897, 'VENT_Ta2': 409, 'VENT_Ti2': 47590, 'VENT_DIFF': 0, 'GOND_BATT_C': 5.415882352941177, 'VENT_BATT_C': 5.551764705882353, 'Ta1_C': -62.44140625, 'Ti1_C': 1.1865234375, 'Ta2_C': -61.49658203125, 'Ti2_C': 1.99951171875, 'VENT_Ta1_C': None, 'VENT_Ti1_C': 16.93603515625, 'VENT_Ta2_C': None, 'VENT_Ti2_C': 16.1865234375, 'gps_veln_C': 5.3, 'gps_vele_C': 12.93, 'gps_veld_C': 2.12}, 'converted': 1595624982.4692912}}
         return msg1
 
     def message2_raw(self):
-        msg2 = {'station': 'BARN1', 'receiver': 'rcvr_1', 'data': {'TIMESTAMP': 1597617053 , 'ADDR_FROM': 'xtest', 'RSSI_RX': 101, 'FRAME_TYPE': '0xc109', 'FRAME_CNT': 81, 'FRAME': None, 'frame_data': {'packet_id': 49417, 'packet_num': 6865, 'epoch index': 858, 'interval index': 1, 'gps_lat': 405350375, 'gps_lon': 2, 'gps_alt': 15638662, 'gps_tow': 508168600, 'gps_fix': 3, 'gps_numsats': 18, 'CW_SA_0': 25127, 'CW_SA_1': 24076, 'CW_SA_2': 22492, 'CW_SA_3': 27592, 'CW_SA_4': 33866, 'CW_SA_5': 37400, 'CW_SA_6': 37888, 'CW_SA_7': 37519, 'CW_SA_8': 38047, 'HW_SA_0': 22705, 'HW_SA_1': 23724, 'HW_SA_2': 22690, 'HW_SA_3': 27127, 'HW_SA_4': 32966, 'HW_SA_5': 38917, 'HW_SA_6': 46102, 'HW_SA_7': 46902, 'HW_SA_8': 47276, 'CW_Vr1': 511, 'CW_Vr2': 478, 'CW_Vo1': 58, 'CW_Vo2': 223, 'CW_Cpot': 56560, 'CW_Gpot': 61496, 'HW_Vr1': 511, 'HW_Vr2': 300, 'HW_Vo1': 18, 'HW_Vo2': 71}}}
+        msg2 = {'station': 'BARN1', 'receiver': 'rcvr_1', 'data': {'TIMESTAMP': 1597617053 , 'ADDR_FROM': 's', 'RSSI_RX': 101, 'FRAME_TYPE': '0xc109', 'FRAME_CNT': 81, 'FRAME': None, 'frame_data': {'packet_id': 49417, 'packet_num': 6865, 'epoch index': 858, 'interval index': 1, 'gps_lat': 405350375, 'gps_lon': 2, 'gps_alt': 15638662, 'gps_tow': 508168600, 'gps_fix': 3, 'gps_numsats': 18, 'CW_SA_0': 25127, 'CW_SA_1': 24076, 'CW_SA_2': 22492, 'CW_SA_3': 27592, 'CW_SA_4': 33866, 'CW_SA_5': 37400, 'CW_SA_6': 37888, 'CW_SA_7': 37519, 'CW_SA_8': 38047, 'HW_SA_0': 22705, 'HW_SA_1': 23724, 'HW_SA_2': 22690, 'HW_SA_3': 27127, 'HW_SA_4': 32966, 'HW_SA_5': 38917, 'HW_SA_6': 46102, 'HW_SA_7': 46902, 'HW_SA_8': 47276, 'CW_Vr1': 511, 'CW_Vr2': 478, 'CW_Vo1': 58, 'CW_Vo2': 223, 'CW_Cpot': 56560, 'CW_Gpot': 61496, 'HW_Vr1': 511, 'HW_Vr2': 300, 'HW_Vo1': 18, 'HW_Vo2': 71}}}
         return msg2
 
     def message1_stat(self):
@@ -157,7 +158,12 @@ class MQTT_SAMPLE_NODE():
         print("Connected to %s" % client)
 
     def on_message(self, client,  userdata, message):
-        print(message)
+        try:
+            payload = json.dumps(str(message.payload.decode()))
+            print(json.loads(payload))
+            #payload = json.loads(str(message.payload.decode()))
+        except Exception as e:
+            print(e)
 
     def on_disconnect(self, client, userdata, rc):
         if rc != 0:
@@ -180,6 +186,17 @@ class MQTT_SAMPLE_NODE():
         self.publish_message_wrap("muri/raw", msg2)
         
         t.start()
+
+    def filestream(self):
+        with open('9-10-log.json', 'r+') as f:
+            for line in f:
+                line = line.strip('\n')
+                line = ast.literal_eval(line)
+                line = json.dumps(line)
+                #print(json.dumps(line))
+                self.mqttc.publish('muri/raw', line, qos = 2)
+                #print(str(json.dumps(line)))
+                time.sleep(1)
 
     def logging_test_stat(self):
 
@@ -216,7 +233,7 @@ class MQTT_SAMPLE_NODE():
         self.alt1 = int(random.uniform(1000, 20000))
         self.alt2 = int(random.uniform(1000, 20000))
 
-    async def init_mqtt(self, args_stat, args_raw):
+    async def init_mqtt(self, args_stat, args_raw, args_file):
 
         MQTT_USER = "muri"
         MQTT_PASS = "demo2020"
@@ -238,7 +255,6 @@ class MQTT_SAMPLE_NODE():
 
         print("Subscribing to Topics")
         self.mqttc.subscribe('muri/raw')
-        self.mqttc.subscribe('muri/stat')
 
         if (args_raw):
             print('!--- Output to muri/raw ---!')
@@ -248,6 +264,10 @@ class MQTT_SAMPLE_NODE():
             print('!--- Output to muri/stat ---!')
             self.logging_test_stat()
 
+        if(args_file):
+            print('!--- filestream output ---!')
+            self.filestream()
+        
         while (self.connected):
             pass
 
@@ -262,6 +282,9 @@ if __name__ == "__main__":
     group.add_argument('-r', '--raw',
                     action='store_true',
                     help = "Raw message output" )
+    group.add_argument('-f', '--file',
+                    action='store_true',
+                    help = "File messages output" )
 
     args = parser.parse_args()
 
@@ -269,4 +292,4 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
 
-    loop.run_until_complete(asyncio.ensure_future(mqtt_conn.init_mqtt(args.stat, args.raw)))
+    loop.run_until_complete(asyncio.ensure_future(mqtt_conn.init_mqtt(args.stat, args.raw, args.file)))
