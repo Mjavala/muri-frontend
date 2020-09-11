@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '/home/.muri_env')
+dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
@@ -54,8 +54,8 @@ class muri_app_mqtt():
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri_test/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
-            self.mqttc.subscribe('muri_test/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            #self.mqttc.subscribe('muri/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
             self.logger.log_app("--- MQTT Connected! ---")
         else: 
             self.connected = False
@@ -71,13 +71,18 @@ class muri_app_mqtt():
 
     def on_mqtt_msg(self, client,  userdata, message):
         # need to call the the status function in main every second
-        payload = json.loads(str(message.payload.decode()))
+        try:
+            payload = json.loads(str(message.payload.decode()))
+        except Exception as e:
+            print(e)
 
         #self.msg_to_db_raw = payload
-        if message.topic == 'muri_test/raw':
+        if message.topic == 'muri/raw':
             if payload['data']['frame_data']:
                 self.live = True
+            print(payload['data']['ADDR_FROM'])
             result = self.simulation_check(payload['data']['ADDR_FROM'])
+            print(result)
             if result:
                 self.db_data(payload)
                 self.stats()
