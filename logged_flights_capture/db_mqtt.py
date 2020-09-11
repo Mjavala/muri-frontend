@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '../.env')
+dotenv_path = join(dirname(__file__), '~/home/.muri_env')
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
@@ -77,10 +77,10 @@ class muri_app_mqtt():
         if message.topic == 'muri_test/raw':
             if payload['data']['frame_data']:
                 self.live = True
-            #result = self.simulation_check(payload['data']['ADDR_FROM'])
-            #if result:
-            self.db_data(payload)
-            self.stats()
+            result = self.simulation_check(payload['data']['ADDR_FROM'])
+            if result:
+                self.db_data(payload)
+                self.stats()
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
