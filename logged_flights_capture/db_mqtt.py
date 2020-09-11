@@ -80,9 +80,7 @@ class muri_app_mqtt():
         if message.topic == 'muri/raw':
             if payload['data']['frame_data']:
                 self.live = True
-            print(payload['data']['ADDR_FROM'])
             result = self.simulation_check(payload['data']['ADDR_FROM'])
-            print(result)
             if result:
                 self.db_data(payload)
                 self.stats()
