@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '/root/muri/.env')
+dotenv_path = join(dirname(__file__), '/home/.env')
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
@@ -78,7 +78,7 @@ class muri_app_mqtt():
         if message.topic == 'muri_test/stat':
             if self.live:
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
-                self.slant = payload['receiver_1']['tracker']['track']['last_slant']
+                self.slant = payload['tracker']['track']['last_slant']
         #self.msg_to_db_raw = payload
         if message.topic == 'muri_test/raw':
             if payload['data']['frame_data']:
