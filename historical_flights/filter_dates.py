@@ -55,8 +55,6 @@ class muri_db():
 
     def filter_dates(self, dates):
         substring = '2020'
-        print(dates)
-        print(self.first_record, self.last_record)
         for key, date in dates.items():
             if not search(substring, date):
                 self.rows_to_delete.append(key)

@@ -6,21 +6,38 @@ services:
     volumes:
     - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_PASSWORD: "YOUR POSTGRES PASS"
     ports:
     - "127.0.0.1:5432:5432"
   graphql-engine:
-    image: hasura/graphql-engine:v1.2.2
-    ports:
-    - "8080:8080"
+    image: hasura/graphql-engine:v1.3.1
     depends_on:
     - "postgres"
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
-      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      # database url to connect
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:"YOUR POSTGRES PASS"@postgres:5432/muri
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
       ## uncomment next line to set an admin secret
-      HASURA_GRAPHQL_ADMIN_SECRET: muri2020
+      HASURA_GRAPHQL_ADMIN_SECRET: "YOUR HASURA PASS"
+    command:
+    - graphql-engine
+    - serve
+  caddy:
+    image: caddy/caddy
+    depends_on:
+    - "graphql-engine"
+    restart: always
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - ./Caddyfile:/etc/caddy/Caddyfile
+    - caddy_certs:/root/.caddy
 volumes:
   db_data:
+  caddy_certs:
+

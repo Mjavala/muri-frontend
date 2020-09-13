@@ -50,6 +50,8 @@ class muri_app_mqtt():
         self.ti1_c = None   
         self.ti2_c = None   
         self.frame = None
+        self.slant = None
+
 
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
@@ -76,6 +78,7 @@ class muri_app_mqtt():
         if message.topic == 'muri_test/stat':
             if self.live:
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
+                self.slant = payload['receiver_1']['tracker']['track']['last_slant']
         #self.msg_to_db_raw = payload
         if message.topic == 'muri_test/raw':
             if payload['data']['frame_data']:
@@ -149,7 +152,8 @@ class muri_app_mqtt():
             self.ti1_c,
             self.ti2_c,
             self.gps_tow,
-            self.frame
+            self.frame,
+            self.slant
 
         )
         self.bucket.append(self.current_message)
