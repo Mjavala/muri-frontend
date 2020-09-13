@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '/home/.env')
+dotenv_path = join(dirname(__file__), '/root/muri/.env')
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
