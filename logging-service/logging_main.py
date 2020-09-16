@@ -38,7 +38,7 @@ class muri_app_mqtt():
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri_test/raw')
+            self.mqttc.subscribe('muri/raw')
             print("--- MQTT Connected! ---")
             #self.logger.log_app("--- MQTT Connected! ---")
         else: 
@@ -70,9 +70,9 @@ class muri_app_mqtt():
         if payload['data']['frame_data']:
             try:
                 payload = json.dumps(payload)
-                #result = self.simulation_check(self.id) 
-                #if result:
-                device_logger.device_logger(self.id_set, self.id, payload)
+                result = self.simulation_check(self.id) 
+                if result:
+                    device_logger.device_logger(self.id_set, self.id, payload)
             except Exception as e:
                 print(e)
 
