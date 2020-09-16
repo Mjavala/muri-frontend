@@ -7,7 +7,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '/root/muri/.env')
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
@@ -38,7 +38,7 @@ class muri_app_mqtt():
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri/raw')
+            self.mqttc.subscribe('muri_test/raw')
             print("--- MQTT Connected! ---")
             #self.logger.log_app("--- MQTT Connected! ---")
         else: 
@@ -68,11 +68,13 @@ class muri_app_mqtt():
         self.id_set.add(self.id)
 
         if payload['data']['frame_data']:
-            result = self.simulation_check(self.id) 
-            print('result')
-            if result:
-                print('here')
+            try:
+                payload = json.dumps(payload)
+                #result = self.simulation_check(self.id) 
+                #if result:
                 device_logger.device_logger(self.id_set, self.id, payload)
+            except Exception as e:
+                print(e)
 
     def simulation_check(self, addr_from):
         # TODO: FIX this hack pls (REGEX)

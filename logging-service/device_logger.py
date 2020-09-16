@@ -17,7 +17,7 @@ def device_logger(device_list, id, message):
             logger = logging.getLogger(id)
             logger.info(message)
         elif id not in device_list:
-            raise
+            pass
 
 def device_log_setup(id):
     daily_path,  hourly_path = build_dir(id)
@@ -45,8 +45,8 @@ def device_log_setup(id):
 def build_dir(id):
     
     # config to your directory structure
-    path_hourly = '/home/muri-app/backend/logs/{0}/hourly/'.format(id)
-    path_daily = '/home/muri-app/backend/logs/{0}/daily/'.format(id)
+    path_hourly = '/home/muri-backend/logging-service/logs/{0}/hourly/'.format(id)
+    path_daily = '/home/muri-backend/logging-service/logs/{0}/daily/'.format(id)
 
     try:
         os.makedirs(path_hourly, mode=0o777, exist_ok=True)
