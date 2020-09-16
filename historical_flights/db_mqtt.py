@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '/root/muri/.env')
+dotenv_path = join(dirname(__file__), '/root/muri/.env')    # depends on your directory structure
 load_dotenv(dotenv_path)
 
 MQTT_USER = os.getenv('MQTT_USER')
@@ -56,8 +56,8 @@ class muri_app_mqtt():
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
-            self.mqttc.subscribe('muri/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_test/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_test/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
             self.logger.log_app("--- MQTT Connected! ---")
         else: 
             self.connected = False
@@ -75,18 +75,18 @@ class muri_app_mqtt():
         # need to call the the status function in main every second
         payload = json.loads(str(message.payload.decode()))
 
-        if message.topic == 'muri/stat':
+        if message.topic == 'muri_test/stat':
             if self.live:
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
                 self.slant = payload['tracker']['track']['last_slant']
         #self.msg_to_db_raw = payload
-        if message.topic == 'muri/raw':
+        if message.topic == 'muri_test/raw':
             if payload['data']['frame_data']:
                 self.live = True
-            result = self.simulation_check(payload['data']['ADDR_FROM'])
-            if result:
-                self.db_data(payload)
-                self.stats()
+            #result = self.simulation_check(payload['data']['ADDR_FROM'])
+            #if result:
+            self.db_data(payload)
+            self.stats()
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
@@ -158,7 +158,7 @@ class muri_app_mqtt():
         )
         self.bucket.append(self.current_message)
 
-    def message_tracker(self):
+    def live_flight(self):
         return self.live
 
     async def start_mqtt(self):

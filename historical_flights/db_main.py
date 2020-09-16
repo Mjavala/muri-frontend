@@ -2,12 +2,10 @@
 
 # Muri App Main Program
 # Program Structure: 
-#   - db_main (runs async, mult instances allowed)
+#   - db_main (runs async, sgl instance)
 #   - db_mqtt (runs async, sgl instance)
 #   - muri_db (sgl instance, single operation (R/W) connection to DB)
-#   - db_log (sgl instance, needs to be configured for your directory structure)
-#   - Muri App Main Program (db_main)
-#       - Async. Runs logging, MQTT and Database service. Watchdog. General Logging
+#   - db_log (sgl instance, outputs app/db logs at current directory. Logs rotate hourly.)
 
 import asyncio
 import logging
@@ -16,15 +14,13 @@ import time
 import json
 import db_mqtt as mqttc
 import muri_db as muri_db
-#import muri_db_raw as muri_db_raw
 import db_log as muri_db_log
 
 STAT_INTERVAL = 1
-STAT_INTERVAL_LIVE = 5
+LIVE_CHECK_INTERVAL = 5
 
 mqtt_conn = mqttc.muri_app_mqtt()
 db = muri_db.muri_db()
-#db_raw = muri_db_raw.muri_db_raw()
 
 async def main_loop():
 
@@ -33,9 +29,10 @@ async def main_loop():
     live = False
 
     while (True):
-        if (time.time() - last_stat > STAT_INTERVAL_LIVE):
+        if (time.time() - last_stat > LIVE_CHECK_INTERVAL):
             last_stat = time.time()
-            live = mqtt_conn.message_tracker()
+            # DGRS stations output stat messages every ~ 30 seconds regardless of whether there is a live flight or not.
+            live = mqtt_conn.live_flight()
             await asyncio.sleep(0.1)
         if live:
             try: 
@@ -44,11 +41,6 @@ async def main_loop():
                     result = mqtt_conn.bucket_to_db()
                     if (result):
                         await db.msg_in(result)
-                    #stat_msg = {"mqtt": mqtt_conn.get_stats()}
-                    #raw_msg = mqtt_conn.get_raw_msg()
-                    #stat msg to database
-                    #db_raw.msg_in(raw_msg)
-                    #logger.log_app(json.dumps(stat_msg))
                 await asyncio.sleep(0.5)
                 
             except Exception as e:
@@ -69,7 +61,6 @@ if __name__ == '__main__':
 
     tasks = [asyncio.ensure_future(main_loop()),
              asyncio.ensure_future(mqtt_conn.main_loop()),
-             asyncio.ensure_future(db.main_loop()),]
-             #asyncio.ensure_future(db_raw.main_loop())]
+             asyncio.ensure_future(db.main_loop())]
 
     loop.run_until_complete(asyncio.gather(*tasks))
