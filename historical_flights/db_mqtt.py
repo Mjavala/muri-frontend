@@ -97,6 +97,7 @@ class muri_app_mqtt():
                 #result = self.simulation_check(payload['data']['ADDR_FROM'])
                 #if result:
                 self.live = True
+                self.clear_stat_data()
                 self.db_data(payload)
                 self.stats()
 
@@ -173,7 +174,11 @@ class muri_app_mqtt():
             self.ti2_c,
             self.gps_tow,
             self.frame,
-            self.slant
+            self.slant,
+            self.hw_vo1,
+            self.hw_vo2,
+            self.cw_vo1,
+            self.cw_vo2
 
         )
         self.bucket.append(self.current_message)
@@ -210,6 +215,10 @@ class muri_app_mqtt():
         self.ta1_c = None 
         self.ti1_c = None   
         self.ti2_c = None  
+
+    def clear_stat_data(self):
+        self.rssi = None
+        self.slant = None
 
     def live_flight(self):
         return self.live

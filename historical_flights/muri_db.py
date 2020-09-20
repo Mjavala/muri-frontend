@@ -45,7 +45,8 @@ class muri_db():
                 columns=[
                     'data_time', 'device_id', 'station_id', 'latitude', 'longitude', 
                     'altitude', 'rssi', 'temperature', 'batt_mon', 'vent_batt', 'packet_type',
-                    'packet_id', 'temp_amb_1', 'temp_int_1', 'temp_int_2', 'gps_tow', 'frame', 'slant'
+                    'packet_id', 'temp_amb_1', 'temp_int_1', 'temp_int_2', 'gps_tow', 'frame', 
+                    'slant', 'hw_vo1', 'hw_vo2', 'cw_vo1', 'cw_vo2'
                 ])
 
         except Exception as e:
