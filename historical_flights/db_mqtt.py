@@ -33,24 +33,32 @@ class muri_app_mqtt():
 
         self.live = False
 
+        # metadata
         self.timestamp = None
         self.id = None
         self.station = None
         self.altitude = None
         self.latitude = None
         self.longitude = None
-        self.rssi = None
+        self.frame = None
+        self.frame_type = None
+        self.packet_id = None
+        self.gps_tow = None
+        # 0xd2a8 packet type
         self.temp = None
         self.batt_mon = None
         self.vent_batt = None
-        self.frame_type = None
-        self.packet_id = None  
-        self.gps_tow = None
         self.ta1_c = None 
         self.ti1_c = None   
         self.ti2_c = None   
-        self.frame = None
+        # station message packet
         self.slant = None
+        self.rssi = None
+        # 0xc109 packet
+        self.hw_vo1 = None
+        self.hw_vo2 = None
+        self.cw_vo1 = None
+        self.cw_vo2 = None
 
 
     def on_mqtt_conn(self, client, userdata, flags, rc):
@@ -77,16 +85,20 @@ class muri_app_mqtt():
 
         if message.topic == 'muri/stat':
             if self.live:
+                self.clear_raw_data()
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
                 self.slant = payload['tracker']['track']['last_slant']
+                self.timestamp_to_datetime(payload['stat_time'])
+                self.station = payload['station']
+                self.stats()
         #self.msg_to_db_raw = payload
         if message.topic == 'muri/raw':
             if payload['data']['frame_data']:
-                self.live = True
-            result = self.simulation_check(payload['data']['ADDR_FROM'])
-            if result:
-                self.db_data(payload)
-                self.stats()
+                result = self.simulation_check(payload['data']['ADDR_FROM'])
+                if result:
+                    self.live = True
+                    self.db_data(payload)
+                    self.stats()
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
@@ -102,12 +114,20 @@ class muri_app_mqtt():
 
             #self.rssi = payload['data']['RSSI_RX']
             if payload['data']['FRAME_TYPE'] == '0xd2a8':
+                self.clear_0xc109()
                 self.temp = round(payload['data']['frame_data']['Ta2_C'], 4)
                 self.ta1_c = round(payload['data']['frame_data']['Ta1_C'], 4)
                 self.ti1_c = round(payload['data']['frame_data']['Ti1_C'], 4)
                 self.ti2_c = round(payload['data']['frame_data']['Ti2_C'], 4)
                 self.batt_mon = round(payload['data']['frame_data']['GOND_BATT_C'], 4)
                 self.vent_batt = payload['data']['frame_data']['VENT_BATT_C']
+
+            if payload['data']['FRAME_TYPE'] == '0xc109':
+                self.clear_0xd2a8()
+                self.hw_vo1 = (payload['data']['frame_data']['HW_Vo1'] / -4680) + 14
+                self.hw_vo2 = (payload['data']['frame_data']['HW_Vo2'] / -4680) + 14
+                self.cw_vo1 = (payload['data']['frame_data']['CW_Vo1'] / -4680) + 14
+                self.cw_vo2 = (payload['data']['frame_data']['CW_Vo2'] / -4680) + 14
 
     def timestamp_to_datetime(self, ts):
         tz = pytz.timezone('America/Denver')
@@ -157,6 +177,39 @@ class muri_app_mqtt():
 
         )
         self.bucket.append(self.current_message)
+
+    def clear_raw_data(self):
+        self.latitude = None
+        self.longitude = None
+        self.altitude = None
+        self.temp = None
+        self.batt_mon = None
+        self.vent_batt = None
+        self.frame_type = None
+        self.packet_id = None
+        self.ta1_c = None
+        self.ti1_c = None
+        self.ti2_c = None
+        self.gps_tow = None
+        self.frame = None
+        self.cw_vo1 = None
+        self.cw_vo2 = None
+        self.hw_vo1 = None
+        self.hw_vo2 = None
+
+    def clear_0xc109(self):
+        self.cw_vo1 = None
+        self.cw_vo2 = None
+        self.hw_vo1 = None
+        self.hw_vo2 = None
+
+    def clear_0xd2a8(self):
+        self.temp = None
+        self.batt_mon = None
+        self.vent_batt = None
+        self.ta1_c = None 
+        self.ti1_c = None   
+        self.ti2_c = None  
 
     def live_flight(self):
         return self.live
