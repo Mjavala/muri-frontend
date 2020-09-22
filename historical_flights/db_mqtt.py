@@ -32,6 +32,7 @@ class muri_app_mqtt():
         self.mqttc.on_message = self.on_mqtt_msg
 
         self.live = False
+        self.t0 = None
 
         # metadata
         self.timestamp = None
@@ -64,8 +65,8 @@ class muri_app_mqtt():
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
-            self.mqttc.subscribe('muri/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_stat/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_stat/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
             self.logger.log_app("--- MQTT Connected! ---")
         else: 
             self.connected = False
@@ -83,7 +84,7 @@ class muri_app_mqtt():
         # need to call the the status function in main every second
         payload = json.loads(str(message.payload.decode()))
 
-        if message.topic == 'muri/stat':
+        if message.topic == 'muri_stat/stat':
             if self.live:
                 self.clear_raw_data()
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
@@ -92,11 +93,12 @@ class muri_app_mqtt():
                 self.station = payload['station']
                 self.stats()
         #self.msg_to_db_raw = payload
-        if message.topic == 'muri/raw':
+        if message.topic == 'muri_stat/raw':
             if payload['data']['frame_data']:
                 result = self.simulation_check(payload['data']['ADDR_FROM'])
                 if result:
                     self.live = True
+                    self.t0 = time.time()
                     self.clear_stat_data()
                     self.db_data(payload)
                     self.stats()
@@ -154,6 +156,7 @@ class muri_app_mqtt():
         finally:
             if sent:
                 self.bucket = []
+
 
     def stats(self):
         self.current_message = (
@@ -240,8 +243,10 @@ class muri_app_mqtt():
         try: 
             await self.start_mqtt()
             while(True):
-                if (time.time() - last_time > 5):
-                    last_time = time.time()
+                if (self.live == True):
+                    if (time.time() - self.t0 > 60):
+                        self.live = False
+                        print(self.live)
 
                 await asyncio.sleep(0.1)
         except Exception as e:
