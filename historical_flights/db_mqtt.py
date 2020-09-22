@@ -65,8 +65,8 @@ class muri_app_mqtt():
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
             self.connected = True
-            self.mqttc.subscribe('muri_stat/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
-            self.mqttc.subscribe('muri_stat/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_test/raw', qos = 2)   # !-- QoS 2 - message received exactly once --!
+            self.mqttc.subscribe('muri_test/stat', qos = 2)   # !-- QoS 2 - message received exactly once --!
             self.logger.log_app("--- MQTT Connected! ---")
         else: 
             self.connected = False
