@@ -243,7 +243,9 @@ class muri_app_mqtt():
         try: 
             await self.start_mqtt()
             while(True):
+                print(self.live)
                 if (self.live == True):
+                    print(self.t0)
                     if (time.time() - self.t0 > 60):
                         self.live = False
                         print(self.live)
