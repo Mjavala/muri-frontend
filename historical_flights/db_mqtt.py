@@ -84,7 +84,7 @@ class muri_app_mqtt():
         # need to call the the status function in main every second
         payload = json.loads(str(message.payload.decode()))
 
-        if message.topic == 'muri_stat/stat':
+        if message.topic == 'muri_test/stat':
             if self.live:
                 self.clear_raw_data()
                 self.rssi = payload['receiver_1']['last']['rssi_last']['rssi']
@@ -93,7 +93,7 @@ class muri_app_mqtt():
                 self.station = payload['station']
                 self.stats()
         #self.msg_to_db_raw = payload
-        if message.topic == 'muri_stat/raw':
+        if message.topic == 'muri_test/raw':
             if payload['data']['frame_data']:
                 result = self.simulation_check(payload['data']['ADDR_FROM'])
                 if result:
