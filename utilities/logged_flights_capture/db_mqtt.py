@@ -77,10 +77,10 @@ class muri_app_mqtt():
         if message.topic == 'muri/raw':
             if payload['data']['frame_data']:
                 self.live = True
-            result = self.simulation_check(payload['data']['ADDR_FROM'])
-            if result:
-                self.db_data(payload)
-                self.stats()
+            #result = self.simulation_check(payload['data']['ADDR_FROM'])
+            #if result:
+            self.db_data(payload)
+            self.stats()
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
