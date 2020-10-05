@@ -120,10 +120,11 @@ class muri_app_mqtt():
                 self.clear_0xc109()
                 self.batt_mon = round(payload['data']['frame_data']['GOND_BATT_C'], 4)
                 self.vent_batt = payload['data']['frame_data']['VENT_BATT_C']
-                self.temp = round(payload['data']['frame_data']['Ta2_C'], 4)
-                self.ta1_c = round(payload['data']['frame_data']['Ta1_C'], 4)
-                self.ti1_c = round(payload['data']['frame_data']['Ti1_C'], 4)
-                self.ti2_c = round(payload['data']['frame_data']['Ti2_C'], 4)
+                if (payload['data']['frame_data']['Ta2_C']):
+                    self.temp = round(payload['data']['frame_data']['Ta2_C'], 4)
+                    self.ta1_c = round(payload['data']['frame_data']['Ta1_C'], 4)
+                    self.ti1_c = round(payload['data']['frame_data']['Ti1_C'], 4)
+                    self.ti2_c = round(payload['data']['frame_data']['Ti2_C'], 4)
 
             if payload['data']['FRAME_TYPE'] == '0xc109':
                 self.clear_0xd2a8()
