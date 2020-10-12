@@ -97,11 +97,12 @@ class muri_app_mqtt():
             if payload['data']['frame_data']:
                 result = self.simulation_check(payload['data']['ADDR_FROM'])
                 if result:
-                    self.live = True
-                    self.t0 = time.time()
-                    self.clear_stat_data()
-                    self.db_data(payload)
-                    self.stats()
+                    if (payload['data']['frame_data']['gps_fix'] >= 3):
+                        self.live = True
+                        self.t0 = time.time()
+                        self.clear_stat_data()
+                        self.db_data(payload)
+                        self.stats()
 
     def db_data(self, payload):
             self.timestamp_to_datetime(payload['data']['TIMESTAMP'])
