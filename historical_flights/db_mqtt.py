@@ -129,10 +129,10 @@ class muri_app_mqtt():
 
             if payload['data']['FRAME_TYPE'] == '0xc109':
                 self.clear_0xd2a8()
-                self.hw_vo1 = (payload['data']['frame_data']['HW_Vo1'] / -4680) + 14
-                self.hw_vo2 = (payload['data']['frame_data']['HW_Vo2'] / -4680) + 14
-                self.cw_vo1 = (payload['data']['frame_data']['CW_Vo1'] / -4680) + 14
-                self.cw_vo2 = (payload['data']['frame_data']['CW_Vo2'] / -4680) + 14
+                self.hw_vo1 = payload['data']['frame_data']['HW_Vo1']
+                self.hw_vo2 = payload['data']['frame_data']['HW_Vo2']
+                self.cw_vo1 = payload['data']['frame_data']['CW_Vo1']
+                self.cw_vo2 = payload['data']['frame_data']['CW_Vo2']
 
     def timestamp_to_datetime(self, ts):
         tz = pytz.timezone('America/Denver')
