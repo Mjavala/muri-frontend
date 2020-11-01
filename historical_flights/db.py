@@ -77,7 +77,7 @@ class muri_db:
                     columns=[
                         "station_id",
                         "data_time",
-                        "device_id"
+                        "device_id",
                         "packet_type",
                         "frame",
                         "latitude",
@@ -104,7 +104,7 @@ class muri_db:
                     columns=[
                         "station_id",
                         "data_time",
-                        "device_id"
+                        "device_id",
                         "packet_type",
                         "frame",
                         "latitude",
