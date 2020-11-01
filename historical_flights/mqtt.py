@@ -87,7 +87,7 @@ class mqtt_client:
                 self.tracker = time.time()
                 self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
                 self.live_device = self.payload['message']['data']['ADDR_FROM']
-            elif message.topic == "muri/stat" and self.live_device not None:
+            elif message.topic == "muri/stat" and self.live_device is not None:
                 self.payload["destination"] = "stat"
 
             if self.payload["message"]["station"] !== "VGRS1":
@@ -105,7 +105,7 @@ class mqtt_client:
                     self.tracker = time.time()
                     self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
                     self.live_device = self.payload['message']['data']['ADDR_FROM']
-                elif message.topic == "muri_test/stat" and self.live_device not None:
+                elif message.topic == "muri_test/stat" and self.live_device is not None:
                     self.payload["destination"] = "stat"
 
                 # TEST01 station sim only
