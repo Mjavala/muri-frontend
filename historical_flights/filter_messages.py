@@ -29,7 +29,7 @@ class filter_mqtt:
             "0xd2a8": self.filter_0xd2a8,
         }
 
-    def filter_stat(self, payload):
+    def filter_stat(self, payload, device):
         # TODO: Test func
         # need rssi / slant
         if payload["station"] != "VTST1" and payload["station"] != "VGRS1":
@@ -49,12 +49,13 @@ class filter_mqtt:
 
             timestamp = self.timestamp_to_datetime(tempObj[0])
             tempObj[0] = timestamp
+            tempObj.append(device)
 
             return {"topic": "stat", "message": tuple(tempObj)}
         else:
             return None
 
-    def filter_0xc109(self, payload):
+    def filter_0xc109(self, payload, device):
         # print(payload['destination'])
         # need hw/cw vo1/vo2
         tempObj = []
@@ -81,7 +82,7 @@ class filter_mqtt:
 
         return {"topic": "0xc109", "message": tuple(tempObj)}
 
-    def filter_0xd2a8(self, payload):
+    def filter_0xd2a8(self, payload, device):
         # print(payload['destination'])
         # need hw/cw vo1/vo2
         tempObj = []
@@ -133,7 +134,7 @@ class filter_mqtt:
                     payload["destination"], lambda x=None: "invalid message type"
                 )
 
-                result = func(payload["message"])
+                result = func(payload["message"], payload["device"])
                 if result:
                     return result
             except Exception as e:

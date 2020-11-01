@@ -31,10 +31,11 @@ class mqtt_client:
         self.mqttc.on_connect = self.on_mqtt_conn
         self.mqttc.on_disconnect = self.on_mqtt_disc
         self.mqttc.on_message = self.on_mqtt_msg
-        self.payload = {"destination": str, "message": dict}
+        self.payload = {"destination": str, "message": dict, "device": str}
         # Live balloon hook
         self.flight_live = False
         self.mqtt_live = False
+        self.live_device = None
 
     def is_live(self):
         return self.live
@@ -84,10 +85,13 @@ class mqtt_client:
                     "FRAME_TYPE"
                 ]
                 self.tracker = time.time()
-            elif message.topic == "muri/stat":
+                self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
+                self.live_device = self.payload['message']['data']['ADDR_FROM']
+            elif message.topic == "muri/stat" and self.live_device not None:
                 self.payload["destination"] = "stat"
 
-            self.q_in.put_nowait(self.payload)
+            if self.payload["message"]["station"] !== "VGRS1":
+                self.q_in.put_nowait(self.payload)
 
         # simulation config for test channels
         elif self.mqtt_config[0] == "simdb":
@@ -99,7 +103,9 @@ class mqtt_client:
                         "FRAME_TYPE"
                     ]
                     self.tracker = time.time()
-                elif message.topic == "muri_test/stat":
+                    self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
+                    self.live_device = self.payload['message']['data']['ADDR_FROM']
+                elif message.topic == "muri_test/stat" and self.live_device not None:
                     self.payload["destination"] = "stat"
 
                 # TEST01 station sim only
