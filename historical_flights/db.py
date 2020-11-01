@@ -55,7 +55,7 @@ class muri_db:
 
     async def write_stat(self, payload):
         async with self.client_pool.acquire() as con:
-            await conn.copy_records_to_table(
+            await con.copy_records_to_table(
                 "device_data",
                 payload,
                 columns=["data_time", "station_id", "rssi", "slant"],
@@ -63,7 +63,7 @@ class muri_db:
 
     async def write_0xc109(self, payload):
         async with self.client_pool.acquire() as con:
-            await conn.copy_records_to_table(
+            await con.copy_records_to_table(
                 "device_data",
                 payload,
                 columns=[
@@ -86,7 +86,7 @@ class muri_db:
 
     async def write_0xd2a8(self, payload):
         async with self.client_pool.acquire() as con:
-            await conn.copy_records_to_table(
+            await con.copy_records_to_table(
                 "device_data",
                 payload,
                 columns=[
