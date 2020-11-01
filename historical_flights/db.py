@@ -3,6 +3,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import os
 import asyncpg
+import traceback
 
 dotenv_path = join(dirname(__file__), "/root/muri/.env")
 load_dotenv(dotenv_path)
@@ -54,60 +55,69 @@ class muri_db:
             return batch
 
     async def write_stat(self, payload):
-        async with self.client_pool.acquire() as con:
-            await con.copy_records_to_table(
-                "device_data",
-                records = payload,
-                columns=["data_time", "station_id", "rssi", "slant"],
-            )
+        try:
+            async with self.client_pool.acquire() as con:
+                await con.copy_records_to_table(
+                    "device_data",
+                    records = payload,
+                    columns=["data_time", "station_id", "rssi", "slant"],
+                )
+        except Exception as e:
+            traceback.print_exc(e)
 
     async def write_0xc109(self, payload):
-        async with self.client_pool.acquire() as con:
-            await con.copy_records_to_table(
-                "device_data",
-                records = payload,
-                columns=[
-                    "station_id",
-                    "data_time",
-                    "packet_type",
-                    "slant",
-                    "frame",
-                    "latitude",
-                    "longitude",
-                    "altitude",
-                    "packet_id",
-                    "gps_tow",
-                    "hw_vo1",
-                    "hw_vo2",
-                    "cw_vo1",
-                    "cw_vo2",
-                ],
-            )
+        try:
+            async with self.client_pool.acquire() as con:
+                await con.copy_records_to_table(
+                    "device_data",
+                    records = payload,
+                    columns=[
+                        "station_id",
+                        "data_time",
+                        "packet_type",
+                        "slant",
+                        "frame",
+                        "latitude",
+                        "longitude",
+                        "altitude",
+                        "packet_id",
+                        "gps_tow",
+                        "hw_vo1",
+                        "hw_vo2",
+                        "cw_vo1",
+                        "cw_vo2",
+                    ],
+                )
+        except Exception as e:
+            traceback.print_exc(e)
 
     async def write_0xd2a8(self, payload):
-        async with self.client_pool.acquire() as con:
-            await con.copy_records_to_table(
-                "device_data",
-                records= payload,
-                columns=[
-                    "station_id",
-                    "data_time",
-                    "packet_type",
-                    "slant",
-                    "frame",
-                    "latitude",
-                    "longitude",
-                    "altitude",
-                    "packet_id",
-                    "gps_tow",
-                    "batt_mon",
-                    "vent_batt",
-                    "temp_amb_1",
-                    "temperature",
-                    "temp_int_1",
-                    "temp_int_2",
-                ],
-            )
+        try:
+            async with self.client_pool.acquire() as con:
+                await con.copy_records_to_table(
+                    "device_data",
+                    records= payload,
+                    columns=[
+                        "station_id",
+                        "data_time",
+                        "packet_type",
+                        "slant",
+                        "frame",
+                        "latitude",
+                        "longitude",
+                        "altitude",
+                        "packet_id",
+                        "gps_tow",
+                        "batt_mon",
+                        "vent_batt",
+                        "temp_amb_1",
+                        "temperature",
+                        "temp_int_1",
+                        "temp_int_2",
+                    ],
+                )
+        except Exception as e:
+            traceback.print_exc(e)
 
     async def main_loop(self):
         try:
