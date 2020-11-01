@@ -22,6 +22,10 @@ class muri_db:
         self.q_0xc = asyncio.Queue()
         self.q_0xd = asyncio.Queue()
 
+        self.write_stat_counter = 0
+        self.write_0xc_counter = 0
+        self.write_0xd_counter = 0
+
     def get_stat_q(self):
         return self.q_stat
 
@@ -59,6 +63,19 @@ class muri_db:
         print("stat Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
+                if self.write_stat_counter == 0:
+                    await con.execute(
+                        '''
+                        INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                        ''', payload[2]
+                    )
+
+                    await conn.execute(
+                        '''
+                        INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                        ''', payload[0]
+                        )
+                    self.write_stat_counter += 1
                 await con.copy_records_to_table(
                     "device_data",
                     records = payload,
@@ -71,6 +88,19 @@ class muri_db:
         print("0xc109 Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
+                if self.write_0xc_counter == 0:
+                    await con.execute(
+                        '''
+                        INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                        ''', payload[2]
+                    )
+
+                    await conn.execute(
+                        '''
+                        INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                        ''', payload[0]
+                        )
+                    self.write_0xc_counter += 1
                 await con.copy_records_to_table(
                     "device_data",
                     records = payload,
@@ -98,6 +128,19 @@ class muri_db:
         print("0xd2a8 Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
+                if self.write_0xd_counter == 0:
+                    await con.execute(
+                        '''
+                        INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                        ''', payload[2]
+                    )
+
+                    await conn.execute(
+                        '''
+                        INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                        ''', payload[0]
+                        )
+                    self.write_0xd_counter += 1
                 await con.copy_records_to_table(
                     "device_data",
                     records= payload,
@@ -132,6 +175,12 @@ class muri_db:
             print("Could not connect to DB instance. Error: {}".format(e))
 
         while True:
+            # Necessary to satisfy foreign constraints
+            if self.write_stat_counter > 0 or self.write_0xc_counter > 0 or self.write_0xd2a8 > 0:
+                self.write_0xc_counter += 1
+                self.write_0xd_counter += 1
+                self.write_stat_counter += 1
+
             if not self.q_stat.empty():
                 try:
                     batch = self.sender(self.q_stat)
