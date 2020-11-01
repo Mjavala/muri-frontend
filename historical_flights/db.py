@@ -176,7 +176,7 @@ class muri_db:
 
         while True:
             # Necessary to satisfy foreign constraints
-            if self.write_stat_counter > 0 or self.write_0xc_counter > 0 or self.write_0xd2a8 > 0:
+            if self.write_stat_counter > 0 or self.write_0xc_counter > 0 or self.write_0xd_counter > 0:
                 self.write_0xc_counter += 1
                 self.write_0xd_counter += 1
                 self.write_stat_counter += 1
