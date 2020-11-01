@@ -51,7 +51,7 @@ async def main_loop():
         if qo.qsize() > 100:
             await asyncio.sleep(0.3)
         else:
-            await asyncio.sleep(0.75)
+            await asyncio.sleep(1)
 
 
 if __name__ == "__main__":

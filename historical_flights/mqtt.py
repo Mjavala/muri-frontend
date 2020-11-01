@@ -37,6 +37,10 @@ class mqtt_client:
         self.mqtt_live = False
         self.live_device = None
 
+        # message counts
+        self.stat_count = 0
+        self.raw_count = 0
+
     def is_live(self):
         return self.live
 
@@ -102,11 +106,13 @@ class mqtt_client:
                     self.payload["destination"] = self.payload["message"]["data"][
                         "FRAME_TYPE"
                     ]
+                    self.raw_count += 1
                     self.tracker = time.time()
                     self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
                     self.live_device = self.payload['message']['data']['ADDR_FROM']
                 elif message.topic == "muri_test/stat" and self.live_device is not None:
                     self.payload["destination"] = "stat"
+                    self.stat_count += 1
 
                 # TEST01 station sim only
                 if self.payload["message"]["station"] != "VTST1":
@@ -159,7 +165,8 @@ class mqtt_client:
                 if self.q_in.qsize() > 100:
                     await asyncio.sleep(0.2)
                 else:
-                    await asyncio.sleep(0.5)
+                    print('MQTT IN | stat count: {} | raw count: {}'. format(self.stat_count, self.raw_count))
+                    await asyncio.sleep(1)
         except Exception as e:
             print("Exception in MQTT: %s" % e)
         finally:
