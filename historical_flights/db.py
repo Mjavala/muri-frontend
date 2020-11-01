@@ -137,19 +137,19 @@ class muri_db:
                     batch = self.sender(self.q_stat)
                     await self.write_stat(batch)
                 except Exception as e:
-                    print("Write stat msg ERROR: {}".format(e))
+                    print("Write stat msg ERROR: {}".format(traceback.print_exc(e)))
             if not self.q_0xc.empty():
                 try:
                     batch = self.sender(self.q_0xc)
                     await self.write_0xc109(batch)
                 except Exception as e:
-                    print("Write 0xc109 msg ERROR: {}".format(e))
+                    print("Write 0xc109 msg ERROR: {}".format(traceback.print_exc(e)))
             if not self.q_0xd.empty():
                 try:
                     batch = self.sender(self.q_0xd)
                     await self.write_0xd2a8(batch)
                 except Exception as e:
-                    print("Write 0xd2a8 msg ERROR: {}".format(e))
+                    print("Write 0xd2a8 msg ERROR: {}".format(traceback.print_exc(e)))
             await asyncio.sleep(10)
 
 
