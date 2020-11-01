@@ -66,6 +66,7 @@ class muri_db:
             traceback.print_exc(e)
 
     async def write_0xc109(self, payload):
+        print(payload)
         try:
             async with self.client_pool.acquire() as con:
                 await con.copy_records_to_table(
