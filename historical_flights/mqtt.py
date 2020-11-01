@@ -90,7 +90,7 @@ class mqtt_client:
             elif message.topic == "muri/stat" and self.live_device is not None:
                 self.payload["destination"] = "stat"
 
-            if self.payload["message"]["station"] !== "VGRS1":
+            if self.payload["message"]["station"] != "VGRS1":
                 self.q_in.put_nowait(self.payload)
 
         # simulation config for test channels
