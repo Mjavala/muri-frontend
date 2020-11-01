@@ -67,13 +67,13 @@ class muri_db:
                     await con.execute(
                         '''
                         INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][2]
+                        ''', payload[0][4]
                     )
 
                     await conn.execute(
                         '''
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][0]
+                        ''', payload[0][1]
                         )
                     self.write_stat_counter += 1
                 await con.copy_records_to_table(
