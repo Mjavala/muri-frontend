@@ -94,8 +94,8 @@ class mqtt_client:
             elif message.topic == "muri/stat" and self.live_device is not None:
                 self.payload["destination"] = "stat"
 
-            if self.payload["message"]["station"] != "VGRS1":
-                self.q_in.put_nowait(self.payload)
+                if self.payload["message"]["station"] != "VGRS1":
+                    self.q_in.put_nowait(self.payload)
 
         # simulation config for test channels
         elif self.mqtt_config[0] == "simdb":
@@ -114,9 +114,9 @@ class mqtt_client:
                     self.payload["destination"] = "stat"
                     self.stat_count += 1
 
-                # TEST01 station sim only
-                if self.payload["message"]["station"] != "VTST1":
-                    self.q_in.put_nowait(self.payload)
+                    # TEST01 station sim only
+                    if self.payload["message"]["station"] != "VTST1":
+                        self.q_in.put_nowait(self.payload)
             except Exception as e:
                 print(e)
 
@@ -165,7 +165,7 @@ class mqtt_client:
                 if self.q_in.qsize() > 100:
                     await asyncio.sleep(0.2)
                 else:
-                    print('MQTT IN | stat count: {} | raw count: {}'. format(self.stat_count, self.raw_count))
+                    #print('MQTT IN | stat count: {} | raw count: {}'. format(self.stat_count, self.raw_count))
                     await asyncio.sleep(1)
         except Exception as e:
             print("Exception in MQTT: %s" % e)
