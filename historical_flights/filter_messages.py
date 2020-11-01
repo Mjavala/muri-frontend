@@ -129,6 +129,7 @@ class filter_mqtt:
         return dt
 
     def new(self, payload):
+        print(payload)
         if payload and payload["message"]:
             try:
                 func = self.switcher.get(
