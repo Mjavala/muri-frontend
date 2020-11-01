@@ -88,6 +88,7 @@ class filter_mqtt:
         tempObj = []
         list_0xd2a8 = ["GOND_BATT_C", "VENT_BATT_C", "Ta1_C", "Ta2_C", "Ti1_C", "Ti2_C"]
         total_0xd2a8 = self.raw_meta_keys + list_0xd2a8
+        print(len(total_0xd2a8))
         tree = payload
 
         for i, key in enumerate(total_0xd2a8):

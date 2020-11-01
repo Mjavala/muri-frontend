@@ -32,16 +32,17 @@ class muri_db:
         return self.q_0xd
 
     def add_to_queue(self, payload):
-        try:
-            if payload["topic"] == "stat":
-                self.q_stat.put_nowait(payload["message"])
-            elif payload["topic"] == "0xc109":
-                self.q_0xc.put_nowait(payload["message"])
-            elif payload["topic"] == "0xd2a8":
-                self.q_0xd.put_nowait(payload["message"])
-        except Exception as e:
-            print("DB Queues ERROR: {}".format(e))
-            print("DB Payload: {}".format(payload))
+        if payload is not None:
+            try:
+                if payload["topic"] == "stat":
+                    self.q_stat.put_nowait(payload["message"])
+                elif payload["topic"] == "0xc109":
+                    self.q_0xc.put_nowait(payload["message"])
+                elif payload["topic"] == "0xd2a8":
+                    self.q_0xd.put_nowait(payload["message"])
+            except Exception as e:
+                print("DB Queues ERROR: {}".format(e))
+                print("DB Payload: {}".format(payload))
 
     def sender(self, q):
         while True:
@@ -87,7 +88,7 @@ class muri_db:
                         "hw_vo1",
                         "hw_vo2",
                         "cw_vo1",
-                        "cw_vo2",
+                        "cw_vo2"
                     ],
                 )
         except Exception as e:
@@ -116,7 +117,7 @@ class muri_db:
                         "temp_amb_1",
                         "temperature",
                         "temp_int_1",
-                        "temp_int_2",
+                        "temp_int_2"
                     ],
                 )
         except Exception as e:
