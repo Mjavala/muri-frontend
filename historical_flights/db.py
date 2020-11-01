@@ -62,7 +62,7 @@ class muri_db:
                 await con.copy_records_to_table(
                     "device_data",
                     records = payload,
-                    columns=["data_time", "station_id", "rssi", "slant"],
+                    columns=["data_time", "station_id", "rssi", "slant", "device_id"],
                 )
         except Exception as e:
             traceback.print_exc(e)
