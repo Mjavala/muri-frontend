@@ -57,7 +57,7 @@ class muri_db:
         async with self.client_pool.acquire() as con:
             await con.copy_records_to_table(
                 "device_data",
-                payload,
+                records = payload,
                 columns=["data_time", "station_id", "rssi", "slant"],
             )
 
@@ -65,7 +65,7 @@ class muri_db:
         async with self.client_pool.acquire() as con:
             await con.copy_records_to_table(
                 "device_data",
-                payload,
+                records = payload,
                 columns=[
                     "station_id",
                     "data_time",
@@ -88,7 +88,7 @@ class muri_db:
         async with self.client_pool.acquire() as con:
             await con.copy_records_to_table(
                 "device_data",
-                payload,
+                records= payload,
                 columns=[
                     "station_id",
                     "data_time",
