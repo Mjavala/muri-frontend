@@ -70,7 +70,7 @@ class muri_db:
                         ''', payload[0][4]
                     )
 
-                    await conn.execute(
+                    await con.execute(
                         '''
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
                         ''', payload[0][1]
@@ -95,7 +95,7 @@ class muri_db:
                         ''', payload[0][2]
                     )
 
-                    await conn.execute(
+                    await con.execute(
                         '''
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
                         ''', payload[0][0]
@@ -135,7 +135,7 @@ class muri_db:
                         ''', payload[0][2]
                     )
 
-                    await conn.execute(
+                    await con.execute(
                         '''
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
                         ''', payload[0][0]
