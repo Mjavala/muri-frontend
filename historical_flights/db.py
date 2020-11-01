@@ -55,6 +55,7 @@ class muri_db:
             return batch
 
     async def write_stat(self, payload):
+        print("stat Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
                 await con.copy_records_to_table(
@@ -66,7 +67,7 @@ class muri_db:
             traceback.print_exc(e)
 
     async def write_0xc109(self, payload):
-        print(payload)
+        print("0xc109 Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
                 await con.copy_records_to_table(
@@ -93,6 +94,7 @@ class muri_db:
             traceback.print_exc(e)
 
     async def write_0xd2a8(self, payload):
+        print("0xd2a8 Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
                 await con.copy_records_to_table(
