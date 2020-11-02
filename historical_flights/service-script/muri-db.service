@@ -2,11 +2,11 @@
 Description=muri db python service
 
 [Service]
-WorkingDirectory=/home/muri-backend/historical_flights
-ExecStart=/usr/bin/python3 /home/muri-backend/historical_flights/main.py
+WorkingDirectory=/root/muri-backend/historical_flights
+ExecStart=/usr/bin/python3 /root/muri-backend/historical_flights/main.py
 Restart=always
-StandardOutput=file:/home/muri-backend/historical_flights/std.out
-StandardError=file:/home/muri-backend/historical_flights/err.out
+StandardOutput=file:/root/muri-backend/historical_flights/std.out
+StandardError=file:/root/muri-backend/historical_flights/err.out
 
 [Install]
 WantedBy=multi-user.target
