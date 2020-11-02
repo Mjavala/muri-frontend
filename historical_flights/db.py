@@ -181,6 +181,8 @@ class muri_db:
                 self.write_0xd_counter += 1
                 self.write_stat_counter += 1
 
+            print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
+
             if not self.q_stat.empty():
                 try:
                     batch = self.sender(self.q_stat)
@@ -200,7 +202,6 @@ class muri_db:
                 except Exception as e:
                     print("Write 0xd2a8 msg ERROR: {}".format(traceback.print_exc(e)))
             
-            print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
             await asyncio.sleep(30)
 
 
