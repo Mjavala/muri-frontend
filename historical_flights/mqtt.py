@@ -110,12 +110,13 @@ class mqtt_client:
                     self.tracker = time.time()
                     self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
                     self.live_device = self.payload['message']['data']['ADDR_FROM']
+                    self.q_in.put_nowait(self.payload)
                 elif message.topic == "muri_test/stat" and self.live_device is not None:
                     self.payload["destination"] = "stat"
-                    self.stat_count += 1
 
                     # TEST01 station sim only
                     if self.payload["message"]["station"] != "VTST1":
+                        self.stat_count += 1
                         self.q_in.put_nowait(self.payload)
             except Exception as e:
                 print(e)
