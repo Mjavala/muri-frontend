@@ -48,26 +48,15 @@ MQTT_PORT = ********
 
 The ``dotenv_path`` will have to be edited manually once this script is pulled from gitlab. It defaults to ``/root/muri/.env``.
 
-# Hasura & Postgres config
-Recommended setup is via the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql).
-This will spin up a a docker environment containing all components necessary to work with hasura.  
-The first thing to do would be to test that the hasura console has been set up well.  
-You can do this by navigating to:
-
-```
-http://<your_droplet_ip>/console
-```
-
-From here, your postgres instance is ready to import an existing configuration. If you are creating your own custom tables, follow this [tutorial](https://hasura.io/docs/1.0/graphql/core/deployment/deployment-guides/digital-ocean-one-click.html). 
-
-## Security config
-This section sets up postgres username password as well as a password for the hasura console.  
-This is done via the ``docker-compose.yaml`` file located at:
+## Docker-compose config
+In order to connect to from the python script to the postgres instance in the container, the ``docker-compose.yaml`` file needs to be modified.
+Below is a sample docker-compose file set up to accept local connections. It also shows optional security config. 
 
 ```
 /etc/hasura
 ```
-The file should look like this:
+
+
 ```yaml
 version: '3.6'
 services:
@@ -78,6 +67,8 @@ services:
     - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: {YOUR PASSWORD HERE}   # <------->
+    ports:
+    - "127.0.0.1:5342:5342
   graphql-engine:
     image: hasura/graphql-engine:v1.3.2
     depends_on:
@@ -111,7 +102,21 @@ volumes:
   caddy_certs:
 ```
 
-Change the ``POSTGRES_PASSWORD``, uncommenting ``HASURA_GRAPHQL_ADMIN_SECRET`` and set a password for the console.
+Change the ``POSTGRES_PASSWORD``, uncommenting ``HASURA_GRAPHQL_ADMIN_SECRET`` and set a password for the console.  
+Add the ``ports`` section in the postgres service.
+
+# Hasura & Postgres config
+Recommended setup is via the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql).
+This will spin up a a docker environment containing all components necessary to work with hasura.  
+The first thing to do would be to test that the hasura console has been set up well.  
+You can do this by navigating to:
+
+```
+http://<your_droplet_ip>/console
+```
+
+
+From here, your postgres instance is ready to import an existing configuration. If you are creating your own custom tables, follow this [tutorial](https://hasura.io/docs/1.0/graphql/core/deployment/deployment-guides/digital-ocean-one-click.html). 
 
 ## Setting up SSL
 Out of the box, the hasura console serves only via HTTP. To add SSL, you'll need to [point](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars) your domain to your droplet ip.  
