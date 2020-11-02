@@ -10,7 +10,7 @@ import argparse
 # LIVE_CHECK_INTERVAL = 5
 MQTT_TOPICS = list
 
-parser = argparse.ArgumentParser(description="Live (-r) or simulation (-s) settings")
+parser = argparse.ArgumentParser(description="Live (no args) simulation (-sdb / -s) settings")
 parser.add_argument("-l", "--live", help="live config", action="store_true")
 parser.add_argument("-s", "--sim", help="simulation config", action="store_true")
 parser.add_argument("-sdb", "--simdb", help="simulation config", action="store_true")
