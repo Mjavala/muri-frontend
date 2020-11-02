@@ -1,3 +1,17 @@
+# Python services setup
+On a fresh install of the hasura [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) from Digital Ocean,  
+you'll need to install pip:
+```
+sudo  apt install python3-pip
+```
+
+and then, the following modules are needed:
+```
+pip3 install paho-mqtt
+pip3 install python-dotenv
+pip3 install pytz
+pip3 install asyncpg
+
 # Config
 
 For the logging and historical flights services, MQTT and Postgres passwords should be stored in dedicated config files.
@@ -16,6 +30,20 @@ USER = os.getenv("DB_USER")
 PW = os.getenv("DB_PASSWORD")
 DATABASE = os.getenv("DB_NAME")
 HOST = os.getenv("DB_HOST")
+
+...
+
+sample environment file:
+DB_USER = 'postgres'
+DB_PASSWORD = ***
+DB_NAME = 'postgres'
+DB_HOST = '0.0.0.0'
+
+MQTT_USER = '***'
+MQTT_PASS = '********'
+MQTT_HOST = '****'
+MQTT_PORT = ********
+
 ```
 
 The ``dotenv_path`` will have to be edited manually once this script is pulled from gitlab. It defaults to ``/root/muri/.env``.
