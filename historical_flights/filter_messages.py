@@ -134,7 +134,7 @@ class filter_mqtt:
         if payload and payload["message"]:
             try:
                 func = self.switcher.get(
-                    payload["destination"], lambda x=None: "invalid message type"
+                    payload["destination"], lambda x = None: "invalid message type"
                 )
 
                 result = func(payload["message"], payload["device"])

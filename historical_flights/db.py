@@ -81,6 +81,7 @@ class muri_db:
                     records = payload,
                     columns=["data_time", "station_id", "rssi", "slant", "device_id"],
                 )
+                print('--- Writing stat data to db ---')
         except Exception as e:
             traceback.print_exc(e)
 
@@ -121,6 +122,7 @@ class muri_db:
                         "cw_vo2"
                     ],
                 )
+                print('--- Writing 0xc109 data to db ---')
         except Exception as e:
             traceback.print_exc(e)
 
@@ -163,6 +165,7 @@ class muri_db:
                         "temp_int_2"
                     ],
                 )
+                print('--- Writing 0xd2a8 data to db ---')
         except Exception as e:
             traceback.print_exc(e)
 
