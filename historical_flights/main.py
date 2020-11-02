@@ -17,12 +17,12 @@ parser.add_argument("-sdb", "--simdb", help="simulation config", action="store_t
 
 args = parser.parse_args()
 
-if args.live:
-    MQTT_TOPICS = ["live", "muri/raw", "muri/stat"]
-elif args.simdb:
+if args.simdb:
     MQTT_TOPICS = ["simdb", "muri_test/raw", "muri_test/stat"]
-else:
+elif args.sim:
     MQTT_TOPICS = ["sim", "muri_test/raw", "muri_test/stat"]
+else:
+    MQTT_TOPICS = ["live", "muri/raw", "muri/stat"]
 
 mqtt_conn = mqttc.mqtt_client(MQTT_TOPICS)
 db_node = db.muri_db()
