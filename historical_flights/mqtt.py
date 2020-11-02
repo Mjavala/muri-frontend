@@ -58,7 +58,7 @@ class mqtt_client:
                 print(e)
             self.mqtt_live = True
             print("--- MQTT Connected! ---")
-            print("subscribed to: %s , %s" % topics['raw'], topics['stat'])
+            print("subscribed to: {} , {}".format(topics['raw'], topics['stat']))
         else:
             print("!!! MQTT Connection Failed! !!!")
 
