@@ -126,32 +126,54 @@ Finally restart the ssh service with this command:
 ```
 sudo service ssh restart
 ```
+
+You can then test that the ssh setup works by ssh'ing into the target server:
+
+```
+ssh -i ~/.ssh/{YOUR_KEY} {YOUR_USER}@{YOUR_SERVER_IP_OR_DOMAIN}
+```
+
+### Scp data transfer
+
 If the source of the data is inside an existing VPS droplet within a docker container, start by dumping the data with the following command:
 ```
 docker exec -t {YOUR_IMAGE_ID} pg_dumpall -c -U postgres | gzip > {YOUR_DIR}/dump_$(date +"%Y-%m-%d_%H_%M_%S").gz
 ```
 Note that this also zips the dump file.
 
-### SSH config
-From the server with the data dump, generate a new ssh key pair via this command:
+With the ssh configured correctly run the following command:
 
-``
-ssh-keygen
-``
-Set up a password and a custom name for your key if desired. From here, you'll want to copy the public key to the ``authorized_keys`` file in the target server. To do so, you can run the following commands:
-
-``
-cat {key.pub}
-``
-Copy the output to your clipboard, either manually or with software like [xclip](https://stackoverflow.com/questions/5130968/how-can-i-copy-the-output-of-a-command-directly-into-my-clipboard)
-
-On the target server, the authorized keys folder should be located at ``/root/.ssh``. Once in the directory, copy the contents into the file.  
-
-Finally restart the ssh service with this command:
 ```
-sudo service ssh restart
+scp -i ~/.ssh/{KEY} {DIR}/dump_{DATE}.gz {USER}@{SERVER_IP}:~{/DESTINATION}
+```
+The zipped dump file should now be at ``SERVER_IP`` at whatever ``DESTINATION`` was selected (default root).
+
+Now the file should be unzipped:
+```
+gzip -d {FILE}
 ```
 
+The dump file can now be uploaded to the postgres instance. To do so, you'll need the postgres container id. It can found and copied using:
+```
+docker ps
+```
+The following command then copies the data:
+```
+cat {DUMP_FILE} | docker exec -i {CONTAINER_ID} psql -U postgres
+```
+Note that using a different database/user combo than the default results in errors not covered here.  
+
+### Hasura console setup
+Once you've copied the data to the empty postgres instance on the target server, hasura must be configured to track the new tables.
+Go to the console at your domain or target server ip address and click on the data panel.
+
+![navigation data panel](hasura_data_panel.png)
+
+From there, you should see a section labeled *Untracked tables or views*.
+
+![Untracked views](hasura_track_panel.png)
+
+Click Track all and your hasura/postgres service is ready for data ingestion.
 
 ### Useful Docker commands
 -  docker exec -it [img] psql -U postgres (connect to postgres)
