@@ -91,6 +91,7 @@ class mqtt_client:
                 self.tracker = time.time()
                 self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
                 self.live_device = self.payload['message']['data']['ADDR_FROM']
+                self.q_in.put_nowait(self.payload)
             elif message.topic == "muri/stat" and self.live_device is not None:
                 self.payload["destination"] = "stat"
 
@@ -169,7 +170,7 @@ class mqtt_client:
                 else:
                     print('mqtt in: {} | filtered {} '.format(self.q_in.qsize(), self.q_out.qsize()))
                     print('stat count: {} | raw count: {}'.format(self.stat_count, self.raw_count))
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(30)
         except Exception as e:
             print("Exception in MQTT: %s" % e)
         finally:

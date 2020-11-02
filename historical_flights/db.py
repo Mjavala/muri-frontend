@@ -179,12 +179,15 @@ class muri_db:
 
         while True:
             # Necessary to satisfy foreign constraints
-            if self.write_stat_counter > 0 or self.write_0xc_counter > 0 or self.write_0xd_counter > 0:
-                self.write_0xc_counter += 1
-                self.write_0xd_counter += 1
-                self.write_stat_counter += 1
+            try:
+                if self.write_stat_counter > 0 or self.write_0xc_counter > 0 or self.write_0xd_counter > 0:
+                    self.write_0xc_counter += 1
+                    self.write_0xd_counter += 1
+                    self.write_stat_counter += 1
 
-            print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
+                print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
+            except Exception as e:
+                print(traceback.print_exc(e))
 
             if not self.q_stat.empty():
                 try:
