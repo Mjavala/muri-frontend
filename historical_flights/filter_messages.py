@@ -30,6 +30,7 @@ class filter_mqtt:
         }
 
     def filter_stat(self, payload, device):
+        print('Got stat payload')
         # TODO: Test func
         # need rssi / slant
         if payload["station"] != "VTST1" and payload["station"] != "VGRS1":
@@ -56,6 +57,7 @@ class filter_mqtt:
             return None
 
     def filter_0xc109(self, payload, device):
+        print('Got 0xc109 payload')
         # print(payload['destination'])
         # need hw/cw vo1/vo2
         tempObj = []
@@ -83,7 +85,7 @@ class filter_mqtt:
         return {"topic": "0xc109", "message": tuple(tempObj)}
 
     def filter_0xd2a8(self, payload, device):
-        # print(payload['destination'])
+        print('Got 0xd2a8 payload')
         # need hw/cw vo1/vo2
         tempObj = []
         list_0xd2a8 = ["GOND_BATT_C", "VENT_BATT_C", "Ta1_C", "Ta2_C", "Ti1_C", "Ti2_C"]
@@ -129,7 +131,6 @@ class filter_mqtt:
         return dt
 
     def new(self, payload):
-        print(payload)
         if payload and payload["message"]:
             try:
                 func = self.switcher.get(

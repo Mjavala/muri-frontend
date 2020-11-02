@@ -165,7 +165,7 @@ class mqtt_client:
                 if self.q_in.qsize() > 100:
                     await asyncio.sleep(0.2)
                 else:
-                    #print('MQTT IN | stat count: {} | raw count: {}'. format(self.stat_count, self.raw_count))
+                    print('stat count: {} | raw count: {}'. format(self.stat_count, self.raw_count))
                     await asyncio.sleep(1)
         except Exception as e:
             print("Exception in MQTT: %s" % e)

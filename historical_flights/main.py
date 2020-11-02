@@ -30,12 +30,12 @@ db_node = db.muri_db()
 async def main_loop():
 
     # queue = mqtt_conn.get_queue()
+    qo = mqtt_conn.get_q_out()
+    qi = mqtt_conn.get_q_in()
+    q_db_stat = db_node.get_stat_q()
+    q_db_0xc = db_node.get_0xc_q()
+    q_db_0xd = db_node.get_0xd_q()
     while True:
-        qo = mqtt_conn.get_q_out()
-        qi = mqtt_conn.get_q_in()
-        q_db_stat = db_node.get_stat_q()
-        q_db_0xc = db_node.get_0xc_q()
-        q_db_0xd = db_node.get_0xd_q()
 
         if not qo.empty():
             val = qo.get_nowait()
