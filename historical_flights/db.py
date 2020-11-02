@@ -199,7 +199,9 @@ class muri_db:
                     await self.write_0xd2a8(batch)
                 except Exception as e:
                     print("Write 0xd2a8 msg ERROR: {}".format(traceback.print_exc(e)))
-            await asyncio.sleep(30)
+            
+                print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
+                await asyncio.sleep(30)
 
 
 if __name__ == "__main__":

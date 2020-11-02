@@ -40,13 +40,9 @@ async def main_loop():
         if not qo.empty():
             val = qo.get_nowait()
             
-        print('mqtt in: {} | filtered {} '.format(qi.qsize(), qo.qsize()))
-
         if not qo.empty():
             val = qo.get_nowait()
             db_node.add_to_queue(val)
-
-        print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(q_db_stat.qsize(), q_db_0xc.qsize(), q_db_0xd.qsize()))
 
         if qo.qsize() > 100:
             await asyncio.sleep(0.3)

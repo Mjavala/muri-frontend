@@ -102,15 +102,16 @@ class mqtt_client:
             # will pass here in production
             try:
                 if message.topic == "muri_test/raw":
+                    if self.payload['message']['data']['frame_data']:
 
-                    self.payload["destination"] = self.payload["message"]["data"][
-                        "FRAME_TYPE"
-                    ]
-                    self.raw_count += 1
-                    self.tracker = time.time()
-                    self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
-                    self.live_device = self.payload['message']['data']['ADDR_FROM']
-                    self.q_in.put_nowait(self.payload)
+                        self.payload["destination"] = self.payload["message"]["data"][
+                            "FRAME_TYPE"
+                        ]
+                        self.raw_count += 1
+                        self.tracker = time.time()
+                        self.payload['device'] = self.payload['message']['data']['ADDR_FROM']
+                        self.live_device = self.payload['message']['data']['ADDR_FROM']
+                        self.q_in.put_nowait(self.payload)
                 elif message.topic == "muri_test/stat" and self.live_device is not None:
                     self.payload["destination"] = "stat"
 
@@ -166,6 +167,7 @@ class mqtt_client:
                 if self.q_in.qsize() > 100:
                     await asyncio.sleep(0.2)
                 else:
+                    print('mqtt in: {} | filtered {} '.format(self.q_in.qsize(), self.q_out.qsize()))
                     print('stat count: {} | raw count: {}'. format(self.stat_count, self.raw_count))
                     await asyncio.sleep(1)
         except Exception as e:
