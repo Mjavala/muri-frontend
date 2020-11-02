@@ -105,6 +105,23 @@ volumes:
 Change the ``POSTGRES_PASSWORD``, uncommenting ``HASURA_GRAPHQL_ADMIN_SECRET`` and set a password for the console.  
 Add the ``ports`` section in the postgres service.
 
+## Service config
+The python package is set up as a microservice, this section shows how to set it up via systemctl.  
+For each service there is a folder with a ``.service`` file. Out of the box, these files are configured to set up the service.  
+For each file, create a symlink to the ``/etc/systemd/systemctl/`` folder, like so:
+
+``ln -s target_path link_path``
+
+The service then needs to be started:
+```
+systemctl start {SERVICE}
+```
+
+To check whether the service is working succesfully you can run this command:
+```
+systemctl status {SERVICE}
+```
+
 # Hasura & Postgres config
 Recommended setup is via the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql).
 This will spin up a a docker environment containing all components necessary to work with hasura.  
