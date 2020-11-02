@@ -208,7 +208,7 @@ class muri_db:
                 except Exception as e:
                     print("Write 0xd2a8 msg ERROR: {}".format(traceback.print_exc(e)))
             
-            await asyncio.sleep(30)
+            await asyncio.sleep(10)
 
 
 if __name__ == "__main__":
