@@ -36,9 +36,6 @@ async def main_loop():
     q_db_0xc = db_node.get_0xc_q()
     q_db_0xd = db_node.get_0xd_q()
     while True:
-
-        if not qo.empty():
-            val = qo.get_nowait()
             
         if not qo.empty():
             val = qo.get_nowait()
@@ -47,7 +44,7 @@ async def main_loop():
         if qo.qsize() > 100:
             await asyncio.sleep(0.3)
         else:
-            await asyncio.sleep(1)
+            await asyncio.sleep(2)
 
 
 if __name__ == "__main__":
