@@ -4,9 +4,10 @@ from logging.handlers import TimedRotatingFileHandler
 
 def main_app_logs():
     try:
+
+        logger = logging.getLogger("db")
         tv = logger.hasHandlers()
         print(tv)
-        logger = logging.getLogger("db")
 
         logging.basicConfig(
             level=logging.ERROR,
