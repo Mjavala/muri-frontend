@@ -6,12 +6,11 @@ def main_app_logs():
     try:
 
         logger = logging.getLogger("db")
-        tv = logger.hasHandlers()
-        print(tv)
+
         if not logger.hasHandlers():
             print('here')
             logging.basicConfig(
-                level=logging.ERROR,
+                level=logging.INFO,
                 format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
                 filemode="a",
             )
@@ -22,7 +21,7 @@ def main_app_logs():
                 "/root/muri/db.log", when="h", backupCount=24
             )
             file_handler.setFormatter(formatter)
-            file_handler.setLevel(logging.ERROR)
+            file_handler.setLevel(logging.INFO)
             logger.addHandler(file_handler)
 
         return logging.getLogger("db")
