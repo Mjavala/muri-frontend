@@ -27,4 +27,4 @@ def main_app_logs():
 
         return logging.getLogger("db")
     except Exception as e:
-        print("LOGGING SETUP EXCEPTION{}".format(e)
+        print("LOGGING SETUP EXCEPTION: {}".format(e)
