@@ -6,7 +6,7 @@ def main_app_logs():
     logger = logging.getLogger("db")
 
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.ERROR,
         format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
         filemode="a",
     )

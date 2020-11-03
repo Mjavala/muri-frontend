@@ -33,6 +33,7 @@ db_node = db.muri_db()
 
 
 async def main_loop():
+    logger.info("Starting MURI App Main Program")
     logger = logs.main_app_logs()
 
     if not os.path.exists(path):
@@ -59,7 +60,6 @@ async def main_loop():
 
 
 if __name__ == "__main__":
-    print("Starting MURI App Main Program")
 
     loop = asyncio.get_event_loop()
 
