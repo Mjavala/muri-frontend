@@ -8,7 +8,9 @@ def main_app_logs():
         logger = logging.getLogger("db")
 
         if not logger.hasHandlers():
-            print('HEREHREHRE')
+            formatter = logging.Formatter(
+                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            )
             file_handler = logging.handlers.TimedRotatingFileHandler(
                 "/root/muri/db.log", when="h", backupCount=24
             )
@@ -20,10 +22,6 @@ def main_app_logs():
             level=logging.ERROR,
             format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
             filemode="a",
-        )
-        # log_file = "~/muri/db.log".format()
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
 
         return logging.getLogger("db")
