@@ -163,7 +163,7 @@ class mqtt_client:
             while True:
                 try:
                     # if a xbee payload has not been received in 5 mins, assume the flight has ended.
-                    if time.time() - self.tracker > 300 and self.flight_live:
+                    if time.time() - self.tracker > 60 and self.flight_live:
                         self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
                         self.flight_live = False
 

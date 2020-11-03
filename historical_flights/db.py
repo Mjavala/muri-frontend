@@ -90,7 +90,6 @@ class muri_db:
             self.logger.error(e, exc_info=True)
 
     async def write_0xc109(self, payload):
-        print("0xc109 Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
                 if self.write_0xc_counter == 0:
@@ -133,7 +132,6 @@ class muri_db:
             self.logger.error(e, exc_info=True)
 
     async def write_0xd2a8(self, payload):
-        print("0xd2a8 Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
                 if self.write_0xd_counter == 0:
