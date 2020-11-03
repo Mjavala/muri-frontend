@@ -6,8 +6,10 @@ import mqtt as mqttc
 import db as db
 import argparse
 import os
+import logging
+import logs
 
-# Set logging dir
+# Config / Logging dir setup
 path = os.path.join(os.path.expanduser("~"), "muri")
 
 parser = argparse.ArgumentParser(description="Live (no args) simulation (-sdb / -s) settings")
@@ -28,7 +30,13 @@ mqtt_conn = mqttc.mqtt_client(MQTT_TOPICS)
 db_node = db.muri_db()
 
 async def main_loop():
-    os.mkdir(path)
+    logger = logs.main_app_logs()
+
+    if not os.path.exists(path):
+        os.mkdir(path)
+        logger.info('Logging directory made')
+    
+    logger.info("Starting MURI database service")
 
     #queue = mqtt_conn.get_queue()
     qo = mqtt_conn.get_q_out()
@@ -37,7 +45,6 @@ async def main_loop():
     #q_db_0xc = db_node.get_0xc_q()
     #q_db_0xd = db_node.get_0xd_q()
     while True:
-            
         if not qo.empty():
             val = qo.get_nowait()
             db_node.add_to_queue(val)
