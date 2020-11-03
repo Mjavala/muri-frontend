@@ -8,7 +8,6 @@ def main_app_logs():
         logger = logging.getLogger("db")
 
         if not logger.hasHandlers():
-            print('here')
             logging.basicConfig(
                 level=logging.INFO,
                 format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",

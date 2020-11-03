@@ -9,7 +9,7 @@ import filter_messages
 import logs
 
 dotenv_path = join(
-    dirname(__file__), "/root/muri/.env"
+    dirname(__file__), "../.env"
 )  # depends on your directory structure
 load_dotenv(dotenv_path)
 
@@ -159,10 +159,12 @@ class mqtt_client:
         self.logger.info("Starting MQTT Main Loop...")
         try:
             await self.start_mqtt()
+            self.logger.info("Initial Config: Live flight: {} | Tracker: {}...".format(self.flight_live, self.tracker))
             while True:
                 try:
                     # if a xbee payload has not been received in 5 mins, assume the flight has ended.
                     if time.time() - self.tracker > 300 and self.flight_live:
+                        self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
                         self.flight_live = False
 
                     if not self.q_in.empty():
@@ -186,7 +188,7 @@ class mqtt_client:
 
 
 if __name__ == "__main__":
-    mqtt_conn = mqtt_client(["muri/raw", "muri/stat"])
+    mqtt_conn = mqtt_client(["live", "muri/raw", "muri/stat"])
 
     loop = asyncio.get_event_loop()
 
