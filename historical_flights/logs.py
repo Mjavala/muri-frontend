@@ -4,6 +4,8 @@ from logging.handlers import TimedRotatingFileHandler
 
 def main_app_logs():
     try:
+        tv = logger.hasHandlers()
+        print(tv)
         logger = logging.getLogger("db")
 
         logging.basicConfig(
@@ -15,8 +17,6 @@ def main_app_logs():
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-        tv = logger.hasHandlers()
-        print(tv)
         if not logger.hasHandlers():
             print('HEREHREHRE')
             file_handler = logging.handlers.TimedRotatingFileHandler(
