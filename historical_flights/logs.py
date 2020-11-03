@@ -15,8 +15,10 @@ def main_app_logs():
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-        print(logger)
+        tv = logger.hasHandlers()
+        print(tv)
         if not logger.hasHandlers():
+            print('HEREHREHRE')
             file_handler = logging.handlers.TimedRotatingFileHandler(
                 "/root/muri/db.log", when="h", backupCount=24
             )
