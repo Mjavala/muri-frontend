@@ -8,6 +8,11 @@ def main_app_logs():
         logger = logging.getLogger("db")
 
         if not logger.hasHandlers():
+            logging.basicConfig(
+                level=logging.ERROR,
+                format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+                filemode="a",
+            )
             formatter = logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
@@ -17,12 +22,6 @@ def main_app_logs():
             file_handler.setFormatter(formatter)
             file_handler.setLevel(logging.INFO)
             logger.addHandler(file_handler)
-
-        logging.basicConfig(
-            level=logging.ERROR,
-            format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-            filemode="a",
-        )
 
         return logging.getLogger("db")
     except Exception as e:

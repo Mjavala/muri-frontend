@@ -33,7 +33,6 @@ db_node = db.muri_db()
 async def main_loop():
     try:
         logger = logs.main_app_logs()
-        print(logger)
         logger.info("Starting MURI App Main Program...")
 
         if not os.path.exists(path):
