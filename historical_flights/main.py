@@ -12,8 +12,10 @@ import logs
 # Config / Logging dir setup
 path = os.path.join(os.path.expanduser("~"), "muri")
 
-parser = argparse.ArgumentParser(description="Live (no args) simulation (-sdb / -s) settings")
-#parser.add_argument("-l", "--live", help="live config", action="store_true")
+parser = argparse.ArgumentParser(
+    description="Live (no args) simulation (-sdb / -s) settings"
+)
+# parser.add_argument("-l", "--live", help="live config", action="store_true")
 parser.add_argument("-s", "--sim", help="simulation config", action="store_true")
 parser.add_argument("-sdb", "--simdb", help="simulation config", action="store_true")
 
@@ -29,21 +31,22 @@ else:
 mqtt_conn = mqttc.mqtt_client(MQTT_TOPICS)
 db_node = db.muri_db()
 
+
 async def main_loop():
     logger = logs.main_app_logs()
 
     if not os.path.exists(path):
         os.mkdir(path)
-        logger.info('Logging directory made')
-    
+        logger.info("Logging directory made")
+
     logger.info("Starting MURI database service")
 
-    #queue = mqtt_conn.get_queue()
+    # queue = mqtt_conn.get_queue()
     qo = mqtt_conn.get_q_out()
-    #qi = mqtt_conn.get_q_in()
-    #q_db_stat = db_node.get_stat_q()
-    #q_db_0xc = db_node.get_0xc_q()
-    #q_db_0xd = db_node.get_0xd_q()
+    # qi = mqtt_conn.get_q_in()
+    # q_db_stat = db_node.get_stat_q()
+    # q_db_0xc = db_node.get_0xc_q()
+    # q_db_0xd = db_node.get_0xd_q()
     while True:
         if not qo.empty():
             val = qo.get_nowait()
@@ -63,6 +66,6 @@ if __name__ == "__main__":
     tasks = [
         asyncio.ensure_future(main_loop()),
         asyncio.ensure_future(mqtt_conn.main_loop()),
-        asyncio.ensure_future(db_node.main_loop())
+        asyncio.ensure_future(db_node.main_loop()),
     ]
     loop.run_until_complete(asyncio.gather(*tasks))

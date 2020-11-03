@@ -1,6 +1,7 @@
 from datetime import datetime
 import pytz
 import traceback
+import logs
 
 
 class filter_mqtt:
@@ -29,10 +30,9 @@ class filter_mqtt:
             "0xd2a8": self.filter_0xd2a8,
         }
 
+        self.logger = logs.main_app_logs()
+
     def filter_stat(self, payload, device):
-        print('Got stat payload')
-        # TODO: Test func
-        # need rssi / slant
         if payload["station"] != "VTST1" and payload["station"] != "VGRS1":
             tempObj = []
             tree = payload
@@ -57,9 +57,6 @@ class filter_mqtt:
             return None
 
     def filter_0xc109(self, payload, device):
-        print('Got 0xc109 payload')
-        # print(payload['destination'])
-        # need hw/cw vo1/vo2
         tempObj = []
         list_0xc109 = ["HW_Vo1", "HW_Vo2", "CW_Vo1", "CW_Vo2"]
         total_0xc109 = self.raw_meta_keys + list_0xc109
@@ -85,12 +82,9 @@ class filter_mqtt:
         return {"topic": "0xc109", "message": tuple(tempObj)}
 
     def filter_0xd2a8(self, payload, device):
-        print('Got 0xd2a8 payload')
-        # need hw/cw vo1/vo2
         tempObj = []
         list_0xd2a8 = ["GOND_BATT_C", "VENT_BATT_C", "Ta1_C", "Ta2_C", "Ti1_C", "Ti2_C"]
         total_0xd2a8 = self.raw_meta_keys + list_0xd2a8
-        print(len(total_0xd2a8))
         tree = payload
 
         for i, key in enumerate(total_0xd2a8):
@@ -141,8 +135,8 @@ class filter_mqtt:
                 if result:
                     return result
             except Exception as e:
-                print(payload["destination"])
-                print("switch ERROR: {}".format(traceback.format_exc()))
-                print(payload["message"])
+                self.logger.info(payload["destination"])
+                self.logger.warn("switch ERROR: {}".format(traceback.format_exc()))
+                self.logger.info(payload["message"])
         else:
             return None

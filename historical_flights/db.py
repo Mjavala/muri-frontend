@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import asyncpg
 import traceback
+import logs
 
 dotenv_path = join(dirname(__file__), "/root/muri/.env")
 load_dotenv(dotenv_path)
@@ -26,6 +27,8 @@ class muri_db:
         self.write_0xc_counter = 0
         self.write_0xd_counter = 0
 
+        self.logger = logs.main_app_logs()
+
     def get_stat_q(self):
         return self.q_stat
 
@@ -45,8 +48,8 @@ class muri_db:
                 elif payload["topic"] == "0xd2a8":
                     self.q_0xd.put_nowait(payload["message"])
             except Exception as e:
-                print("DB Queues ERROR: {}".format(e))
-                print("DB Payload: {}".format(payload))
+                self.logger.warn("DB Queues ERROR: {}".format(e))
+                self.logger.info("DB Payload: {}".format(payload))
 
     def sender(self, q):
         while True:
@@ -60,30 +63,31 @@ class muri_db:
             return batch
 
     async def write_stat(self, payload):
-        print("stat Payload: {}".format(payload))
         try:
             async with self.client_pool.acquire() as con:
                 if self.write_stat_counter == 0:
                     await con.execute(
-                        '''
+                        """
                         INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][4]
+                        """,
+                        payload[0][4],
                     )
 
                     await con.execute(
-                        '''
+                        """
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][1]
-                        )
+                        """,
+                        payload[0][1],
+                    )
                     self.write_stat_counter += 1
                 await con.copy_records_to_table(
                     "device_data",
-                    records = payload,
+                    records=payload,
                     columns=["data_time", "station_id", "rssi", "slant", "device_id"],
                 )
-                print('--- Writing stat data to db ---')
+                print("--- Writing stat data to db ---")
         except Exception as e:
-            traceback.print_exc(e)
+            self.logger.error(e, exc_info=True)
 
     async def write_0xc109(self, payload):
         print("0xc109 Payload: {}".format(payload))
@@ -91,20 +95,22 @@ class muri_db:
             async with self.client_pool.acquire() as con:
                 if self.write_0xc_counter == 0:
                     await con.execute(
-                        '''
+                        """
                         INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][2]
+                        """,
+                        payload[0][2],
                     )
 
                     await con.execute(
-                        '''
+                        """
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][0]
-                        )
+                        """,
+                        payload[0][0],
+                    )
                     self.write_0xc_counter += 1
                 await con.copy_records_to_table(
                     "device_data",
-                    records = payload,
+                    records=payload,
                     columns=[
                         "station_id",
                         "data_time",
@@ -119,12 +125,12 @@ class muri_db:
                         "hw_vo1",
                         "hw_vo2",
                         "cw_vo1",
-                        "cw_vo2"
+                        "cw_vo2",
                     ],
                 )
-                print('--- Writing 0xc109 data to db ---')
+                print("--- Writing 0xc109 data to db ---")
         except Exception as e:
-            traceback.print_exc(e)
+            self.logger.error(e, exc_info=True)
 
     async def write_0xd2a8(self, payload):
         print("0xd2a8 Payload: {}".format(payload))
@@ -132,20 +138,22 @@ class muri_db:
             async with self.client_pool.acquire() as con:
                 if self.write_0xd_counter == 0:
                     await con.execute(
-                        '''
+                        """
                         INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][2]
+                        """,
+                        payload[0][2],
                     )
 
                     await con.execute(
-                        '''
+                        """
                         INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        ''', payload[0][0]
-                        )
+                        """,
+                        payload[0][0],
+                    )
                     self.write_0xd_counter += 1
                 await con.copy_records_to_table(
                     "device_data",
-                    records= payload,
+                    records=payload,
                     columns=[
                         "station_id",
                         "data_time",
@@ -162,52 +170,54 @@ class muri_db:
                         "temp_amb_1",
                         "temperature",
                         "temp_int_1",
-                        "temp_int_2"
+                        "temp_int_2",
                     ],
                 )
-                print('--- Writing 0xd2a8 data to db ---')
+                print("--- Writing 0xd2a8 data to db ---")
         except Exception as e:
-            traceback.print_exc(e)
+            self.logger.error(e, exc_info=True)
 
     async def main_loop(self):
+        self.logger.info("Starting DB Main Loop...")
         try:
             self.client_pool = await asyncpg.create_pool(
                 host=HOST, user=USER, password=PW
             )
         except Exception as e:
-            print("Could not connect to DB instance. Error: {}".format(e))
+            self.logger.error(e, exc_info=True)
 
         while True:
-            # Necessary to satisfy foreign constraints
-            try:
-                if self.write_stat_counter > 0 or self.write_0xc_counter > 0 or self.write_0xd_counter > 0:
-                    self.write_0xc_counter += 1
-                    self.write_0xd_counter += 1
-                    self.write_stat_counter += 1
+            # Necessary to satisfy foreign constraints in current DB architecture
+            if (
+                self.write_stat_counter > 0
+                or self.write_0xc_counter > 0
+                or self.write_0xd_counter > 0
+            ):
+                self.write_0xc_counter += 1
+                self.write_0xd_counter += 1
+                self.write_stat_counter += 1
 
-                print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
-            except Exception as e:
-                print(traceback.print_exc(e))
+            # print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
 
             if not self.q_stat.empty():
                 try:
                     batch = self.sender(self.q_stat)
                     await self.write_stat(batch)
                 except Exception as e:
-                    print("Write stat msg ERROR: {}".format(traceback.print_exc(e)))
+                    self.logger.error(e, exc_info=True)
             if not self.q_0xc.empty():
                 try:
                     batch = self.sender(self.q_0xc)
                     await self.write_0xc109(batch)
                 except Exception as e:
-                    print("Write 0xc109 msg ERROR: {}".format(traceback.print_exc(e)))
+                    self.logger.error(e, exc_info=True)
             if not self.q_0xd.empty():
                 try:
                     batch = self.sender(self.q_0xd)
                     await self.write_0xd2a8(batch)
                 except Exception as e:
-                    print("Write 0xd2a8 msg ERROR: {}".format(traceback.print_exc(e)))
-            
+                    self.logger.error(e, exc_info=True)
+
             await asyncio.sleep(10)
 
 
