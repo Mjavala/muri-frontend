@@ -33,14 +33,14 @@ db_node = db.muri_db()
 
 
 async def main_loop():
-    logger.info("Starting MURI App Main Program")
     logger = logs.main_app_logs()
+    logger.info("Starting MURI App Main Program...")
 
     if not os.path.exists(path):
         os.mkdir(path)
         logger.info("Logging directory made")
 
-    logger.info("Starting MURI database service")
+    logger.info("Starting MURI database service...")
 
     # queue = mqtt_conn.get_queue()
     qo = mqtt_conn.get_q_out()
