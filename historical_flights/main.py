@@ -1,12 +1,10 @@
 import asyncio
-import logging.handlers as handlers
 import time
 import json
 import mqtt as mqttc
 import db as db
 import argparse
 import os
-import logging
 import logs
 
 # Config / Logging dir setup
@@ -34,6 +32,7 @@ db_node = db.muri_db()
 
 async def main_loop():
     logger = logs.main_app_logs()
+    print(logger)
     logger.info("Starting MURI App Main Program...")
 
     if not os.path.exists(path):
