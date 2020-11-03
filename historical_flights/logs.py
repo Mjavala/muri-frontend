@@ -6,8 +6,15 @@ def main_app_logs():
     try:
 
         logger = logging.getLogger("db")
-        tv = logger.hasHandlers()
-        print(tv)
+
+        if not logger.hasHandlers():
+            print('HEREHREHRE')
+            file_handler = logging.handlers.TimedRotatingFileHandler(
+                "/root/muri/db.log", when="h", backupCount=24
+            )
+            file_handler.setFormatter(formatter)
+            file_handler.setLevel(logging.INFO)
+            logger.addHandler(file_handler)
 
         logging.basicConfig(
             level=logging.ERROR,
@@ -18,14 +25,6 @@ def main_app_logs():
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-        if not logger.hasHandlers():
-            print('HEREHREHRE')
-            file_handler = logging.handlers.TimedRotatingFileHandler(
-                "/root/muri/db.log", when="h", backupCount=24
-            )
-            file_handler.setFormatter(formatter)
-            file_handler.setLevel(logging.INFO)
-            logger.addHandler(file_handler)
 
         return logging.getLogger("db")
     except Exception as e:
