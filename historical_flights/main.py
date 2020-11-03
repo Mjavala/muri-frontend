@@ -8,7 +8,7 @@ import argparse
 import os
 
 # Set logging dir
-path = os.path.join(os.path.expanduser("~"), ".config", "muri")
+path = os.path.join(os.path.expanduser("~"), "muri")
 
 parser = argparse.ArgumentParser(description="Live (no args) simulation (-sdb / -s) settings")
 #parser.add_argument("-l", "--live", help="live config", action="store_true")
@@ -29,7 +29,7 @@ db_node = db.muri_db()
 
 async def main_loop():
     os.mkdir(path)
-    
+
     #queue = mqtt_conn.get_queue()
     qo = mqtt_conn.get_q_out()
     #qi = mqtt_conn.get_q_in()
