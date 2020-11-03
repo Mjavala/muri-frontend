@@ -16,7 +16,6 @@ def main_app_logs():
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
         print(logger)
-        print(logger.hasHandlers)
         if not logger.hasHandlers():
             file_handler = logging.handlers.TimedRotatingFileHandler(
                 "/root/muri/db.log", when="h", backupCount=24
