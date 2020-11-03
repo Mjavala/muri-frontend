@@ -8,7 +8,7 @@ def main_app_logs():
     #log_file = "~/muri/db.log".format()
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-    file_handler = logging.handlers.TimedRotatingFileHandler("~/muri/db.log", when="h")    
+    file_handler = logging.handlers.TimedRotatingFileHandler("/root/muri/db.log", when="h")    
     file_handler.setFormatter(formatter)                       
     file_handler.setLevel(logging.INFO)
     logger.addHandler(file_handler)
