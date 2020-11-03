@@ -9,7 +9,7 @@ import filter_messages
 import logs
 
 dotenv_path = join(
-    dirname(__file__), "../.env"
+    dirname(__file__), "/root/muri/.env"
 )  # depends on your directory structure
 load_dotenv(dotenv_path)
 
