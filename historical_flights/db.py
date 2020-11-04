@@ -62,6 +62,11 @@ class muri_db:
 
             return batch
 
+    def reset_state(self):
+        self.write_stat_counter = 0
+        self.write_0xc_counter = 0
+        self.write_0xd_counter = 0
+
     async def write_stat(self, payload):
         try:
             async with self.client_pool.acquire() as con:

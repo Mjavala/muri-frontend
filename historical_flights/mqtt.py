@@ -155,6 +155,9 @@ class mqtt_client:
     def get_q_in(self):
         return self.q_in
 
+    def get_live_flight(self):
+        return self.flight_live
+
     async def main_loop(self):
         self.logger.info("Starting MQTT Main Loop...")
         try:

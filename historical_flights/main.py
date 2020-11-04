@@ -7,6 +7,8 @@ import argparse
 import os
 import logs
 
+LIVE_CHECK_INTERVAL = 10
+
 # Config / Logging dir setup
 path = os.path.join(os.path.expanduser("~"), "muri")
 
@@ -31,6 +33,9 @@ db_node = db.muri_db()
 
 
 async def main_loop():
+    last_stat = time.time()
+    live = False
+    
     try:
         logger = logs.main_app_logs()
         logger.info("Starting MURI App Main Program...")
@@ -41,21 +46,26 @@ async def main_loop():
 
         logger.info("Starting MURI database service...")
 
-        # queue = mqtt_conn.get_queue()
         qo = mqtt_conn.get_q_out()
-        # qi = mqtt_conn.get_q_in()
-        # q_db_stat = db_node.get_stat_q()
-        # q_db_0xc = db_node.get_0xc_q()
-        # q_db_0xd = db_node.get_0xd_q()
-        while True:
-            if not qo.empty():
-                val = qo.get_nowait()
-                db_node.add_to_queue(val)
 
-            if qo.qsize() > 100:
-                await asyncio.sleep(0.3)
-            else:
-                await asyncio.sleep(2)
+        while True:
+            if (time.time() - last_stat > LIVE_CHECK_INTERVAL):
+                last_stat = time.time()
+                live = mqtt_conn.get_live_flight()
+                await asyncio.sleep(0.1)
+
+            if live:
+                if not qo.empty():
+                    val = qo.get_nowait()
+                    db_node.add_to_queue(val)
+
+                if qo.qsize() > 100:
+                    await asyncio.sleep(0.3)
+                else:
+                    await asyncio.sleep(2)
+            elif not live:
+                db_node.reset_state()
+
     except Exception as e:
         print(e)
 
