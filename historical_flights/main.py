@@ -63,6 +63,7 @@ async def main_loop():
                     await asyncio.sleep(2)
             elif not live:
                 db_node.reset_state()
+                await asyncio.sleep(10)
 
     except Exception as e:
         traceback.print_exc(e)
