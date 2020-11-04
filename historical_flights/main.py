@@ -6,7 +6,7 @@ import db as db
 import argparse
 import os
 import logs
-traceback
+import traceback
 
 LIVE_CHECK_INTERVAL = 10
 
