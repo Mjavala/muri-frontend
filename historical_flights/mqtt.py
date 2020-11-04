@@ -45,6 +45,7 @@ class mqtt_client:
         self.raw_count = 0
 
         self.logger = logs.main_app_logs()
+        self.mqtt_msg_count = 0
 
     def on_mqtt_conn(self, client, userdata, flags, rc):
         if rc == 0:
