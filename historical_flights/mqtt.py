@@ -170,7 +170,7 @@ class mqtt_client:
             while True:
                 if self.flight_live:
                     self.logger.info("MQTT Stats: Live device: {} | Qsizes (raw:stat): {}:{} ".format(self.live_device, self.raw_count, self.stat_count))
-                    self.logger.info("MQTT Queues: Qin: {} | Qout: {} ".format(self.q_in, self.q_out))
+                    self.logger.info("MQTT Queues: Qin: {} | Qout: {} ".format(self.q_in.qsize(), self.q_out.qsize()))
                     # if a xbee payload has not been received in 5 mins, assume the flight has ended.
                     if time.time() - self.tracker > 60:
                         self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
