@@ -6,6 +6,7 @@ import db as db
 import argparse
 import os
 import logs
+traceback
 
 LIVE_CHECK_INTERVAL = 10
 
@@ -64,7 +65,7 @@ async def main_loop():
                 db_node.reset_state()
 
     except Exception as e:
-        print(e)
+        traceback.print_exc(e)
 
 if __name__ == "__main__":
 
