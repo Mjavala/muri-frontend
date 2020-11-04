@@ -204,21 +204,21 @@ class muri_db:
             # print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
 
             if not self.q_stat.empty():
-                self.logger.info("Database Queues - stat size: {} ...".format(sekf.q_stat.size()))
+                self.logger.info("Database Queues - stat size: {} ...".format(self.q_stat.size()))
                 try:
                     batch = self.sender(self.q_stat)
                     await self.write_stat(batch)
                 except Exception as e:
                     self.logger.error(e, exc_info=True)
             if not self.q_0xc.empty():
-                self.logger.info("Database Queues - 0xc109 size: {} ...".format(sekf.q_0xc.size()))
+                self.logger.info("Database Queues - 0xc109 size: {} ...".format(self.q_0xc.size()))
                 try:
                     batch = self.sender(self.q_0xc)
                     await self.write_0xc109(batch)
                 except Exception as e:
                     self.logger.error(e, exc_info=True)
             if not self.q_0xd.empty():
-                self.logger.info("Database Queues - 0xd2a8 size: {} ...".format(sekf.q_0xd.size()))
+                self.logger.info("Database Queues - 0xd2a8 size: {} ...".format(self.q_0xd.size()))
                 try:
                     batch = self.sender(self.q_0xd)
                     await self.write_0xd2a8(batch)
