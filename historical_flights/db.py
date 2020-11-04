@@ -63,7 +63,7 @@ class muri_db:
             return batch
 
     def reset_state(self):
-        logger.info("Resetting Database service to default state...")
+        self.logger.info("Resetting Database service to default state...")
         self.write_stat_counter = 0
         self.write_0xc_counter = 0
         self.write_0xd_counter = 0
