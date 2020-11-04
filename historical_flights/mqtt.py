@@ -74,6 +74,7 @@ class mqtt_client:
             self.logger.info("!!! MQTT Disconnceted Planned !!!")
 
     def on_mqtt_msg(self, client, userdata, message):
+        self.mqtt_msg_count += 1
         self.payload["message"] = json.loads(str(message.payload.decode()))
 
         # live flight check
@@ -96,11 +97,13 @@ class mqtt_client:
                 self.tracker = time.time()
                 self.payload["device"] = self.payload["message"]["data"]["ADDR_FROM"]
                 self.live_device = self.payload["message"]["data"]["ADDR_FROM"]
+                self.raw_count += 1
                 self.q_in.put_nowait(self.payload)
             elif message.topic == "muri/stat" and self.live_device is not None:
                 self.payload["destination"] = "stat"
 
                 if self.payload["message"]["station"] != "VGRS1":
+                    self.stat_count += 1
                     self.q_in.put_nowait(self.payload)
 
         # simulation config for test channels
@@ -164,9 +167,11 @@ class mqtt_client:
             await self.start_mqtt()
             self.logger.info("Initial Config: Live flight: {} | Tracker: {}...".format(self.flight_live, self.tracker))
             while True:
-                try:
+                if self.flight_live:
+                    self.logger.info("MQTT Stats: Live device: {} | Qsizes (raw:stat): {}:{} ".format(self.live_device, self.raw_count, self.stat_count))
+                    self.logger.info("MQTT Queues: Qin: {} | Qout: {} ".format(self.q_in, self.q_out))
                     # if a xbee payload has not been received in 5 mins, assume the flight has ended.
-                    if time.time() - self.tracker > 60 and self.flight_live:
+                    if time.time() - self.tracker > 60:
                         self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
                         self.flight_live = False
 
@@ -175,14 +180,13 @@ class mqtt_client:
                         result = self.filter.new(payload)
                         self.q_out.put_nowait(result)
 
-                except Exception as e:
-                    self.logger.warn(e)
-
-                if self.q_in.qsize() > 100:
-                    await asyncio.sleep(0.2)
-                else:
-                    # print('mqtt in: {} | filtered {} '.format(self.q_in.qsize(), self.q_out.qsize()))
-                    # print('stat count: {} | raw count: {}'.format(self.stat_count, self.raw_count))
+                    if self.q_in.qsize() > 100:
+                        await asyncio.sleep(0.2)
+                    else:
+                        # print('mqtt in: {} | filtered {} '.format(self.q_in.qsize(), self.q_out.qsize()))
+                        # print('stat count: {} | raw count: {}'.format(self.stat_count, self.raw_count))
+                        await asyncio.sleep(1)
+                elif not self.flight_live:
                     await asyncio.sleep(1)
         except Exception as e:
             self.logger.warn("Exception in MQTT Main Loop: %s" % e)

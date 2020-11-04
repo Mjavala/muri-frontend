@@ -54,10 +54,10 @@ async def main_loop():
                 live = mqtt_conn.get_live_flight()
                 await asyncio.sleep(0.1)
 
-            if live:
-                if not qo.empty():
-                    val = qo.get_nowait()
-                    db_node.add_to_queue(val)
+            if live or not qo.empty():
+                logger.info("Getting filtered message from filtered queue... | Size: {}".format(qo.qsize()))
+                val = qo.get_nowait()
+                db_node.add_to_queue(val)
 
                 if qo.qsize() > 100:
                     await asyncio.sleep(0.3)
