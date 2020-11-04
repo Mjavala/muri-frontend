@@ -49,10 +49,7 @@ async def main_loop():
         qo = mqtt_conn.get_q_out()
 
         while True:
-            if (time.time() - last_stat > LIVE_CHECK_INTERVAL):
-                last_stat = time.time()
-                live = mqtt_conn.get_live_flight()
-                await asyncio.sleep(0.1)
+            live = mqtt_conn.get_live_flight()
 
             if live or not qo.empty():
                 logger.info("Getting filtered message from filtered queue... | Size: {}".format(qo.qsize()))

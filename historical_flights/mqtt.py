@@ -76,6 +76,7 @@ class mqtt_client:
     def on_mqtt_msg(self, client, userdata, message):
         self.mqtt_msg_count += 1
         self.payload["message"] = json.loads(str(message.payload.decode()))
+        self.logger.info('MQTT Message Received...')
 
         # live flight check
         if self.mqtt_config[0] == "live":
