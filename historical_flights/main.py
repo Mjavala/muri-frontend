@@ -54,7 +54,7 @@ async def main_loop():
 
             if live:
                 logger.info("Getting filtered message from filtered queue... | Size: {}".format(qo.qsize()))
-                if not qo.empty()
+                if not qo.empty():
                     val = qo.get_nowait()
                     db_node.add_to_queue(val)
 
