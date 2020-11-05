@@ -23,10 +23,6 @@ class muri_db:
         self.q_0xc = asyncio.Queue()
         self.q_0xd = asyncio.Queue()
 
-        self.write_stat_counter = 0
-        self.write_0xc_counter = 0
-        self.write_0xd_counter = 0
-
         self.logger = logs.main_app_logs()
 
     def get_stat_q(self):
@@ -62,29 +58,22 @@ class muri_db:
 
             return batch
 
-    def reset_state(self):
-        self.write_stat_counter = 0
-        self.write_0xc_counter = 0
-        self.write_0xd_counter = 0
-
     async def write_stat(self, payload):
         try:
             async with self.client_pool.acquire() as con:
-                if self.write_stat_counter == 0:
-                    await con.execute(
-                        """
-                        INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        """,
-                        payload[0][4],
-                    )
+                await con.execute(
+                    """
+                    INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                    """,
+                    payload[0][4],
+                )
 
-                    await con.execute(
-                        """
-                        INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        """,
-                        payload[0][1],
-                    )
-                    self.write_stat_counter += 1
+                await con.execute(
+                    """
+                    INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                    """,
+                    payload[0][1],
+                )
                 await con.copy_records_to_table(
                     "device_data",
                     records=payload,
@@ -97,21 +86,19 @@ class muri_db:
     async def write_0xc109(self, payload):
         try:
             async with self.client_pool.acquire() as con:
-                if self.write_0xc_counter == 0:
-                    await con.execute(
-                        """
-                        INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        """,
-                        payload[0][2],
-                    )
+                await con.execute(
+                    """
+                    INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                    """,
+                    payload[0][2],
+                )
 
-                    await con.execute(
-                        """
-                        INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        """,
-                        payload[0][0],
-                    )
-                    self.write_0xc_counter += 1
+                await con.execute(
+                    """
+                    INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                    """,
+                    payload[0][0],
+                )
                 await con.copy_records_to_table(
                     "device_data",
                     records=payload,
@@ -139,21 +126,19 @@ class muri_db:
     async def write_0xd2a8(self, payload):
         try:
             async with self.client_pool.acquire() as con:
-                if self.write_0xd_counter == 0:
-                    await con.execute(
-                        """
-                        INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        """,
-                        payload[0][2],
-                    )
+                await con.execute(
+                    """
+                    INSERT INTO "DEVICES"(addr) VALUES ($1) ON CONFLICT DO NOTHING
+                    """,
+                    payload[0][2],
+                )
 
-                    await con.execute(
-                        """
-                        INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
-                        """,
-                        payload[0][0],
-                    )
-                    self.write_0xd_counter += 1
+                await con.execute(
+                    """
+                    INSERT INTO "STATIONS"(stat_addr) VALUES ($1) ON CONFLICT DO NOTHING
+                    """,
+                    payload[0][0],
+                )
                 await con.copy_records_to_table(
                     "device_data",
                     records=payload,
@@ -190,16 +175,6 @@ class muri_db:
             self.logger.error(e, exc_info=True)
 
         while True:
-            # Necessary to satisfy foreign constraints in current DB architecture
-            if (
-                self.write_stat_counter > 0
-                or self.write_0xc_counter > 0
-                or self.write_0xd_counter > 0
-            ):
-                self.write_0xc_counter += 1
-                self.write_0xd_counter += 1
-                self.write_stat_counter += 1
-
             # print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
 
             if not self.q_stat.empty():
