@@ -4,7 +4,7 @@ This repository contains four services:
 - The database write service 
 - The hasura console  
   
-The Hasura Console is simply an GraphQL wrapper over SQL and a database live console. The custom endpoint makes it easy to make external queries. This readme and other docs in this repo will take you through the entire setup; beyond that there is also a guide on working with hasura and setting up a disaster recovery system with multiple points of failure.   
+The Hasura Console is simply a GraphQL wrapper over SQL and a database live console. The custom endpoint makes it easy to make external queries. This readme and other docs in this repo will take you through the entire setup; beyond that there is also a guide on working with hasura and setting up a disaster recovery system with multiple points of failure.   
 In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point. 
 
 # Hasura Configuration
