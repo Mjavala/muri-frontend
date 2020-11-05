@@ -34,7 +34,6 @@ db_node = db.muri_db()
 
 
 async def main_loop():
-    last_stat = time.time()
     live = False
     
     try:
