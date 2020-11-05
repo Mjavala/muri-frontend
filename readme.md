@@ -120,7 +120,7 @@ Copy the output to your clipboard, either manually or with software like [xclip]
 
 On the target server, the authorized keys folder should be located at ``/root/.ssh``. Once in the directory, copy the contents into the file.  
 
-Finally restart the ssh service with this command:
+Finally restart the ssh service on both servers with this command:
 ```
 sudo service ssh restart
 ```
