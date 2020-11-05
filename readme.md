@@ -108,14 +108,11 @@ Currently you have an empty database. If you'd like to import a postgres dump fi
 This example is using two VPS servers for data transfer via scp/ssh. There may be better solutions such as ftp depending on how your data is stored.
 
 ### SSH config
-SSH communication will need to be set up in order to transfer the data dump.  
-From the server with the data, generate a new ssh key pair via this command:
-
+SSH communication will need to be set up in order to transfer the data dump. From the server with the data, generate a new ssh key pair via this command:
 ``
 ssh-keygen
 ``
 Set up a password and a custom name for your key if desired. From here, you'll want to copy the public key to the ``authorized_keys`` file in the target server. To do so, you can run the following commands:
-
 ``
 cat {key.pub}
 ``
