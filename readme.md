@@ -81,7 +81,7 @@ And much [more](https://hasura.io/docs/1.0/graphql/core/index.html).
 From here the tutorial goes into optional configuration for the Hasura console, as well as a tutorial on importing data and schemas to our postgres instance and how hasura plays into that. First, you may have noticed that the Hasura console only works via http and not HTTPS, lets fix that. Note that this tutorial is via Caddy, however Hasura works with other webservers like Nginx and Apache.
 
 ### Setting up HTTPS/SSL
-To add SSL, you'll need to point a domain you own [domain](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars) to your droplet ip. It can't be done via just an IP address.
+To add SSL, you'll need to point a [domain](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars) you own to your droplet ip. It can't be done via just an IP address.
 
 From there, go to ``/etc/hasura`` and edit the Caddyfile to reflect the following:
 
@@ -96,13 +96,11 @@ Then, restart the Caddy docker container:
 ```
 docker-compose restart caddy
 ```
-If you'd like to make any further configurations like using a subdomain, read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html). On reloading the console you should now be serving via HTTPS.
+If you'd like to make any further configurations like using a subdomain, read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html). On reloading the console should now be serving via HTTPS.
 
 ## Importing Data
-
-## Importing an existing database
-If you are doing a VPS to VPS transfer, this guide will show you how to do it via scp/ssh. You'll need to set up a target server.  
-Both a custom or one click app VPS will work here.
+Currently you have an empty database. If you'd like to import a postgres dump file from another source, follow these steps. We have several dump files stored that have schemas compatible with the MURI Live UI display. If you use custom message definitions, know that MURI Live may not be able to read different JSON nesting and naming conventions. However this can be edited in the MURI Live repo.  
+This example is using two VPS servers for data transfer via scp/ssh. There may be better solutions such as ftp depending on how your data is stored.
 
 ### SSH config
 SSH communication will need to be set up in order to transfer the data dump.  
@@ -128,21 +126,18 @@ sudo service ssh restart
 You can then test that the ssh setup works by ssh'ing into the target server:
 
 ```
-ssh -i ~/.ssh/{YOUR_KEY} {YOUR_USER}@{YOUR_SERVER_IP_OR_DOMAIN}
+ssh -i ~/.ssh/{YOUR_KEY} {YOUR_USER}@{TARGET_SERVER}
 ```
 
-### Scp data transfer
+## Data transfer
 
-If the source of the data is inside an existing VPS droplet within a docker container, start by dumping the data with the following command:
+Start by dumping the data with the following command:
 ```
 docker exec -t {YOUR_IMAGE_ID} pg_dumpall -c -U postgres | gzip > {YOUR_DIR}/dump_$(date +"%Y-%m-%d_%H_%M_%S").gz
 ```
-Note that this also zips the dump file.
-
-With the ssh configured correctly run the following command:
-
+Note that this also zips the dump file and outputs it to ``YOUR_DIR``. After verifying that the dump was succesful, run the following command.
 ```
-scp -i ~/.ssh/{KEY} {DIR}/dump_{DATE}.gz {USER}@{SERVER_IP}:~{/DESTINATION}
+scp -i ~/.ssh/{PRIV_KEY} {DUMP_PATH}/dump_{DATE}.gz {USER}@{SERVER_IP}:~
 ```
 The zipped dump file should now be at ``SERVER_IP`` at whatever ``DESTINATION`` was selected (default root).
 
@@ -313,11 +308,3 @@ After Selecting a bucket, you can then copy a folder on your VPS into it:
 ```
 aws s3 cp {path_to_folder} s3://{bucket_name}/ --recursive
 ```
-
-And that should be it!
-
-### Useful Docker commands
--  docker exec -it [img] psql -U postgres (connect to postgres)
--  docker-compose start/stop
--  docker inspect [img]
--  docker logs [img]
