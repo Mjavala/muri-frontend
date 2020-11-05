@@ -1,8 +1,7 @@
 # Repo Setup
 This repository contains three services: The logging service for filtered MQTT data from the IRISS live MQTT broker, the database write service, and the hasura console.
 Beyond that, there is also a guide on working with hasura and setting up a disaster recovery system with multiple points of failure.  
-In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point.  
-The app comes preconfigured with a working Hasura / Postgres instance spun up via a docker-compose file located here:
+In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point. The app comes preconfigured with a working Hasura / Postgres instance spun up via a docker-compose file located here:
 ```
 /etc/hasura
 ```
