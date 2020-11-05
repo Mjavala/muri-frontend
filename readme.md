@@ -66,12 +66,11 @@ There are several changes that need to be made to the default configuration.
   - "127.0.0.1:5342:5342"
 ...
 ```
-
-After going to your domain or IP address in a browser, you should see the password request to get into the console. From inside you can perform CRUD operations on the data and familiarize yourself with GraphQL via the built in playground.
-After these changes have been made, you can update the containers with the following command:
+After these changes have been made, you can update the containers with the following command. 
 ```
 docker-compose up -d
 ```
+Then going to your domain or IP address in a browser, you should see the password request to get into the console. From inside you can perform CRUD operations on the data and familiarize yourself with GraphQL via the built in playground.
 
 ## Hasura Console
 As for using the hasura console, you can create tables and databases:
