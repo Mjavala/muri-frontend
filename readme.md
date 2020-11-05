@@ -1,60 +1,11 @@
-# Python services setup
-On a fresh install of the hasura [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) from Digital Ocean,  
-you'll need to install pip:
-```
-sudo  apt install python3-pip
-```
-
-and then, the following modules are needed:
-```
-pip3 install paho-mqtt
-pip3 install python-dotenv
-pip3 install pytz
-pip3 install asyncpg
-
-# Config
-
-For the logging and historical flights services, MQTT and Postgres passwords should be stored in dedicated config files.
-In order to read these files in python:
-
-```python
-from os.path import join, dirname
-from dotenv import load_dotenv
-import os
-dotenv_path = join(dirname(__file__), "{YOUR_DIR/.env")
-load_dotenv(dotenv_path)
-
-...
-
-USER = os.getenv("DB_USER")
-PW = os.getenv("DB_PASSWORD")
-DATABASE = os.getenv("DB_NAME")
-HOST = os.getenv("DB_HOST")
-
-...
-
-sample environment file:
-DB_USER = 'postgres'
-DB_PASSWORD = ***
-DB_NAME = 'postgres'
-DB_HOST = '0.0.0.0'
-
-MQTT_USER = '***'
-MQTT_PASS = '********'
-MQTT_HOST = '****'
-MQTT_PORT = ********
-
-```
-
-The ``dotenv_path`` will have to be edited manually once this script is pulled from gitlab. It defaults to ``/root/muri/.env``.
-
-## Docker-compose config
-In order to connect to from the python script to the postgres instance in the container, the ``docker-compose.yaml`` file needs to be modified.
-Below is a sample docker-compose file set up to accept local connections. It also shows optional security config. 
-
+# Repo Setup
+This repository contains three services: The logging service for filtered MQTT data from the IRISS live MQTT broker, the database write service, and the hasura console.
+Beyond that, there is also a guide on working with hasura and setting up a disaster recovery system with multiple points of failure. In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point.  
+The app comes preconfigured with a working Hasura / Postgres instance spun up via a docker-compose file located here:
 ```
 /etc/hasura
 ```
+The File should look similar to this:
 
 ```yaml
 version: '3.6'
@@ -100,42 +51,37 @@ volumes:
   db_data:
   caddy_certs:
 ```
-
-Change the ``POSTGRES_PASSWORD``, uncommenting ``HASURA_GRAPHQL_ADMIN_SECRET`` and set a password for the console.  
-Add the ``ports`` section in the postgres service.
-
-## Service config
-The python package is set up as a microservice, this section shows how to set it up via systemctl.  
-For each service there is a folder with a ``.service`` file. Out of the box, these files are configured to set up the service.  
-For each file, create a symlink to the ``/etc/systemd/systemctl/`` folder, like so:
-
-``ln -s target_path link_path``
-
-The service then needs to be started:
-```
-systemctl start {SERVICE}
+There are several things to configure here. For best security practices, change ``POSTGRES_PASSWORD`` and update ``HASURA_GRAPHQL_DATABASE_URL`` to reflect changes. Also, since the one click app comes with hasura working out of the gate, it should be available live via your ip address or preconfigured domain. Note that subdomain support is not covered in this guide, and all following steps assume that postgres password and user are default.
+After looking up your IP address or domain, you should get to the console where you can perform CRUD operations on the data and familiarize yourself with GraphQL via the built in playground. In order to secure this console and your database endpoint, uncomment ``HASURA_GRAPHQL_ADMIN_SECRET`` and set the password. Now the hasura console should be password protected.  
+Finally, by default the docker containers allow no external communication. In order to be able to write data to the postgres instance we will need to open up a port to listen to local calls:
+```yaml
+...
+    ports:
+  - "127.0.0.1:5342:5342"
+...
 ```
 
-To check whether the service is working succesfully you can run this command:
+After these changes have been made, you can update the containers with the following command:
 ```
-systemctl status {SERVICE}
-```
-
-# Hasura & Postgres config
-Recommended setup is via the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql).
-This will spin up a a docker environment containing all components necessary to work with hasura.  
-The first thing to do would be to test that the hasura console has been set up well.  
-You can do this by navigating to:
-
-```
-http://<your_droplet_ip>/console
+docker-compose up -d
 ```
 
+## Hasura Console
+You should now be password protected via hasura, as well as a safe environment for your database instance. As for using the hasura console, you can create tables and databases:
 
-From here, your postgres instance is ready to import an existing configuration. If you are creating your own custom tables, follow this [tutorial](https://hasura.io/docs/1.0/graphql/core/deployment/deployment-guides/digital-ocean-one-click.html). 
+![navigation data panel](db_arch_hasura.png)
 
-## Setting up SSL
-Out of the box, the hasura console serves only via HTTP. To add SSL, you'll need to [point](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars) your domain to your droplet ip.  
+Play with the data via GraphQL and SQL:
+
+![navigation data panel](raw_sql.png)
+![navigation data panel](graphql_hasura.png)
+
+And much [more](https://hasura.io/docs/1.0/graphql/core/index.html).
+
+From here the tutorial goes into optional configuration for the Hasura console, as well as a tutorial on importing data and schemas to our postgres instance and how hasura plays into that. First, you may have noticed that the Hasura console only works via http and not HTTPS, lets fix that. Note that this tutorial is via Caddy, however Hasura works with other webservers like Nginx and Apache.
+
+### Setting up HTTPS/SSL
+To add SSL, you'll need to point a domain you own [domain](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars) to your droplet ip. It can't be done via just an IP address.
 
 From there, go to ``/etc/hasura`` and edit the Caddyfile to reflect the following:
 
@@ -150,6 +96,9 @@ Then, restart the Caddy docker container:
 ```
 docker-compose restart caddy
 ```
+If you'd like to make any further configurations like using a subdomain, read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html). On reloading the console you should now be serving via HTTPS.
+
+## Importing Data
 
 ## Importing an existing database
 If you are doing a VPS to VPS transfer, this guide will show you how to do it via scp/ssh. You'll need to set up a target server.  
@@ -223,6 +172,97 @@ From there, you should see a section labeled *Untracked tables or views*.
 ![Untracked views](hasura_track_panel.png)
 
 Click Track all and your hasura/postgres service is ready for data ingestion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Db Write Service
+
+you'll need to install pip:
+```
+sudo  apt install python3-pip
+```
+
+and then, the following modules are needed:
+```
+pip3 install paho-mqtt
+pip3 install python-dotenv
+pip3 install pytz
+pip3 install asyncpg
+
+# Config
+
+For the logging and historical flights services, MQTT and Postgres passwords should be stored in dedicated config files.
+In order to read these files in python:
+
+```python
+from os.path import join, dirname
+from dotenv import load_dotenv
+import os
+dotenv_path = join(dirname(__file__), "{YOUR_DIR/.env")
+load_dotenv(dotenv_path)
+
+...
+
+USER = os.getenv("DB_USER")
+PW = os.getenv("DB_PASSWORD")
+DATABASE = os.getenv("DB_NAME")
+HOST = os.getenv("DB_HOST")
+
+...
+
+sample environment file:
+DB_USER = 'postgres'
+DB_PASSWORD = ***
+DB_NAME = 'postgres'
+DB_HOST = '0.0.0.0'
+
+MQTT_USER = '***'
+MQTT_PASS = '********'
+MQTT_HOST = '****'
+MQTT_PORT = ********
+
+```
+
+The ``dotenv_path`` will have to be edited manually once this script is pulled from gitlab. It defaults to ``/root/muri/.env``.
+
+
+Change the ``POSTGRES_PASSWORD``, uncommenting ``HASURA_GRAPHQL_ADMIN_SECRET`` and set a password for the console.  
+Add the ``ports`` section in the postgres service.
+
+## Service config
+The python package is set up as a microservice, this section shows how to set it up via systemctl.  
+For each service there is a folder with a ``.service`` file. Out of the box, these files are configured to set up the service.  
+For each file, create a symlink to the ``/etc/systemd/systemctl/`` folder, like so:
+
+``ln -s target_path link_path``
+
+The service then needs to be started:
+```
+systemctl start {SERVICE}
+```
+
+To check whether the service is working succesfully you can run this command:
+```
+systemctl status {SERVICE}
+``` 
 
 # Disaster Recovery / Data Backups
 In order to persist data, this section will show you how to backup zipped data dumps into another Digital Ocean droplet as well as to an AWS S3 bucket.  
