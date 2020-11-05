@@ -103,7 +103,7 @@ docker-compose restart caddy
 ```
 If you'd like to make any further configurations like using a subdomain, read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html). On reloading the console should now be serving via HTTPS.
 
-## Importing Data
+# Data Transfer
 Currently you have an empty database. If you'd like to import a postgres dump file from another source, follow these steps. We have several dump files stored that have schemas compatible with the MURI Live UI display. If you use custom message definitions, know that MURI Live may not be able to read different JSON nesting and naming conventions. However this can be edited in the MURI Live repo.  
 This example is using two VPS servers for data transfer via scp/ssh. There may be better solutions such as ftp depending on how your data is stored.
 
@@ -134,9 +134,7 @@ You can then test that the ssh setup works by ssh'ing into the target server:
 ssh -i ~/.ssh/{YOUR_KEY} {YOUR_USER}@{TARGET_SERVER}
 ```
 
-## Data transfer
-
-Start by dumping the data with the following command:
+Now that both VPS's can communicate, you can send data. Start by dumping the data with the following command:
 ```
 docker exec -t {YOUR_IMAGE_ID} pg_dumpall -c -U postgres | gzip > {YOUR_DIR}/dump_$(date +"%Y-%m-%d_%H_%M_%S").gz
 ```
