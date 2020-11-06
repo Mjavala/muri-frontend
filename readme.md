@@ -137,9 +137,9 @@ docker exec -t {YOUR_IMAGE_ID} pg_dumpall -c -U postgres | gzip > {YOUR_DIR}/dum
 ```
 Note that this also zips the dump file and outputs it to ``YOUR_DIR``. After verifying that the dump was succesful, run the following command.
 ```
-scp -i ~/.ssh/{PRIV_KEY} {DUMP_PATH}/dump_{DATE}.gz {USER}@{SERVER_IP}:~
+scp -i ~/.ssh/{PRIV_KEY} {DUMP_PATH}/dump_{DATE}.gz {USER}@{TARGET_SERVER_IP}:~
 ```
-The zipped dump file should now be at ``SERVER_IP`` at whatever ``DESTINATION`` was selected (default root).
+The zipped dump file should now be at ``TARGET_SERVER_IP`` at whatever ``DESTINATION`` was selected (default root).
 
 Now the file should be unzipped:
 ```
