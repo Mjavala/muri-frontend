@@ -110,19 +110,19 @@ On reloading the console should now be serving via HTTPS.
 Further configurations like using a subdomain are not covered in this guide; read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html).
 
 # Data Transfer
-Currently you have an empty database. If you'd like to import a postgres dump file from another source, follow these steps. We have several dump files stored that have schemas compatible with the MURI Live UI display. If you use custom message definitions, know that MURI Live may not be able to read different JSON nesting and naming conventions. However this can be edited in the MURI Live repo.  
-This example is using two VPS servers for data transfer via scp/ssh. There may be better solutions such as ftp depending on how your data is stored.
+If you've been following this guide, you currently have an empty database. If you'd like to import a postgres dump file from another source, follow this section. We have several dump files stored that have schemas compatible with the MURI Live UI display. If you use custom message definitions, know that MURI Live may not be able to read different JSON nesting and naming conventions. However this can be edited in the MURI Live repo.  
+This guide assumes the usage of two VPS servers for data transfer via scp/ssh; a main server (currently has data) and a target server (empty database, one-click-app). There may be better solutions such as ftp depending on how your data is stored.
 
 ### SSH config
-SSH communication will need to be set up in order to transfer the data dump. From the server with the data, generate a new ssh key pair via this command:
+Assuming that the data from the main server is readily available, ssh communiation is necessary in order to transfer it to the target server. From the main server generate a new ssh key pair via this command:
 ``
 ssh-keygen
 ``
-Set up a password and a custom name for your key if desired. From here, you'll want to copy the public key to the ``authorized_keys`` file in the target server. To do so, you can run the following commands:
+Set up a password and a custom name for your key if desired. From here copy the public key to the ``authorized_keys`` file in the target server. To do so, you can run the following commands:
 ``
 cat {key.pub}
 ``
-Copy the output to your clipboard, either manually or with software like [xclip](https://stackoverflow.com/questions/5130968/how-can-i-copy-the-output-of-a-command-directly-into-my-clipboard)
+Copy the output to your clipboard, either manually or with a tool like [xclip](https://stackoverflow.com/questions/5130968/how-can-i-copy-the-output-of-a-command-directly-into-my-clipboard)
 
 On the target server, the authorized keys folder should be located at ``/root/.ssh``. Once in the directory, copy the contents into the file.  
 
@@ -137,15 +137,15 @@ You can then test that the ssh setup works by ssh'ing into the target server:
 ssh -i ~/.ssh/{YOUR_KEY} {YOUR_USER}@{TARGET_SERVER}
 ```
 
-Now that both VPS's can communicate, you can send data. Start by dumping the data with the following command:
+If succesful, it is now possible to send payloads from the main server to the target server. Assuming that the data on the main server is in a containerized postgres instance, a dump file can be generated with the following command:
 ```
 docker exec -t {YOUR_IMAGE_ID} pg_dumpall -c -U postgres | gzip > {YOUR_DIR}/dump_$(date +"%Y-%m-%d_%H_%M_%S").gz
 ```
-Note that this also zips the dump file and outputs it to ``YOUR_DIR``. After verifying that the dump was succesful, run the following command.
+Note that this also zips the dump file and outputs it to ``YOUR_DIR``. After verifying that the dump was succesful, run the following command:
 ```
 scp -i ~/.ssh/{PRIV_KEY} {DUMP_PATH}/dump_{DATE}.gz {USER}@{TARGET_SERVER_IP}:~
 ```
-The zipped dump file should now be at ``TARGET_SERVER_IP`` at whatever ``DESTINATION`` was selected (default root).
+The zipped dump file should now be at ``TARGET_SERVER_IP`` at whichever ``DESTINATION`` was selected (default is root).
 
 Now the file should be unzipped:
 ```
@@ -222,5 +222,6 @@ aws s3api list-buckets --query "Buckets[].Name"
 After Selecting a bucket, you can then copy a folder on your VPS into it:
 ```
 aws s3 cp {path_to_folder} s3://{bucket_name}/ --recursive
+```
 
-
+In the utilities folder you'll find a file named ``backups.sh``. After the initial configuration above, data dumps can be automated on a given time interval. To do so, first configure the backup script to fit your desired environment; then set up a [cronjob](https://phoenixnap.com/kb/set-up-cron-job-linux) with it on a desired time interval.
