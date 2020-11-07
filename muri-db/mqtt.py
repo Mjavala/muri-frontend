@@ -1,3 +1,19 @@
+'''
+Live Flight Conditions:
+    -   muri/raw channel ~ data must come from a VALID balloon payload.
+    -   GPS must be locked ( 3 > ).
+    -   Live flight tracker (flight_live) object must be False.
+
+This node provides a lot of useful log information:
+    -   Total MQTT messages received on a live flight, seperated by topic (raw/stat)
+    -   Total valid message count in the MQTT ingestion Queue (q_in)
+    -   Total filtered messagecount in the MQTT Output Queue (q_out)
+    -   Notifications on live flight detection
+
+The threshold for a live flight to be done is a full minute without seeing a device payload. 
+Once a flight is done, the state is reset and this node begins to once again listen for live flights.
+Messages still in the queue at this point will still be processed by the main and db nodes.
+'''
 import paho.mqtt.client as mosquitto
 import json
 import time
@@ -161,10 +177,6 @@ class mqtt_client:
 
     def get_live_flight(self):
         return self.flight_live
-    
-    def resetState(self):
-        self.flight_live = False
-        self.live_device = None
 
     async def main_loop(self):
         self.logger.info("Starting MQTT Main Loop...")
@@ -175,7 +187,7 @@ class mqtt_client:
                 if self.flight_live:
                     self.logger.info("MQTT Stats: Live device: {} | Qsizes (raw:stat): {}:{} ".format(self.live_device, self.raw_count, self.stat_count))
                     self.logger.info("MQTT Queues: Qin: {} | Qout: {} ".format(self.q_in.qsize(), self.q_out.qsize()))
-                    # if a xbee payload has not been received in 5 mins, assume the flight has ended.
+                    # if a xbee payload has not been received in 1 mins, assume the flight has ended.
                     if time.time() - self.tracker > 60:
                         self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
                         self.flight_live = False
@@ -188,8 +200,6 @@ class mqtt_client:
                     if self.q_in.qsize() > 100:
                         await asyncio.sleep(0.2)
                     else:
-                        # print('mqtt in: {} | filtered {} '.format(self.q_in.qsize(), self.q_out.qsize()))
-                        # print('stat count: {} | raw count: {}'.format(self.stat_count, self.raw_count))
                         await asyncio.sleep(1)
                 elif not self.flight_live:
                     await asyncio.sleep(1)

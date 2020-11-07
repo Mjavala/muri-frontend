@@ -1,3 +1,12 @@
+'''
+Data is ingested from the master node via the add_to_queue() function. 
+Based on the message type, the message then goes into one of three queues:
+    -   Stat queue (q_stat)
+    -   0xc109 payload queue (q_0xc)
+    -   0xd2a8 payload queue (q_0xd)
+
+On 10 second intervals, this node aynchronously writes all three queues into the database via a connection pool, provided they are not empty.
+'''
 import asyncio
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -175,7 +184,6 @@ class muri_db:
             self.logger.error(e, exc_info=True)
 
         while True:
-            # print('stat queue: {} | 0xc queue: {} | 0xd queue: {}'.format(self.q_stat.qsize(), self.q_0xc.qsize(), self.q_0xd.qsize()))
 
             if not self.q_stat.empty():
                 self.logger.info("DB Queue | stat size: {} ".format(self.q_stat.qsize()))

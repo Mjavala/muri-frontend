@@ -1,3 +1,18 @@
+'''
+Program Entrypoint
+Nodes
+    -   main_loop ~ Master node (Watchdog)
+    -   mqtt_loop ~ Data ingestion node
+    -   db_loop ~ Data write node
+
+Configuration
+    -   Live ~ default, no CLI argument. This will listen to MQTT data from 'muri/raw' and 'muri/stat'; and write data.
+    -   -sdb --simdb ~ Listens to MQTT data from 'muri_test/raw' and 'muri_test/stat' and writes data.
+    -   -s --sim ~ Listens to MQTT data from 'muri_test/raw' and 'muri_test/stat', does not write data.
+    -   Logging directory created on startup at /root/muri/
+
+'''
+
 import asyncio
 import time
 import json
@@ -7,8 +22,6 @@ import argparse
 import os
 import logs
 import traceback
-
-LIVE_CHECK_INTERVAL = 10
 
 # Config / Logging dir setup
 path = os.path.join(os.path.expanduser("~"), "muri")
