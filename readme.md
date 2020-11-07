@@ -1,15 +1,21 @@
 This repository contains four services: 
-- The logging service for filtered MQTT data from the IRISS live MQTT broker
-- Postgresql12 Database
+- Postgresql12 Database (Docker)
 - The database write service 
-- The hasura console  
+- The hasura console (Docker)
+- Logging service for filtered MQTT data from the IRISS live MQTT broker
   
-The Hasura Console is simply a GraphQL wrapper over SQL and a database live console. The custom endpoint makes it easy to make external queries. This readme and other docs in this repo will take you through the entire setup; beyond that there is also a guide on working with hasura and setting up a disaster recovery system with multiple points of failure.   
-In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point. 
+This guide will take you through setting up [Hasura](https://hasura.io/) as well as transferring external data into a containerized Postgres instance There is also a guide on setting up a disaster recovery system with multiple points of failure, as well as a setup guide for the database write service (and setting up services in general).   
 
 # Hasura Configuration
-If you used the one click app to deploy your hasura/postgres instances you should have docker preinstalled with the hasura console, caddy webserver and database running as containers.
-The default docker-compose configuration can be changed, the file located at ``/etc/hasura``.  
+In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point. From this point on, the guide assumes usage of the one click app.
+The VPS should cpme working out of the gate with a docker preinstalled with the hasura console, caddy webserver and database running as containers.  
+To verify that everything is working at this point, go to the VPS's IP on any browser. You should then see the hasura console.  
+  
+The next step is to securely setup Hasura & Postgres and enable communication between services. This is done via the ``docker-compose.yaml``file located at
+```
+# Default location on one click app
+/etc/hasura
+```
 Example:
 
 ```yaml
@@ -57,20 +63,20 @@ volumes:
   caddy_certs:
 ```
 There are several changes that need to be made to the default configuration.  
-- For best security practices, change ``POSTGRES_PASSWORD`` and update ``HASURA_GRAPHQL_DATABASE_URL`` to reflect changes.
-- In order to secure this console and your database endpoint, uncomment ``HASURA_GRAPHQL_ADMIN_SECRET`` and set the password.
-- by default the docker containers allow no external communication. In order to be able to write data to the postgres instance we will need to open up a port to listen to local calls:
+- In order to secure this console and the database endpoint, uncomment ``HASURA_GRAPHQL_ADMIN_SECRET`` and set the password.
+- by default the docker containers allow no external communication. In order to be able to write data to the postgres instance it is necessary to open up a port to listen to local calls:
 ```yaml
 ...
     ports:
   - "127.0.0.1:5342:5342"
 ...
 ```
-After these changes have been made, you can update the containers with the following command. 
+- OPTIONAL: - For best security practices, change ``POSTGRES_PASSWORD`` and update ``HASURA_GRAPHQL_DATABASE_URL`` to reflect changes. However, this guide does not support these configurations.  
+After these changes have been made, the containers can be updated with the following command: 
 ```
 docker-compose up -d
 ```
-Then going to your domain or IP address in a browser, you should see the password request to get into the console. From inside you can perform CRUD operations on the data and familiarize yourself with GraphQL via the built in playground.
+Then going to your domain or VPS IP address in a browser, you should see the password request to get into the console.
 
 ## Hasura Console
 As for using the hasura console, you can create tables and databases:
@@ -84,12 +90,10 @@ Play with the data via GraphQL and SQL:
 
 And much [more](https://hasura.io/docs/1.0/graphql/core/index.html).
 
-### Setting up HTTPS/SSL
-You may have noticed that the Hasura console only works via http and not HTTPS, lets fix that. Note that this tutorial is via Caddy, however Hasura works with other webservers like Nginx and Apache.  
-To add SSL, you'll need to point a [domain](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars) you own to your droplet ip. It can't be done via just an IP address.
-
-From there, go to ``/etc/hasura`` and edit the Caddyfile to reflect the following:
-
+### HASURA HTTPS/SSL
+The Hasura console currently only works via http, for best security practices, SSL/HTTPS must be added. Note that this tutorial is via Caddy, however Hasura works with other webservers like Nginx and Apache.  
+To add SSL, a [domain](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars)  needs to point droplet ip. It can't be done via just an IP address.  
+After updating DNS and succesfully pointing the domain to the VPS go to ``/etc/hasura`` and edit the Caddyfile to reflect the following:
 ```
 {YOUR_DOMAIN_HERE} {
   reverse_proxy graphql-engine:8080
@@ -101,7 +105,9 @@ Then, restart the Caddy docker container:
 ```
 docker-compose restart caddy
 ```
-If you'd like to make any further configurations like using a subdomain, read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html). On reloading the console should now be serving via HTTPS.
+On reloading the console should now be serving via HTTPS.  
+
+Further configurations like using a subdomain are not covered in this guide; read on [here](https://hasura.io/docs/1.0/graphql/core/deployment/enable-https.html).
 
 # Data Transfer
 Currently you have an empty database. If you'd like to import a postgres dump file from another source, follow these steps. We have several dump files stored that have schemas compatible with the MURI Live UI display. If you use custom message definitions, know that MURI Live may not be able to read different JSON nesting and naming conventions. However this can be edited in the MURI Live repo.  
