@@ -56,12 +56,11 @@ class muri_db:
                 self.logger.warn("DB Queues ERROR: {}".format(e))
                 self.logger.info("DB Payload: {}".format(payload))
 
+    # Asyncio Queue class does not support multiple gets with one call, so a loop must be created for the write operation.
     def sender(self, q):
         while True:
             n = q.qsize()
             batch = []
-            # Note that we to put a limit on the whole batch collection process,
-            # so we put the loop inside move_on_after
             while len(batch) < n:
                 batch.append(q.get_nowait())
 
