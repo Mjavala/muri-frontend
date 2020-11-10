@@ -75,7 +75,9 @@ async def main_loop():
                 else:
                     await asyncio.sleep(2)
             elif not live:
-                await asyncio.sleep(10)
+                if not qo.empty():
+                    logger.info("Flight Ended. Items still in MQTT Filtered Queue: {}".format(qo.qsize()))
+                await asyncio.sleep(5)
 
     except Exception as e:
         traceback.print_exc(e)

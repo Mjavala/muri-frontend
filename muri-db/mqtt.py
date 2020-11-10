@@ -53,7 +53,6 @@ class mqtt_client:
         self.payload = {"destination": str, "message": dict, "device": str}
         # Live balloon hook
         self.flight_live = False
-        self.mqtt_live = False
         self.live_device = None
 
         # message counts
@@ -75,7 +74,6 @@ class mqtt_client:
                 )  # !-- QoS 2 - message received exactly once --!
             except Exception as e:
                 self.logger.warn("!!! ERROR Subscring to Topics: {} !!!".format(e))
-            self.mqtt_live = True
             self.logger.info("--- MQTT Connected! ---")
             self.logger.info(
                 "subscribed to: {} , {}".format(topics["raw"], topics["stat"])
@@ -84,7 +82,6 @@ class mqtt_client:
             self.logger.info("!!! MQTT Connection Failed! !!!")
 
     def on_mqtt_disc(self, client, userdata, rc):
-        self.mqtt_live = False
         if rc != 0:
             self.logger.warn("!!! MQTT Disconnceted Unexpectedly !!!")
         else:
@@ -191,6 +188,7 @@ class mqtt_client:
                     if time.time() - self.tracker > 60:
                         self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
                         self.flight_live = False
+                        self.live_device = None
 
                     if not self.q_in.empty():
                         payload = self.q_in.get_nowait()
@@ -202,7 +200,10 @@ class mqtt_client:
                     else:
                         await asyncio.sleep(1)
                 elif not self.flight_live:
-                    await asyncio.sleep(1)
+                    self.logger.info("Current Status:: Live Flight: {} | Live Device: {}".format(self.flight_live, self.live_device))
+                    self.logger.info("MQTT Ingestion Status:: Raw Msg: {} | Stat Msg: {} | Totals: {}".format(self.raw_count, self.stat_count, self.mqtt_msg_count))
+                    self.logger.info("MQTT Queues:: Qin: {} | Qout: {}".format(self.q_in.qsize(), self.q_out.qsize()))
+                    await asyncio.sleep(5)
         except Exception as e:
             self.logger.warn("Exception in MQTT Main Loop: %s" % e)
         finally:

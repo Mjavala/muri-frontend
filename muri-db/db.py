@@ -52,6 +52,8 @@ class muri_db:
                     self.q_0xc.put_nowait(payload["message"])
                 elif payload["topic"] == "0xd2a8":
                     self.q_0xd.put_nowait(payload["message"])
+
+                self.logger.info("Db Node Queue Status: stat q: {} | 0xc q: {} | 0xd q: {}".format(self.q_stat, self.q_0xc, self.q_0xd))
             except Exception as e:
                 self.logger.warn("DB Queues ERROR: {}".format(e))
                 self.logger.info("DB Payload: {}".format(payload))
@@ -206,7 +208,7 @@ class muri_db:
                 except Exception as e:
                     self.logger.error(e, exc_info=True)
 
-            await asyncio.sleep(10)
+            await asyncio.sleep(5)
 
 
 if __name__ == "__main__":
