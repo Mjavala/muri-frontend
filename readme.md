@@ -7,7 +7,9 @@ This repository contains four services:
 This guide will take you through setting up [Hasura](https://hasura.io/) as well as transferring external data into a containerized Postgres instance There is also a guide on setting up a disaster recovery system with multiple points of failure, as well as a setup guide for the database write service (and setting up services in general).   
 
 # System Overview
-![System Overview](raw_sql.png)
+![System Overview](system_overview.png)
+
+The central unit of the system is a digital ocean VPS server which houses python services, a postgres instance, and disaster recovery services.
 
 # Hasura Configuration
 In order to save time on server configuration and docker containerization, we recommend using the Digital Ocean [one-click-app](https://marketplace.digitalocean.com/apps/hasura-graphql) as a starting point. From this point on, the guide assumes usage of the one click app.
