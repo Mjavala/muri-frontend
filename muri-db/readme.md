@@ -26,13 +26,10 @@ load_dotenv(dotenv_path)
 ```
 Now, the configuration file must be created, here is a sample in which the keys work directly with the repo setup.
 ```
-USER = os.getenv("DB_USER")
-PW = os.getenv("DB_PASSWORD")
-DATABASE = os.getenv("DB_NAME")
-HOST = os.getenv("DB_HOST")
 
-...
 sample environment file:
+...
+
 DB_USER = 'postgres'
 DB_PASSWORD = ***
 DB_NAME = 'postgres'
