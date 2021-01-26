@@ -46,7 +46,7 @@ The ``dotenv_path`` will have to be edited manually unless the config file is cr
 ## Service config
 The database write module is set up as a microservice, this section shows how to set it up via systemctl.  
 For each service there is a folder called ``service-script`` with a ``.service`` fil insidee. Out of the box, these files are configured to set up the service. However your paths may be different, so be sure to check that the service file points to the right directory.  
-For each file, create a symlink to the ``/etc/systemd/systemctl/`` folder, like so:
+For each file, create a symlink to the ``/etc/systemd/system/`` folder, like so:
 
 ``ln -s target_path link_path``
 
