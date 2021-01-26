@@ -230,3 +230,14 @@ aws s3 cp {path_to_folder} s3://{bucket_name}/ --recursive
 ```
 
 In the utilities folder you'll find a file named ``backups.sh``. After the initial configuration above, data dumps can be automated on a given time interval. To do so, first configure the backup script to fit your desired environment; then set up a [cronjob](https://phoenixnap.com/kb/set-up-cron-job-linux) with it on a desired time interval.
+
+# CORS and SSL
+You must use SSL for this project, a HTTP version is not currently supported. In order to configure the webserver to support automatic SSL you need to have a domain pointed name with A records pointing to the VPS address and nameservers pointing to digital ocean.
+
+In order to enable client communication the Caddyfile (assuming you are using the digital ocean droplet with Caddy pre installed) will have to be modified like this:
+```
+<domain_name> {
+ reverse_proxy graphql-engine:8080
+ header Access-Control-Allow-Headers "*"
+}
+
