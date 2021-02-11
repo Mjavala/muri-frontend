@@ -78,7 +78,7 @@ class muri_app_mqtt():
 
     def simulation_check(self, addr_from):
         # TODO: FIX this hack pls (REGEX)
-        result = addr_from.startswith('x')
+        result = addr_from.startswith('s')
         if result:
             return result
         elif not result:
