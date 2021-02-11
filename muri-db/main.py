@@ -42,6 +42,7 @@ elif args.sim:
 else:
     MQTT_TOPICS = ["live", "muri/raw", "muri/stat"]
 
+print(MQTT_TOPICS)
 mqtt_conn = mqttc.mqtt_client(MQTT_TOPICS)
 db_node = db.muri_db()
 
