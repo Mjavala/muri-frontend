@@ -45,8 +45,8 @@ def device_log_setup(id):
 def build_dir(id):
     
     # config to your directory structure
-    path_hourly = '/home/muri-backend/logging-service/logs/{0}/hourly/'.format(id)
-    path_daily = '/home/muri-backend/logging-service/logs/{0}/daily/'.format(id)
+    path_hourly = '/root/muri-backend/logging-service/logs/{0}/hourly/'.format(id)
+    path_daily = '/root/muri-backend/logging-service/logs/{0}/daily/'.format(id)
 
     try:
         os.makedirs(path_hourly, mode=0o777, exist_ok=True)
