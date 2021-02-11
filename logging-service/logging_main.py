@@ -73,14 +73,13 @@ class muri_app_mqtt():
                     payload = json.dumps(payload)
                     result = self.simulation_check(self.id) 
                     if result:
-                        print('here')
                         device_logger.device_logger(self.id_set, self.id, payload)
                 except Exception as e:
                     print(e)
 
     def simulation_check(self, addr_from):
         # TODO: FIX this hack pls (REGEX)
-        result = addr_from.startswith('s')
+        result = addr_from.startswith('x')
         if result:
             return result
         elif not result:
