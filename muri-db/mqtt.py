@@ -94,14 +94,12 @@ class mqtt_client:
         # live flight check
         if self.mqtt_config[0] == "live":
             # gps locked | check telemetry data is transmitting & package is not corrupted
-            if (
-                message.topic == "muri/raw"
-                and (self.payload["message"]["data"]["frame_data"])
-                and (self.payload["message"]["data"]["frame_data"]["gps_fix"] >= 3)
-                and (self.flight_live == False)
-            ):
-                self.logger.info("!!! Live Flight Detected !!!")
-                self.flight_live = True
+            if message.topic == "muri/raw":
+                if self.payload["message"]["data"]:
+                    if self.payload["message"]["data"]["frame_data"]:
+                        if self.payload["message"]["data"]["frame_data"]["gps_fix"] >= 3 and self.flight_live == False:
+                            self.logger.info("!!! Live Flight Detected !!!")
+                            self.flight_live = True
 
         if self.flight_live:
             if message.topic == "muri/raw":
@@ -198,11 +196,11 @@ class mqtt_client:
                     if self.q_in.qsize() > 100:
                         await asyncio.sleep(0.2)
                     else:
+                        self.logger.info("Current Status:: Live Flight: {} | Live Device: {}".format(self.flight_live, self.live_device))
+                        self.logger.info("MQTT Ingestion Status:: Raw Msg: {} | Stat Msg: {} | Totals: {}".format(self.raw_count, self.stat_count, self.mqtt_msg_count))
+                        self.logger.info("MQTT Queues:: Qin: {} | Qout: {}".format(self.q_in.qsize(), self.q_out.qsize()))
                         await asyncio.sleep(1)
                 elif not self.flight_live:
-                    self.logger.info("Current Status:: Live Flight: {} | Live Device: {}".format(self.flight_live, self.live_device))
-                    self.logger.info("MQTT Ingestion Status:: Raw Msg: {} | Stat Msg: {} | Totals: {}".format(self.raw_count, self.stat_count, self.mqtt_msg_count))
-                    self.logger.info("MQTT Queues:: Qin: {} | Qout: {}".format(self.q_in.qsize(), self.q_out.qsize()))
                     await asyncio.sleep(5)
         except Exception as e:
             self.logger.warn("Exception in MQTT Main Loop: %s" % e)
