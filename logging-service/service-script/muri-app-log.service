@@ -1,12 +1,12 @@
 [Unit]
-Description=muri app python service
+Description=muri app logging python service
 
 [Service]
-WorkingDirectory=/home/muri-app/backend
-ExecStart=/usr/bin/python3 /home/muri-app/backend/logging_main.py
+WorkingDirectory=/root/muri-backend/logging-service
+ExecStart=/usr/bin/python3 /root/muri-backend/logging-service/logging_main.py
 Restart=always
-StandardOutput=file:/home/muri-app/backend/std.out
-StandardError=file:/home/muri-app/backend/err.out
+StandardOutput=file:/root/muri-backend/logging-service/std.out
+StandardError=file:/root/muri-backend/logging-service/err.out
 
 [Install]
 WantedBy=multi-user.target
