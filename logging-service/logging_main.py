@@ -67,14 +67,16 @@ class muri_app_mqtt():
         self.id = payload['data']['ADDR_FROM']
         self.id_set.add(self.id)
 
-        if payload['data']['frame_data']:
-            try:
-                payload = json.dumps(payload)
-                result = self.simulation_check(self.id) 
-                if result:
-                    device_logger.device_logger(self.id_set, self.id, payload)
-            except Exception as e:
-                print(e)
+        if payload['data']:
+            if payload['data']['frame_data']:
+                try:
+                    payload = json.dumps(payload)
+                    result = self.simulation_check(self.id) 
+                    if result:
+                        print('here')
+                        device_logger.device_logger(self.id_set, self.id, payload)
+                except Exception as e:
+                    print(e)
 
     def simulation_check(self, addr_from):
         # TODO: FIX this hack pls (REGEX)
