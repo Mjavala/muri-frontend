@@ -102,21 +102,26 @@ class mqtt_client:
                             self.flight_live = True
 
         if self.flight_live:
-            if message.topic == "muri/raw":
-                self.payload["destination"] = self.payload["message"]["data"][
-                    "FRAME_TYPE"
-                ]
-                self.tracker = time.time()
-                self.payload["device"] = self.payload["message"]["data"]["ADDR_FROM"]
-                self.live_device = self.payload["message"]["data"]["ADDR_FROM"]
-                self.raw_count += 1
-                self.q_in.put_nowait(self.payload)
-            elif message.topic == "muri/stat" and self.live_device is not None:
-                self.payload["destination"] = "stat"
+            try:
+                if message.topic == "muri/raw":
+                    if self.payload["message"]["data"]:
+                        self.payload["destination"] = self.payload["message"]["data"][
+                            "FRAME_TYPE"
+                        ]
+                        self.tracker = time.time()
+                        self.payload["device"] = self.payload["message"]["data"]["ADDR_FROM"]
+                        self.live_device = self.payload["message"]["data"]["ADDR_FROM"]
+                        self.raw_count += 1
+                        self.q_in.put_nowait(self.payload)
+                elif message.topic == "muri/stat" and self.live_device is not None:
+                    self.payload["destination"] = "stat"
 
-                if self.payload["message"]["station"] != "VGRS1":
-                    self.stat_count += 1
-                    self.q_in.put_nowait(self.payload)
+                    if self.payload["message"]["station"] != "VGRS1":
+                        self.stat_count += 1
+                        self.q_in.put_nowait(self.payload)
+                        
+            except Exception as e:
+                print('Exception in mqtt parsing... {}'.format(e))
 
         # simulation config for test channels
         elif self.mqtt_config[0] == "simdb":
@@ -142,6 +147,7 @@ class mqtt_client:
                     if self.payload["message"]["station"] != "VTST1":
                         self.stat_count += 1
                         self.q_in.put_nowait(self.payload)
+
             except Exception as e:
                 self.logger.info(e)
 
@@ -183,7 +189,7 @@ class mqtt_client:
                     self.logger.info("MQTT Stats: Live device: {} | Qsizes (raw:stat): {}:{} ".format(self.live_device, self.raw_count, self.stat_count))
                     self.logger.info("MQTT Queues: Qin: {} | Qout: {} ".format(self.q_in.qsize(), self.q_out.qsize()))
                     # if a xbee payload has not been received in 1 mins, assume the flight has ended.
-                    if time.time() - self.tracker > 60:
+                    if time.time() - self.tracker > 600:
                         self.logger.info("5 minutes since any live payload received from {}, Flight ended. Listening ...".format(self.live_device))
                         self.flight_live = False
                         self.live_device = None
